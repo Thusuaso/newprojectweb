@@ -276,6 +276,8 @@ export default {
 
     if (this.siparisTur == "bekleyen") siparisDurum = 1;
     if (this.siparisTur == "sevk") siparisDurum = 3;
+    this.$store.dispatch("datatableLoadingBeginAct");
+
     this.siparisService
       .getSiparisList(siparisDurum, this.select_yil.yil)
       .then((data) => {
@@ -285,6 +287,10 @@ export default {
         this.dtSiparisler = data;
         this.loading = false;
         this.toplamGuncelle(data);
+        setTimeout(() => {
+          this.$store.dispatch("datatableLoadingEndAct");
+
+        }, 7000);
       });
   },
 
@@ -331,7 +337,10 @@ export default {
         this.siparisService.getSiparisHepsiList(siparisDurum).then((data) => {
           this.siparisler = data;
           this.SiparislerEvent = data;
-          this.$store.dispatch("datatableLoadingEndAct");
+          setTimeout(() => {
+            this.$store.dispatch("datatableLoadingEndAct");
+
+          }, 2000);
 
         });
       } else {
@@ -365,7 +374,10 @@ export default {
           .then((data) => {
             this.siparisler = data;
             this.SiparislerHepsi = data;
-            this.$store.dispatch("datatableLoadingEndAct");
+            setTimeout(() => {
+              this.$store.dispatch("datatableLoadingEndAct");
+
+            }, 2000);
             if (this.FirmaAdi != "Hepsi") {
               this.statuSecim2();
             } else if (this.marketing != "Hepsi") {
@@ -636,6 +648,7 @@ export default {
       this.siparisFormBaslik = event.musteriAdi + " - " + this.dtSiparisNo;
       this.yeniSiparis = false;
       this.dialogVisible = true;
+
     },
     filterDegisim() {
       this.toplamGuncelle(this.dtSiparisler);

@@ -14,7 +14,7 @@
         v-model:selection="selectedSiparis"
         selectionMode="multiple"
         @row-select="siparisSecim($event)"
-        :paginator="true" 
+        :paginator="true"
         :rows="8"
         v-model:filters="filters"
         filterDisplay="menu"
@@ -82,8 +82,13 @@
             </div>
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-              placeholder="Search by Customers" />
+            <InputText
+              type="text"
+              v-model="filterModel.value"
+              @input="filterCallback()"
+              class="p-column-filter"
+              placeholder="Search by Customers"
+            />
           </template>
         </Column>
         <Column
@@ -130,8 +135,13 @@
             </div>
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-              placeholder="Search by Po" />
+            <InputText
+              type="text"
+              v-model="filterModel.value"
+              @input="filterCallback()"
+              class="p-column-filter"
+              placeholder="Search by Po"
+            />
           </template>
         </Column>
         <Column
@@ -172,7 +182,6 @@
           header="E"
           style="min-width: 50px"
           bodyStyle="text-align: left;font-size: 10px;"
-
         >
           <template #body="slotProps">
             <span class="p-column-title">E</span>

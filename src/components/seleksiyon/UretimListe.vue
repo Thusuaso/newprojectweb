@@ -38,7 +38,6 @@
             field="kasa_no"
             header="No"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMatchModes="false"
             :showClear="false"
             :showFilterMenu="false"
@@ -50,7 +49,6 @@
             </template>
             <template #filter="{ filterModel, filterCallback }">
               <InputText
-                style="width: 50px"
                 type="text"
                 v-model="filterModel.value"
                 @input="filterCallback()"
@@ -64,7 +62,6 @@
             field="tarih"
             header="Tarih"
             bodyStyle="text-align:center"
-            headerStyle="width:80px;"
             :showFilterMenu="false"
             
           >
@@ -85,7 +82,6 @@
             field="kategori"
             header="Kategori"
             bodyStyle="text-align:center"
-            headerStyle="width:100px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -105,7 +101,6 @@
             field="ocak"
             header="Ocak"
             bodyStyle="text-align:center"
-            headerStyle="width:70px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -125,7 +120,6 @@
             field="tedarikci"
             header="Kimden"
             bodyStyle="text-align:left"
-            headerStyle="width:70px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -141,7 +135,7 @@
               />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün" headerStyle="width:100px;" :showFilterMenu="false">
+          <Column field="urunadi" header="Ürün" :showFilterMenu="false">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -170,7 +164,6 @@
             field="kenarislem"
             header="İşlem Adı"
             bodyStyle="text-align:left"
-            headerStyle="width:150px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -190,7 +183,6 @@
             field="en"
             header="E"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -210,7 +202,6 @@
             field="boy"
             header="B"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -230,7 +221,6 @@
             field="kenar"
             header="K"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -250,7 +240,6 @@
             field="kasaadet"
             header="K.Adet"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             
           >
             <template #body="slotProps">
@@ -261,7 +250,6 @@
             field="kutuadet"
             header="Kutu"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
@@ -271,7 +259,6 @@
             field="m2"
             header="M2"
             bodyStyle="text-align:center"
-            headerStyle="width:60px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
@@ -323,7 +310,6 @@
             field="kutu"
             header="Kutu"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               <div
@@ -339,7 +325,6 @@
             field="bagli"
             header="Baglı"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               <div
@@ -355,7 +340,6 @@
             field="siparisaciklama"
             header="Po"
             bodyStyle="text-align:center"
-            headerStyle="width:90px;"
             :showFilterMatchModes="false"
             :showFilterMenu="false"
           >
@@ -377,7 +361,6 @@
             field="aciklama"
             header="Not"
             bodyStyle="text-align:center"
-            headerStyle="width:70px"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -415,7 +398,6 @@
             field="kasa_no"
             header="No"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -438,7 +420,6 @@
             field="tarih"
             header="Tarih"
             bodyStyle="text-align:center"
-            headerStyle="width:80px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -453,7 +434,6 @@
             field="kategori"
             header="Kategori"
             bodyStyle="text-align:center"
-            headerStyle="width:100px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -468,7 +448,6 @@
             field="ocak"
             header="Ocak"
             bodyStyle="text-align:center"
-            headerStyle="width:70px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -483,7 +462,6 @@
             field="tedarikci"
             header="Kimden"
             bodyStyle="text-align:left"
-            headerStyle="width:70px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -494,7 +472,7 @@
                 class="p-column-filter" placeholder="Search by CrateNo" />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün" headerStyle="width:100px;" :showFilterMenu="false">
+          <Column field="urunadi" header="Ürün" :showFilterMenu="false">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -518,7 +496,6 @@
             field="kenarislem"
             header="İşlem Adı"
             bodyStyle="text-align:left"
-            headerStyle="width:150px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -533,7 +510,6 @@
             field="en"
             header="E"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -548,7 +524,6 @@
             field="boy"
             header="B"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -563,7 +538,6 @@
             field="kenar"
             header="K"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -578,7 +552,6 @@
             field="kasaadet"
             header="K.Adet"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasaadet }}
@@ -588,7 +561,6 @@
             field="kutuadet"
             header="Kutu"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
@@ -598,7 +570,6 @@
             field="m2"
             header="M2"
             bodyStyle="text-align:center"
-            headerStyle="width:60px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
@@ -650,7 +621,6 @@
             field="kutu"
             header="Kutu"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               <div
@@ -666,7 +636,6 @@
             field="bagli"
             header="Baglı"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               <div
@@ -682,7 +651,6 @@
             field="siparisaciklama"
             header="Po"
             bodyStyle="text-align:center"
-            headerStyle="width:90px;"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -697,7 +665,6 @@
             field="aciklama"
             header="Not"
             bodyStyle="text-align:center"
-            headerStyle="width:70px"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -730,7 +697,6 @@
             field="kasa_no"
             header="No"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
           >
             <template #body="slotProps">
               <div :class="slotProps.data.disarda == true ? 'disarda_css' : ''">
@@ -747,7 +713,6 @@
             field="tarih"
             header="Tarih"
             bodyStyle="text-align:center"
-            headerStyle="width:80px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.tarih }}
@@ -761,7 +726,6 @@
             field="kategori"
             header="Kategori"
             bodyStyle="text-align:center"
-            headerStyle="width:100px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kategori }}
@@ -775,7 +739,6 @@
             field="ocak"
             header="Ocak"
             bodyStyle="text-align:center"
-            headerStyle="width:70px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.ocak }}
@@ -789,7 +752,6 @@
             field="tedarikci"
             header="Kimden"
             bodyStyle="text-align:left"
-            headerStyle="width:70px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.tedarikci }}
@@ -799,7 +761,7 @@
                 class="p-column-filter" placeholder="Search by CrateNo" />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün" headerStyle="width:100px;">
+          <Column field="urunadi" header="Ürün">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -823,7 +785,6 @@
             field="kenarislem"
             header="İşlem Adı"
             bodyStyle="text-align:left"
-            headerStyle="width:150px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kenarislem }}
@@ -837,7 +798,6 @@
             field="en"
             header="E"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.en }}
@@ -851,7 +811,6 @@
             field="boy"
             header="B"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.boy }}
@@ -865,7 +824,6 @@
             field="kenar"
             header="K"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kenar }}
@@ -879,7 +837,6 @@
             field="kasaadet"
             header="K.Adet"
             bodyStyle="text-align:center"
-            headerStyle="width:50px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasaadet }}
@@ -889,7 +846,6 @@
             field="kutuadet"
             header="Kutu"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
@@ -899,7 +855,6 @@
             field="m2"
             header="M2"
             bodyStyle="text-align:center"
-            headerStyle="width:60px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
@@ -951,7 +906,6 @@
             field="kutu"
             header="Kutu"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               <div
@@ -967,7 +921,6 @@
             field="bagli"
             header="Baglı"
             bodyStyle="text-align:center"
-            headerStyle="width:40px;"
           >
             <template #body="slotProps">
               <div
@@ -983,7 +936,6 @@
             field="siparisaciklama"
             header="Po"
             bodyStyle="text-align:center"
-            headerStyle="width:90px;"
           >
             <template #body="slotProps">
               {{ slotProps.data.siparisaciklama }}
@@ -997,7 +949,6 @@
             field="aciklama"
             header="Not"
             bodyStyle="text-align:center"
-            headerStyle="width:70px"
           >
             <template #body="slotProps">
               {{ slotProps.data.aciklama }}
@@ -1059,7 +1010,6 @@
                 field="kasa_no"
                 header="No"
                 bodyStyle="text-align:center"
-                headerStyle="width:50px;"
               >
                 <template #body="slotProps">
                   <div
@@ -1074,7 +1024,6 @@
                 field="tarih"
                 header="Tarih"
                 bodyStyle="text-align:center"
-                headerStyle="width:80px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.tarih }}
@@ -1084,7 +1033,6 @@
                 field="kategori"
                 header="Kategori"
                 bodyStyle="text-align:center"
-                headerStyle="width:100px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.kategori }}
@@ -1094,7 +1042,6 @@
                 field="ocak"
                 header="Ocak"
                 bodyStyle="text-align:center"
-                headerStyle="width:70px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.ocak }}
@@ -1104,13 +1051,12 @@
                 field="tedarikci"
                 header="Kimden"
                 bodyStyle="text-align:left"
-                headerStyle="width:70px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.tedarikci }}
                 </template>
               </Column>
-              <Column field="urunadi" header="Ürün" headerStyle="width:100px;">
+              <Column field="urunadi" header="Ürün">
                 <template #body="slotProps">
                   <div
                     v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -1130,7 +1076,6 @@
                 field="kenarislem"
                 header="İşlem Adı"
                 bodyStyle="text-align:left"
-                headerStyle="width:150px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.kenarislem }}
@@ -1140,7 +1085,6 @@
                 field="en"
                 header="E"
                 bodyStyle="text-align:center"
-                headerStyle="width:50px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.en }}
@@ -1150,7 +1094,6 @@
                 field="boy"
                 header="B"
                 bodyStyle="text-align:center"
-                headerStyle="width:50px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.boy }}
@@ -1160,7 +1103,6 @@
                 field="kenar"
                 header="K"
                 bodyStyle="text-align:center"
-                headerStyle="width:50px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.kenar }}
@@ -1170,7 +1112,6 @@
                 field="kasaadet"
                 header="K.Adet"
                 bodyStyle="text-align:center"
-                headerStyle="width:50px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.kasaadet }}
@@ -1180,7 +1121,6 @@
                 field="kutuadet"
                 header="Kutu"
                 bodyStyle="text-align:center"
-                headerStyle="width:40px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.kutuadet }}
@@ -1190,7 +1130,6 @@
                 field="m2"
                 header="M2"
                 bodyStyle="text-align:center"
-                headerStyle="width:60px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.m2 }}
@@ -1203,7 +1142,6 @@
                 field="adet"
                 header="Adet"
                 bodyStyle="text-align:center"
-                headerStyle="width:40px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.adet }}
@@ -1217,7 +1155,6 @@
                 field="mt"
                 header="Mt"
                 bodyStyle="text-align:center"
-                headerStyle="width:40px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.mt }}
@@ -1230,7 +1167,6 @@
                 field="ton"
                 header="Ton"
                 bodyStyle="text-align:center"
-                headerStyle="width:40px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.ton }}
@@ -1244,7 +1180,6 @@
                 field="kutu"
                 header="Kutu"
                 bodyStyle="text-align:center"
-                headerStyle="width:40px;"
               >
                 <template #body="slotProps">
                   <div
@@ -1260,7 +1195,6 @@
                 field="bagli"
                 header="Baglı"
                 bodyStyle="text-align:center"
-                headerStyle="width:40px;"
               >
                 <template #body="slotProps">
                   <div
@@ -1276,7 +1210,6 @@
                 field="siparisaciklama"
                 header="Po"
                 bodyStyle="text-align:center"
-                headerStyle="width:90px;"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.siparisaciklama }}
@@ -1286,7 +1219,6 @@
                 field="aciklama"
                 header="Not"
                 bodyStyle="text-align:center"
-                headerStyle="width:70px"
               >
                 <template #body="slotProps">
                   {{ slotProps.data.aciklama }}
