@@ -4,7 +4,6 @@
       <Card>
         <template #content>
           <span class="p-float-label">
-            {{teslimTur}}
             <AutoComplete
               id="teslimTurAdi"
               v-model="teslimTur"
@@ -20,7 +19,6 @@
           </span>
           <br />
           <span class="p-float-label">
-            {{odemeTur}}
             <AutoComplete
               id="odemeTur"
               v-model="odemeTur"
