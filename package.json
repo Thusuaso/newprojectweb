@@ -1,0 +1,95 @@
+{
+  "name": "new-ver-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.186.0",
+    "@aws-sdk/client-timestream-write": "^3.186.0",
+    "@babel/polyfill": "^7.11.5",
+    "@fullcalendar/core": "^5.11.3",
+    "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/interaction": "^5.11.3",
+    "@fullcalendar/vue3": "^5.11.2",
+    "@vuelidate/core": "^2.0.0",
+    "@vuelidate/validators": "^2.0.0",
+    "aws-sdk": "^2.1231.0",
+    "axios": "^0.27.2",
+    "bulma": "^0.9.4",
+    "chart.js": "^3.9.1",
+    "core-js": "^3.8.3",
+    "element-plus": "^2.2.20",
+    "epic-spinners": "^2.0.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
+    "mitt": "^3.0.0",
+    "mutationobserver-shim": "^0.3.7",
+    "pdfmake": "^0.2.5",
+    "popper.js": "^1.16.1",
+    "portal-vue": "^2.1.7",
+    "primeflex": "^3.3.0",
+    "primeicons": "^6.0.1",
+    "primevue": "3.17",
+    "vue": "^3.2.13",
+    "vue-cryptojs": "^2.3.0",
+    "vue-html2canvas": "^0.0.4",
+    "vue-resizable": "^2.1.7",
+    "vue-router": "^4.0.3",
+    "vue-socket.io": "^3.0.10",
+    "vuex": "^4.0.0",
+    "vuex-persistedstate": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-e2e-cypress": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "cypress": "^9.7.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.4.1",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "vue-cli-plugin-bootstrap-vue": "^0.8.2",
+    "vue-cli-plugin-buefy": "^0.3.8"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue}": "vue-cli-service lint"
+  }
+}
