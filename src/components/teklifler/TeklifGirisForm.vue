@@ -1314,7 +1314,7 @@ export default {
       this.urun.tarih = this.localService.getDateString(this.urunTarihi);
 
       if (this.dis_teklifFiyat) this.urun.teklifFiyat = this.urun.fobFiyat;
-      if (this.urunListesi == null) this.urunListesi = [];
+      if (this.urunListesi == []) this.urunListesi = [];
 
       let index = this.indexBul(this.urun.id, this.urunListesi);
       if (index == -1) {
@@ -1501,7 +1501,7 @@ export default {
         return false;
       }
 
-      if (this.urunListesi == null) {
+      if (this.urunListesi == []) {
         alert("Lütfen Ürün Bilgilerini Giriniz..");
         return false;
       } else return true;
@@ -1662,7 +1662,7 @@ export default {
         this.proformaTarihi = null;
         this.numuneGirisTarihi = null;
         this.numuneHatirlatmaTarihi = null;
-        this.urunListesi = null;
+        this.urunListesi = [];
         this.urunLoading = false;
         this.dis_urunlistesi = false;
         this.company = "";
