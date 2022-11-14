@@ -4,6 +4,7 @@
       <Card>
         <template #content>
           <span class="p-float-label">
+            {{teslimTur}}
             <AutoComplete
               id="teslimTurAdi"
               v-model="teslimTur"
@@ -14,18 +15,12 @@
               @item-select="teslimTurDegisim"
               class="inputs"
             >
-              <template #items="slotProps">
-                <div class="p-clearfix p-autocomplete-brand-item">
-                  <div>
-                    {{ slotProps.teslimTurAdi }}
-                  </div>
-                </div>
-              </template>
             </AutoComplete>
             <label for="teslimTurAdi">Teslim Tür</label>
           </span>
           <br />
           <span class="p-float-label">
+            {{odemeTur}}
             <AutoComplete
               id="odemeTur"
               v-model="odemeTur"
@@ -36,13 +31,6 @@
               @item-select="odemeTurDegisim"
               class="inputs"
             >
-              <template #items="slotProps">
-                <div class="p-clearfix p-autocomplete-brand-item">
-                  <div>
-                    {{ slotProps.odemeTurAdi }}
-                  </div>
-                </div>
-              </template>
             </AutoComplete>
             <label for="odemeTur">Ödeme Tür</label>
           </span>
@@ -664,6 +652,7 @@ export default {
         this.teslimTur = this.teslimTurList.find(
           (x) => x.id == this.profData.teslimTurId
         );
+        console.log(this.teslimTur)
       });
       this.siparisService.getOdemeTurList().then((data) => {
         this.odemeTurList = data;
@@ -671,6 +660,7 @@ export default {
           (x) => x.id == this.profData.odemeTurId
         );
       });
+
       this.siparisService.getFaturaKesimTurList().then((data) => {
         this.faturaKesimTurList = data;
 
