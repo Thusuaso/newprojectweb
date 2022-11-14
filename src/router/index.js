@@ -536,9 +536,13 @@ const routes = [
     name: "mekmarusa_mekmarurunlist",
     component: () => import("@/views/MekmarUrunListesi"),
     beforeEnter: (to, from, next) => {
-      if (store.getters._isAuthenticated) {
+      if (store.getters.__isAuthenticated) {
+        store.dispatch("loadingBeginAct");
+
         depoService.getTurkeyStockList().then((data) => {
           store.dispatch("depoUrunListesiYukle", data);
+          store.dispatch("loadingEndAct");
+
           next();
         });
       } else {
