@@ -217,13 +217,7 @@ import "@fullcalendar/core/vdom"; // solves problem with Vite
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { mapGetters } from "vuex";
 export default {
-  computed: {
-    ...mapGetters([
-      'teklifFormvisible'
-    ])
-  },
   components: {
     TeklifGirisForm: TeklifGirisForm,
     kullaniciTeklifListe: KullaniciTeklifListe,
@@ -233,6 +227,7 @@ export default {
   },
   data() {
     return {
+      teklifFormvisible:false,
       temsilciOzetList: null,
       temsilciLoading: false,
       selectOzetList: null,
@@ -358,7 +353,7 @@ export default {
     teklifFormAc() {
       this.teklifYeniKayit = true;
 
-      this.$store.dispatch("teklif_form_load_act", true);
+      this.teklifFormvisible = true;
     },
     selectOzetListSec() {
       this.selectKullaniciAdi = this.selectOzetList.adi;
