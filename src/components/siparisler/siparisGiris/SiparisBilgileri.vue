@@ -4,7 +4,6 @@
       <urun-kart-bilgi :dis_urun_giris="dis_urun_giris" />
       <Card>
         <template #content>
-
           <div class="columns is-gapless">
             <div class="column">
               <AutoComplete
@@ -41,7 +40,9 @@
                   v-model="alisFiyati"
                   mode="currency"
                   currency="USD"
-                  :class="{ 'p-invalid': v$.siparis.alisFiyati.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.siparis.alisFiyati.$invalid && submitted,
+                  }"
                 />
                 <label for="alisFiyati">Alış Fiyatı ($)</label>
               </span>
@@ -61,7 +62,6 @@
                   mode="currency"
                   currency="USD"
                   :disabled="dis_urun_giris"
-                  
                 />
                 <label for="alisFiyatiTl">Alış Fiyatı (TL)</label>
               </span>
@@ -79,7 +79,9 @@
                   mode="currency"
                   currency="USD"
                   :disabled="dis_urun_giris"
-                  :class="{ 'p-invalid': v$.siparis.satisFiyati.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.siparis.satisFiyati.$invalid && submitted,
+                  }"
                 />
                 <label for="satisFiyati">Satış Fiyati ($)</label>
               </span>
@@ -141,7 +143,9 @@
                   @input="miktar_input_event(siparis.miktar)"
                   id="miktar"
                   v-model="siparis.miktar"
-                  :class="{ 'p-invalid': v$.siparis.miktar.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.siparis.miktar.$invalid && submitted,
+                  }"
                 />
                 <label for="miktar">M</label>
               </span>
@@ -154,7 +158,9 @@
                   :disabled="dis_urun_giris"
                   id="kasaAdet"
                   v-model="siparis.kasaAdet"
-                  :class="{ 'p-invalid': v$.siparis.kasaAdet.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.siparis.kasaAdet.$invalid && submitted,
+                  }"
                 />
                 <label for="kasaAdet">Kasa</label>
               </span>
@@ -167,7 +173,9 @@
                   :disabled="dis_urun_giris"
                   id="siraNo"
                   v-model="siparis.siraNo"
-                  :class="{ 'p-invalid': v$.siparis.siraNo.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.siparis.siraNo.$invalid && submitted,
+                  }"
                 />
                 <label for="siraNo">Sıra</label>
               </span>
@@ -181,7 +189,9 @@
                   id="ozelMiktar"
                   @input="ömiktar_input_event($event)"
                   v-model="siparis.ozelMiktar"
-                  :class="{ 'p-invalid': v$.siparis.ozelMiktar.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.siparis.ozelMiktar.$invalid && submitted,
+                  }"
                 />
                 <label for="ozelMiktar">Ö.M2</label>
               </span>
@@ -218,7 +228,10 @@
                   v-model="siparis.musteriAciklama"
                   rows="7"
                   cols="25"
-                  :class="{ 'p-invalid': v$.siparis.musteriAciklama.$invalid && submitted }"
+                  :class="{
+                    'p-invalid':
+                      v$.siparis.musteriAciklama.$invalid && submitted,
+                  }"
                 />
                 <label for="musteriAciklama">En-Açıklama</label>
               </span>
@@ -235,7 +248,10 @@
                   v-model="siparis.uretimAciklama"
                   rows="7"
                   cols="25"
-                  :class="{ 'p-invalid': v$.siparis.uretimAciklama.$invalid && submitted }"
+                  :class="{
+                    'p-invalid':
+                      v$.siparis.uretimAciklama.$invalid && submitted,
+                  }"
                 />
                 <label for="uretimAciklama">Tr-Açıklama</label>
               </span>
@@ -478,9 +494,8 @@ export default {
       urunBirim: { required },
       urunBirim: { required },
 
-
-      siparis: { 
-        alisFiyati:{required},
+      siparis: {
+        alisFiyati: { required },
         satisFiyati: { required },
         miktar: { required },
         kasaAdet: { required },
@@ -489,9 +504,7 @@ export default {
         ton: { required },
         musteriAciklama: { required },
         uretimAciklama: { required },
-       },
-
-
+      },
     };
   },
   computed: {
@@ -513,13 +526,11 @@ export default {
     },
     sec() {},
     miktar_input_event(event) {
-
       if (event) {
         this.siparis.miktar = event.toString();
         this.siparis.miktar = this.siparis.miktar.replace(",", ".");
       }
       if (this.isNewClicked) {
-
         this.siparis.ozelMiktar = this.siparis.miktar;
 
         if (this.urunBirim.id == 1) {
@@ -616,7 +627,7 @@ export default {
         }
       } else {
         this.siparis.ozelMiktar = this.siparis.miktar;
-      
+
         this.kategoriAdi = this.siparis.musteriAciklama.split("-")[0].trim();
         if (this.urunBirim == "M2") {
           this.siparis.ozelMiktar = this.siparis.miktar;
@@ -936,9 +947,9 @@ export default {
       this.siparis.boy = urunKart.boy;
       this.siparis.kenar = urunKart.kenar;
       this.siparis.yuzeyIslem = urunKart.yuzeyIslem;
-      this.siparis.tedarikciAdi = this.tedarikci.firmaAdi; 
-      this.siparis.tedarikciId = this.tedarikci.id
-      this.siparis.urunBirimId = this.urunBirim.id
+      this.siparis.tedarikciAdi = this.tedarikci.firmaAdi;
+      this.siparis.tedarikciId = this.tedarikci.id;
+      this.siparis.urunBirimId = this.urunBirim.id;
 
       this.siparis.m2 = 0;
       this.siparis.mt = 0;
@@ -1139,7 +1150,7 @@ export default {
       this.form_btn_reset();
     },
     btn_ekle_click() {
-      this.submitted = true
+      this.submitted = true;
       if (this.v$.$invalid) {
         this.$toast.add({
           severity: "error",
@@ -1153,7 +1164,9 @@ export default {
             (x) => parseInt(x.siraNo) === parseInt(this.siparis.siraNo)
           ).length > 0
         ) {
-          if (confirm("Sıra numarası hatalı, Yinede kaydetmek ister misiniz?")) {
+          if (
+            confirm("Sıra numarası hatalı, Yinede kaydetmek ister misiniz?")
+          ) {
             this.urunIslemleri();
             this.siparisUrunler.push({ ...this.siparis });
             // this.isfDelete(this.siparis.tedarikciId, this.siparisNo);
@@ -1188,9 +1201,6 @@ export default {
           this.emitter.emit("sipBilgileri", this.siparisUrunler);
         }
       }
-      
-
-      
     },
     btn_degistir_click() {
       this.urunIslemleri();
@@ -1266,9 +1276,6 @@ export default {
         this.urunBirim = this.urunBirimList.filter(
           (x) => x.id == this.siparis.urunBirimId
         )[0];
-        
-
-
 
         this.$store.dispatch(
           "siparisFormUrunGuncelleAct",
@@ -1344,7 +1351,7 @@ export default {
   },
   data() {
     return {
-      submitted:false,
+      submitted: false,
       kategoriAdi: "",
       urunKartBilgisi: null,
       yuzey: "",
@@ -1536,11 +1543,11 @@ export default {
   watch: {
     isNewClicked() {
       if (this.isNewClicked) {
-        this.siparis = ""
-        this.emitter.emit('urunKartAlanTemizleme',true)
+        this.siparis = "";
+        this.emitter.emit("urunKartAlanTemizleme", true);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

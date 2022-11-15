@@ -536,7 +536,7 @@ const routes = [
     name: "mekmarusa_mekmarurunlist",
     component: () => import("@/views/MekmarUrunListesi"),
     beforeEnter: (to, from, next) => {
-      if (store.getters.__isAuthenticated) {
+      if (store.getters.__isAuthentication) {
         store.dispatch("loadingBeginAct");
 
         depoService.getTurkeyStockList().then((data) => {
