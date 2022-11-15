@@ -52,6 +52,7 @@
             </template>
           </Column>
         </DataTable>
+        <span style="color:red;">Mekmer Marketing Altında Villo Home, Maya ve Atlanta SM Konteynır Yüklemeleri Bulunmaktadır.</span>
         <DataTable
           :value="byMarketingWarehouseLoad"
           responsiveLayout="scroll"

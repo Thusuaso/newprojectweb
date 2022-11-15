@@ -2,21 +2,16 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
   <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
+
   </div>
   <form>
-    <h3>Login Here</h3>
-  
-    <label for="username">Username</label>
-    <input type="text" v-model="user.username" placeholder="Username" id="username">
-  
-    <label for="password" >Password</label>
-    <input type="password" @keydown.enter="login" v-model="user.password" placeholder="Password" id="password">
+      <InputText id="username" type="text" v-model="user.username" placeholder="Username" />
+      <InputText id="password" type="password" v-model="user.password" @keydown.enter="login" placeholder="Password" />
   
     <button @click.prevent="login">Log In</button>
   </form>
 </template>
+
 <script>
 import loginService from "@/service/loginService";
 export default {
@@ -40,11 +35,9 @@ export default {
 
           this.$router.push("/");
           this.$store.dispatch("loadingEndAct");
-
         } else {
           alert("Kullanıcı bulunamadı!");
           this.$store.dispatch("loadingEndAct");
-
         }
       });
     },
@@ -58,8 +51,8 @@ body {
 }
 
 .background {
-  width: 430px;
-  height: 520px;
+  width: 100%;
+  height: 100%;
   position: absolute;
   transform: translate(-50%, -50%);
   left: 50%;
@@ -87,7 +80,7 @@ body {
 }
 
 form {
-  height: 520px;
+  height: 300px;
   width: 400px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
@@ -97,7 +90,7 @@ form {
   border-radius: 10px;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  box-shadow: 0 0 40px #f4722b;
   padding: 50px 35px;
 }
 
@@ -134,7 +127,6 @@ input {
   font-size: 14px;
   font-weight: 300;
 }
-
 ::placeholder {
   color: #e5e5e5;
 }
