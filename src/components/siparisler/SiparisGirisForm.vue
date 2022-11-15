@@ -18,7 +18,7 @@
         </TabPanel>
         <TabPanel header="PROFORMA BİLGİLERİ">
           <proforma-bilgileri
-            :profData="profData"
+            
             @proformaBilgileriDegisim="kayitDurum = $event"
             @odemeTur="odemeTurDegisim($event)"
             @navlunDigerTutarDegisim="faturaBilgileriGuncelle"
@@ -482,7 +482,7 @@ export default {
         mekus_masraf: 0,
       },
       localMasraflar: null,
-      profData: {},
+      // profData: {},
       isPesinat: true,
     };
   },
@@ -889,7 +889,8 @@ export default {
           this.musteriListYukle();
 
           this.siparisUrunler = data.siparisUrunler;
-          this.profData = data.siparis;
+          // this.profData = data.siparis;
+          this.$store.dispatch("profData_load_act", data.siparis);
           this.urunModel = data.urunModel;
           this.siparisUrunLoading = false;
 
@@ -952,7 +953,9 @@ export default {
           this.musteriListYukle();
           this.maliyetYenile();
           this.siparisUrunler = data.siparisUrunler;
-          this.profData = data.siparis;
+          // this.profData = data.siparis;
+          this.$store.dispatch("profData_load_act", data.siparis);
+
           this.siparisUrunLoading = false;
           this.urunModel = data.urunModel;
         });

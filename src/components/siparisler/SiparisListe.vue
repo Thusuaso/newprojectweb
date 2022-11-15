@@ -155,6 +155,7 @@
       :modal="true"
       maximizable
       position="top"
+      style="width: 100%;"
     >
       <siparis-giris-form
         :dtSiparisNo="dtSiparisNo"
@@ -277,21 +278,23 @@ export default {
     if (this.siparisTur == "bekleyen") siparisDurum = 1;
     if (this.siparisTur == "sevk") siparisDurum = 3;
     this.$store.dispatch("datatableLoadingBeginAct");
+    // this.select_yil.yil = 2022;
+    // this.siparisService
+    //   .getSiparisList(siparisDurum, this.select_yil.yil)
+    //   .then((data) => {
+    //     this.siparisler = data;
 
-    this.siparisService
-      .getSiparisList(siparisDurum, this.select_yil.yil)
-      .then((data) => {
-        this.siparisler = data;
+    //     this.toplamGuncelle(this.siparisler);
+    //     this.dtSiparisler = data;
+    //     this.loading = false;
+    //     this.toplamGuncelle(data);
+    //     setTimeout(() => {
+    //       this.$store.dispatch("datatableLoadingEndAct");
 
-        this.toplamGuncelle(this.siparisler);
-        this.dtSiparisler = data;
-        this.loading = false;
-        this.toplamGuncelle(data);
-        setTimeout(() => {
-          this.$store.dispatch("datatableLoadingEndAct");
+    //     }, 7000);
+    //   });
 
-        }, 7000);
-      });
+
   },
 
   mounted() {

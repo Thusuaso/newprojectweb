@@ -2,7 +2,8 @@ const state = {
   tedarikciList: null,
   siparisler: null,
   isNewClicked: false,
-  yuklemeList:[]
+  yuklemeList: [],
+  profData:[]
 };
 
 const actions = {
@@ -16,7 +17,10 @@ const actions = {
     commit("is_new_form_click_mut", data);
   },
   siparis_evrak_list_load({ commit }, data) {
-    commit("siparis_evrak_list_mut", data)
+    commit("siparis_evrak_list_mut", data);
+  },
+  profData_load_act({ commit }, data) {
+    commit("profData_load_mut", data);
   }
 };
 
@@ -35,6 +39,9 @@ const mutations = {
   },
   siparis_evrak_list_mut(state, data) {
     state.yuklemeList = data
+  },
+  profData_load_mut(state, data) {
+    state.profData = data
   }
 };
 
@@ -50,6 +57,9 @@ const getters = {
   },
   yuklemeList(state) {
     return state.yuklemeList
+  },
+  profData(state) {
+    return state.profData
   }
 };
 

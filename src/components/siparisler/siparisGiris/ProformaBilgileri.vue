@@ -562,7 +562,7 @@ import { required } from "@vuelidate/validators";
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["isNewClicked"]),
+    ...mapGetters(["isNewClicked","profData"]),
   },
   components: {
     customFileInput: CustomInputFile,
@@ -600,12 +600,12 @@ export default {
     };
   },
   props: {
-    profData: {
-      type: Object,
-      default: function () {
-        return {};
-      },
-    },
+    // profData: {
+    //   type: Object,
+    //   default: function () {
+    //     return {};
+    //   },
+    // },
     siparisNo: null,
     siparisUrunler: null,
   },
