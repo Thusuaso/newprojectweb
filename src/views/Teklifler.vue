@@ -178,7 +178,7 @@
     <kullanici-teklif-liste :kullaniciAdi="selectKullaniciAdi" />
   </Dialog>
   <Dialog
-    v-model:visible="teklifFormvisible"
+    v-model:visible.sync="teklifFormvisible"
     v-model:header="teklifFormBaslik"
     :modal="true"
     maximizable
@@ -217,7 +217,13 @@ import "@fullcalendar/core/vdom"; // solves problem with Vite
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters([
+      'teklifFormvisible'
+    ])
+  },
   components: {
     TeklifGirisForm: TeklifGirisForm,
     kullaniciTeklifListe: KullaniciTeklifListe,
@@ -238,7 +244,6 @@ export default {
       musteriOzetList: null,
       musteriOzetLoading: false,
       toplam_musteriOzet_teklif: 0,
-      teklifFormvisible: false,
       teklifFormBaslik: "Yeni Teklif Girişi",
       kullaniciListeVisible: false,
       is_tumteklifler: false,
@@ -353,7 +358,7 @@ export default {
     teklifFormAc() {
       this.teklifYeniKayit = true;
 
-      this.teklifFormvisible = true;
+      this.$store.dispatch("teklif_form_load_act", true);
     },
     selectOzetListSec() {
       this.selectKullaniciAdi = this.selectOzetList.adi;
@@ -381,9 +386,6 @@ export default {
     },
   },
   mounted() {
-    this.emitter.on("teklif_sil_dialog_close", (data) => {
-      this.teklifFormvisible = data;
-    });
   },
 };
 </script>

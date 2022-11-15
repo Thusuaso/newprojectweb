@@ -76,8 +76,9 @@
                 type="text"
                 v-model="detail.urunkartid"
                 :disabled="slk_form"
-                :class="{'p-invalid':v$.detail.urunkartid.$invalid && submitted}"
-
+                :class="{
+                  'p-invalid': v$.detail.urunkartid.$invalid && submitted,
+                }"
               />
               <Button
                 v-model="detail.urunkartid"
@@ -85,7 +86,6 @@
                 label="Seç"
                 @click="urunKartShow"
                 :disabled="slk_form"
-                
               />
             </div>
           </div>
@@ -97,8 +97,9 @@
                   type="text"
                   v-model="detail.kasano"
                   :disabled="slk_form"
-                  :class="{'p-invalid':v$.detail.kasano.$invalid && submitted}"
-
+                  :class="{
+                    'p-invalid': v$.detail.kasano.$invalid && submitted,
+                  }"
                 />
                 <label for="kasano">Kasa No</label>
               </span>
@@ -109,7 +110,9 @@
                   type="text"
                   v-model="detail.duzenleyen"
                   :disabled="slk_form"
-                  :class="{ 'p-invalid': v$.detail.duzenleyen.$invalid && submitted}"
+                  :class="{
+                    'p-invalid': v$.detail.duzenleyen.$invalid && submitted,
+                  }"
                 />
                 <label for="duzenleyen">Düzenleyen</label>
               </span>
@@ -124,7 +127,7 @@
                   :disabled="slk_form"
                   @item-select="selectedOcak"
                   optionLabel="name"
-                  :class="{ 'p-invalid': v$.ocak.$invalid && submitted}"
+                  :class="{ 'p-invalid': v$.ocak.$invalid && submitted }"
                 />
 
                 <label for="ocak">Ocak Seç</label>
@@ -137,7 +140,7 @@
                   v-model="detail.kasalayan"
                   :disabled="slk_form"
                   :class="{
-                    'p-invalid': v$.detail.kasalayan.$invalid && submitted
+                    'p-invalid': v$.detail.kasalayan.$invalid && submitted,
                   }"
                 />
 
@@ -164,7 +167,7 @@
                   @item-select="tedarikciSecim"
                   optionLabel="name"
                   :class="{
-                    'p-invalid': v$.tedarikci.$invalid && submitted
+                    'p-invalid': v$.tedarikci.$invalid && submitted,
                   }"
                 />
                 <label for="tedarikci">Tedarikçi Seç</label>
@@ -177,7 +180,7 @@
                   v-model="tarih"
                   :disabled="slk_form"
                   :class="{
-                    'p-invalid': v$.tarih.$invalid && submitted
+                    'p-invalid': v$.tarih.$invalid && submitted,
                   }"
                 />
                 <label for="date">Click to select...</label>
@@ -257,7 +260,7 @@
                       v-model="detail.miktar"
                       :disabled="slk_form"
                       :class="{
-                        'p-invalid': v$.detail.miktar.$invalid && submitted
+                        'p-invalid': v$.detail.miktar.$invalid && submitted,
                       }"
                     />
                     <label for="miktar">Sipariş Miktarı</label>
@@ -273,9 +276,8 @@
                       v-model="detail.sqm_miktar"
                       :disabled="slk_form"
                       :class="{
-                        'p-invalid': v$.detail.sqm_miktar.$invalid && submitted
+                        'p-invalid': v$.detail.sqm_miktar.$invalid && submitted,
                       }"
-
                     />
                     <label for="sqm">SQM</label>
                   </span>
@@ -289,7 +291,7 @@
                       v-model="kasaadet"
                       :disabled="slk_form"
                       :class="{
-                          'p-invalid': v$.kasaadet.$invalid && submitted
+                        'p-invalid': v$.kasaadet.$invalid && submitted,
                       }"
                     />
                     <label for="kasa">Kasa</label>
@@ -337,7 +339,7 @@
                   type="text"
                   v-model="notlar"
                   :disabled="slk_form"
-                  :class="{ 'p-invalid': v$.notlar.$invalid && submitted}"
+                  :class="{ 'p-invalid': v$.notlar.$invalid && submitted }"
                 />
                 <label for="notlar">Notlar</label>
               </span>
@@ -476,7 +478,7 @@
       <Button @click="fazlaKayit" label="Yes" icon="pi pi-check" autofocus />
     </template>
   </Dialog>
-  <Dialog :visible="isDisplay2" :modal="true" position="top" >
+  <Dialog :visible="isDisplay2" :modal="true" position="top">
     <template #header>
       <h3>Ürün bilgileri eşleşmiyor</h3>
     </template>
@@ -507,11 +509,11 @@ import LocalService from "@/service/LocalService";
 import UrunKartMenu from "@/components/shared/UrunKartMenu";
 import socket from "@/service/SocketService";
 import SiparisService from "@/service/SiparisService";
-import { useVuelidate } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { useVuelidate } from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 export default {
   setup() {
-    return { v$: useVuelidate() }
+    return { v$: useVuelidate() };
   },
   validations() {
     return {
@@ -529,11 +531,8 @@ export default {
         kasalayan: { required },
         miktar: { required },
         sqm_miktar: { required },
-
-
-
-      }
-    }
+      },
+    };
   },
   components: {
     UrunKartMenu,
@@ -566,7 +565,7 @@ export default {
   props: ["kasano", "kayitstatu"],
   data() {
     return {
-      submitted:false,
+      submitted: false,
       isDisplay2: false,
       isDisplay: false,
       dis_siparis_detay: false,
@@ -693,11 +692,9 @@ export default {
       }
     },
     btn_sil_click() {
-
       this.$store.dispatch("seleksiyonSilClickActions");
-      this.$store.dispatch('loadingBeginAct')
-      this.$store.dispatch('datatableLoadingBeginAct')
-
+      this.$store.dispatch("loadingBeginAct");
+      this.$store.dispatch("datatableLoadingBeginAct");
 
       service.uretimSil(this.detail.kasano).then((status) => {
         if (status) {
@@ -718,28 +715,28 @@ export default {
                   detail: "Kasa Silme Başarılı",
                   life: 3000,
                 });
-                this.$store.dispatch('datatableLoadingEndAct')
-
+                this.$store.dispatch("datatableLoadingEndAct");
               });
           } else {
             this.dataSifirla();
             this.$emit("seleksiyon_form_kapat");
-            this.$store.dispatch('datatableLoadingEndAct')
-
+            this.$store.dispatch("datatableLoadingEndAct");
           }
-
         }
-        this.$store.dispatch('loadingEndAct')
-
+        this.$store.dispatch("loadingEndAct");
       });
     },
     btn_guncelle_click() {
       this.submitted = true;
       if (this.v$.$invalid) {
-        this.$toast.add({ severity: 'error', summary: 'Zorunlu Alanlar', detail: 'Zorunlu alanları doldurunuz', life: 3000 });
-
+        this.$toast.add({
+          severity: "error",
+          summary: "Zorunlu Alanlar",
+          detail: "Zorunlu alanları doldurunuz",
+          life: 3000,
+        });
       } else {
-        this.$store.dispatch('datatableLoadingBeginAct')
+        this.$store.dispatch("datatableLoadingBeginAct");
 
         this.isGuncelle = true;
         if (this.kayit_kontrol()) {
@@ -764,15 +761,13 @@ export default {
                       this.$store.dispatch("seleksiyonGuncelleClickActions");
 
                       this.$emit("seleksiyon_form_kapat");
-                      this.$store.dispatch('datatableLoadingEndAct')
-
+                      this.$store.dispatch("datatableLoadingEndAct");
                     });
                 } else {
                   this.dataSifirla();
                   this.$store.dispatch("seleksiyonGuncelleClickActions");
                   this.$emit("seleksiyon_form_kapat");
-                  this.$store.dispatch('datatableLoadingEndAct')
-
+                  this.$store.dispatch("datatableLoadingEndAct");
                 }
               });
               this.$toast.add({
@@ -781,8 +776,7 @@ export default {
                 detail: "Kayıt Güncelleme Başarılı",
                 life: 3000,
               });
-              this.$store.dispatch('datatableLoadingEndAct')
-
+              this.$store.dispatch("datatableLoadingEndAct");
             } else {
               this.$toast.add({
                 severity: "error",
@@ -790,15 +784,11 @@ export default {
                 detail: "Kayıt Güncelleme Hatalı",
                 life: 3000,
               });
-              this.$store.dispatch('datatableLoadingEndAct')
-
+              this.$store.dispatch("datatableLoadingEndAct");
             }
           });
         }
       }
-
-
-      
     },
     async dataSifirla() {
       await service.getUrunDetayModel().then((data) => {
@@ -935,11 +925,15 @@ export default {
       this.submitted = true;
 
       if (this.v$.$invalid) {
-        this.$toast.add({ severity: 'error', summary: 'Zorunlu Alanlar', detail: 'Zorunlu alanları doldurunuz', life: 3000 });
-
+        this.$toast.add({
+          severity: "error",
+          summary: "Zorunlu Alanlar",
+          detail: "Zorunlu alanları doldurunuz",
+          life: 3000,
+        });
       } else {
-        this.$store.dispatch('loadingBeginAct')
-        this.$store.dispatch('datatableLoadingBeginAct')
+        this.$store.dispatch("loadingBeginAct");
+        this.$store.dispatch("datatableLoadingBeginAct");
         this.kayit_kontrol();
         this.isGuncelle = false;
         if (this.detail) {
@@ -954,7 +948,7 @@ export default {
                 detail: "Kasa Kaydetme Başarılı",
                 life: 3000,
               });
-              this.$store.dispatch('datatableLoadingEndAct')
+              this.$store.dispatch("datatableLoadingEndAct");
 
               //kasa sayısı alınacak toplama göre hareket edilecek
             }
@@ -968,17 +962,12 @@ export default {
                 detail: "Kasa Kaydetme Başarılı",
                 life: 3000,
               });
-              this.$store.dispatch('datatableLoadingEndAct')
-
+              this.$store.dispatch("datatableLoadingEndAct");
             }
           }
         }
-        this.$store.dispatch('loadingEndAct')
+        this.$store.dispatch("loadingEndAct");
       }
-
-      
-
-
     },
     btn_vazgec_click() {
       this.$store.dispatch("seleksiyonVazgecClickActions");
@@ -1138,9 +1127,8 @@ export default {
       if (event == "Sipariş") {
         this.dis_siparis_list = false;
       } else {
-
         this.siparis = "";
-        this.siparis_detay = ""
+        this.siparis_detay = "";
 
         this.detail.siparisaciklama = "Stok";
         this.notlar = "STOK";
@@ -1226,7 +1214,7 @@ export default {
 .count {
   width: 50px;
 }
-.siparisBilgileri{
-  width:350px;
+.siparisBilgileri {
+  width: 350px;
 }
 </style>

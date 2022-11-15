@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column">
-      <Card style="height: 220px">
+      <Card style="height: 250px">
         <template #content>
           <div style="margin-top: -10px">
             <span class="p-float-label">
@@ -48,7 +48,7 @@
       </Card>
     </div>
     <div class="column">
-      <Card style="height: 220px">
+      <Card style="height: 250px">
         <template #content>
           <ul style="margin-top: -10px">
             <li>
@@ -102,7 +102,7 @@
       </Card>
     </div>
     <div class="column">
-      <Card style="height: 220px">
+      <Card style="height: 250px">
         <template #content>
           <ul style="margin-top: -10px">
             <li>
@@ -153,7 +153,7 @@
       </Card>
     </div>
     <div class="column">
-      <Card style="height: 220px">
+      <Card style="height: 250px">
         <template #content>
           <TabView style="margin-top: -10px">
             <TabPanel header="Teklif Açıklama">
@@ -167,7 +167,6 @@
                     @date-select="hatirlatmaTarihiDegisim"
                     placeholder="Hatırlatma Tarihi"
                     dateFormat="dd.mm.yy"
-                    :class="{ 'p-invalid': v$.hatirlatmaTarihi.$invalid && submitted }"
                   />
                 </div>
                 <div class="column">
@@ -201,7 +200,6 @@
                     v-model="teklif.hatirlatmaAciklama"
                     rows="1"
                     cols="46"
-                    :class="{ 'p-invalid': v$.teklif.hatirlatmaAciklama.$invalid && submitted }"
                   />
                 </div>
               </div>
@@ -232,7 +230,7 @@
       </Card>
     </div>
     <div class="column">
-      <Card style="height: 220px">
+      <Card style="height: 250px">
         <template #content>
           <ul>
             <li>
@@ -282,13 +280,13 @@
           <div class="columns">
             <div class="column" style="margin-top: -10px">
               <span class="p-float-label">
-                <InputText id="sirket" type="text" v-model="teklif.company" :class="{ 'p-invalid': v$.teklif.company.$invalid && submitted }" />
+                <InputText id="sirket" type="text" v-model="teklif.company" />
                 <label for="sirket">Şirket</label>
               </span>
             </div>
             <div class="column">
               <span class="p-float-label">
-                <InputText type="email" id="email" v-model="teklif.email" :class="{ 'p-invalid': v$.teklif.email.$invalid && submitted }" />
+                <InputText type="email" id="email" v-model="teklif.email" />
                 <label for="email">Email</label>
               </span>
             </div>
@@ -298,7 +296,7 @@
                   id="phone"
                   v-model="teklif.phone"
                   mask="+99 (999) 999 9999? 99999"
-                  :class="{ 'p-invalid': v$.teklif.phone.$invalid && submitted }"
+                
                 />
                 <label for="phone">Telefon</label>
               </span>
@@ -319,7 +317,6 @@
                   id="uruntarihi"
                   v-model="urunTarihi"
                   dateFormat="dd.mm.yy"
-                  :class="{ 'p-invalid': v$.urunTarihi.$invalid && submitted }"
                 />
                 <label for="uruntarihi">Tarih</label>
               </span>
@@ -333,7 +330,6 @@
                   @complete="aramaKategori($event)"
                   optionLabel="name"
                   @item-select="degisimKategori"
-                  :class="{ 'p-invalid': v$.kategori.$invalid && submitted }"
                 />
                 <label for="kategori">Kategori</label>
               </span>
@@ -347,7 +343,6 @@
                   @complete="aramaUrun($event)"
                   optionLabel="name"
                   @item-select="degisimUrun"
-                  :class="{ 'p-invalid': v$.urunL.$invalid && submitted }"
                 />
                 <label for="urun">Ürün</label>
               </span>
@@ -361,7 +356,6 @@
                   @complete="aramaEnBoy($event)"
                   optionLabel="name"
                   @item-select="degisimEnBoy"
-                  :class="{ 'p-invalid': v$.enBoy.$invalid && submitted }"
                 />
                 <label for="enBoy">En x Boy</label>
               </span>
@@ -375,7 +369,6 @@
                   @complete="aramaKalinlik($event)"
                   optionLabel="name"
                   @item-select="degisimKalinlik"
-                  :class="{ 'p-invalid': v$.kalinlik.$invalid && submitted }"
                 />
                 <label for="kalinlik">Kalınlık</label>
               </span>
@@ -389,7 +382,6 @@
                   @complete="aramaYuzey($event)"
                   optionLabel="name"
                   @item-select="degisimYuzey"
-                  :class="{ 'p-invalid': v$.yuzey.$invalid && submitted }"
                 />
                 <label for="yuzey">Yüzey</label>
               </span>
@@ -404,7 +396,6 @@
                   @complete="aramaBirim($event)"
                   optionLabel="name"
                   @item-select="degisimBirim"
-                  :class="{ 'p-invalid': v$.birim.$invalid && submitted }"
                 />
 
                 <label for="birim">Birim</label>
@@ -819,22 +810,7 @@ export default {
       selectKaynak: { required },
       selectTeklifYeri: { required },
       selectOncelik: { required },
-      hatirlatmaTarihi: { required },
-      urunTarihi: { required },
-      kategori: { required },
-      urunL: { required },
-      enBoy: { required },
-      kalinlik: { required },
-      yuzey: { required },
-      birim: { required },
-      teklif: {
-        aciklama: { required },
-        hatirlatmaAciklama:{ required},
-        company:{ required},
-        email: { required },
-        phone: { required },
 
-      }
     };
   },
   computed: {
@@ -1625,19 +1601,20 @@ export default {
       }
     },
     teklifSilmeIslemi() {
-      teklifService.teklifSilme(this.teklif.id).then((data) => {
-        if (data.status) {
-          this.dis_teklifgoster = false;
-          this.$toast.add({
-            severity: "success",
-            summary: "Bilgi Ekranı",
-            detail: "Teklif Bilgileri Silindi.",
-            life: 1000,
-          });
-          this.emitter.emit("teklif_sil_dialog_close", false);
-          socket.emit("teklif_sil_event");
-        }
-      });
+      this.$store.dispatch("teklif_form_load_act", false);
+
+      // teklifService.teklifSilme(this.teklif.id).then((data) => {
+      //   if (data.status) {
+      //     this.dis_teklifgoster = false;
+      //     this.$toast.add({
+      //       severity: "success",
+      //       summary: "Bilgi Ekranı",
+      //       detail: "Teklif Bilgileri Silindi.",
+      //       life: 1000,
+      //     });
+      //     socket.emit("teklif_sil_event");
+      //   }
+      // });
 
 
     },

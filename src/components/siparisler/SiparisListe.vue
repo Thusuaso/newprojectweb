@@ -156,6 +156,7 @@
       maximizable
       position="top"
       style="width: 100%;"
+      :closable="false"
     >
       <siparis-giris-form
         :dtSiparisNo="dtSiparisNo"
@@ -310,7 +311,6 @@ export default {
       this.siparisHepsiEvent();
       this.toplamGuncelle(this.siparisler);
       this.dtSiparisler = data;
-      this.loading = false;
       this.toplamGuncelle(data);
     });
 

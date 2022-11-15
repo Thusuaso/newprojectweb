@@ -4,6 +4,7 @@ const state = {
   ulkeList: null,
   takvimList: null,
   enBoyList: null,
+  teklifFormvisible:false,
 };
 
 const actions = {
@@ -26,6 +27,9 @@ const actions = {
   loadTekliflerEnBoy({ commit }, data) {
     commit("loadTekliflerEnBoyAct", data);
   },
+  teklif_form_load_act({ commit }, data) {
+    commit("teklif_form_load_mut",data)
+  }
 };
 
 const mutations = {
@@ -58,6 +62,9 @@ const mutations = {
   loadTekliflerEnBoyAct(state, data) {
     state.enBoyList = data;
   },
+  teklif_form_load_mut(state, data) {
+    state.teklifFormvisible = data
+  }
 };
 const getters = {
   musteriTeklifList(state) {
@@ -75,6 +82,9 @@ const getters = {
   enBoyList(state) {
     return state.enBoyList;
   },
+  teklifFormvisible(state) {
+    return state.teklifFormvisible
+  }
 };
 
 export default {
