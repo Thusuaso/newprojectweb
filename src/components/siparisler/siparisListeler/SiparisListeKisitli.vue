@@ -407,7 +407,14 @@ export default {
     ]),
   },
   mounted() {},
-  created() {},
+  created() {
+
+    this.$store.dispatch("datatableLoadingBeginAct");
+    setTimeout(() => {
+      this.$store.dispatch("datatableLoadingEndAct");
+
+    }, 12000)
+  },
   methods: {
     onRowGroupExpand(event) {
       this.$toast.add({
