@@ -488,20 +488,12 @@
                 {{ formatPrice(toplam_liman) }}
               </template>
             </Column>
-            <Column
-              field="sigorta"
-              header="Sigorta"
-              headerStyle="width:70px"
-              bodyStyle="text-align:center"
-            >
+            <Column field="sigorta" header="Sigorta" headerStyle="width:70px" bodyStyle="text-align:center">
               <template #body="slotProps">
+            
                 <div
-                  :style="{
-                    'background-color':
-                      slotProps.data.sigorta_id == 1 ? '#F1948A' : '',
-                  }"
-                >
-                  {{ formatPrice(slotProps.data.sigorta) }}
+                  :style="{'background-color': slotProps.data.sigorta_id == 1 && slotProps.data.sigorta == 0 ? '#F1948A' : ''  }">
+                  {{formatPrice(slotProps.data.sigorta)}}
                 </div>
               </template>
             </Column>
@@ -1096,20 +1088,12 @@
                 {{ formatPrice(toplam_liman) }}
               </template>
             </Column>
-            <Column
-              field="sigorta"
-              header="Sigorta"
-              headerStyle="width:70px"
-              bodyStyle="text-align:center"
-            >
+            <Column field="sigorta" header="Sigorta" headerStyle="width:70px" bodyStyle="text-align:center">
               <template #body="slotProps">
+            
                 <div
-                  :style="{
-                    'background-color':
-                      slotProps.data.sigorta_id == 1 ? '#F1948A' : '',
-                  }"
-                >
-                  {{ formatPrice(slotProps.data.sigorta) }}
+                  :style="{'background-color': slotProps.data.sigorta_id == 1 && slotProps.data.sigorta == 0 ? '#F1948A' : ''  }">
+                  {{formatPrice(slotProps.data.sigorta)}}
                 </div>
               </template>
             </Column>
@@ -1458,7 +1442,7 @@ export default {
     filter_data_change(event) {
       //console.log(this.short_data.sort((a, b) => a.urunadi - b.name ))
 
-      this.tablo_toplam_guncelle(event.filterValue);
+      this.tablo_toplam_guncelle(event.filteredValue);
 
       return 1;
     },
@@ -1494,7 +1478,9 @@ export default {
         .then((data) => {
           this.maliyet_listesi = [...data];
           this.local_maliyet_data = [...data];
-          this.tablo_toplam_guncelle(this.maliyet_listesi);
+          console.log("getMaliyetRapor",data)
+          this.tablo_toplam_guncelle(data);
+
           this.$store.dispatch("loadingEndAct");
         });
     },
@@ -1506,7 +1492,7 @@ export default {
         service.getMaliyetRaporYil(event).then((data) => {
           this.maliyet_listesi = data;
 
-          this.tablo_toplam_guncelle(this.maliyet_listesi);
+          this.tablo_toplam_guncelle(data);
           this.is_quarter_dropdown = false;
           this.$store.dispatch("loadingEndAct");
         });

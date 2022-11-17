@@ -297,7 +297,6 @@ export default {
         { id: 73, name: "İlaçlama" },
         { id: 7, name: "Gümrük" },
         { id: 13, name: "Navlun" },
-        { id: 15, name: "Sigorta" },
         { id: 9, name: "Liman" },
       ],
     };

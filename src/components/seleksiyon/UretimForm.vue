@@ -1,4 +1,5 @@
 <template>
+
   <UrunKartMenu
     :is_seleksiyon="true"
     @urunKartSelect="urunkart_change_event($event)"
@@ -511,6 +512,7 @@ import socket from "@/service/SocketService";
 import SiparisService from "@/service/SiparisService";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+
 export default {
   setup() {
     return { v$: useVuelidate() };
@@ -736,7 +738,6 @@ export default {
           life: 3000,
         });
       } else {
-        this.$store.dispatch("datatableLoadingBeginAct");
 
         this.isGuncelle = true;
         if (this.kayit_kontrol()) {
@@ -761,13 +762,11 @@ export default {
                       this.$store.dispatch("seleksiyonGuncelleClickActions");
 
                       this.$emit("seleksiyon_form_kapat");
-                      this.$store.dispatch("datatableLoadingEndAct");
                     });
                 } else {
                   this.dataSifirla();
                   this.$store.dispatch("seleksiyonGuncelleClickActions");
                   this.$emit("seleksiyon_form_kapat");
-                  this.$store.dispatch("datatableLoadingEndAct");
                 }
               });
               this.$toast.add({
@@ -776,7 +775,6 @@ export default {
                 detail: "Kayıt Güncelleme Başarılı",
                 life: 3000,
               });
-              this.$store.dispatch("datatableLoadingEndAct");
             } else {
               this.$toast.add({
                 severity: "error",
@@ -784,7 +782,6 @@ export default {
                 detail: "Kayıt Güncelleme Hatalı",
                 life: 3000,
               });
-              this.$store.dispatch("datatableLoadingEndAct");
             }
           });
         }
@@ -932,8 +929,6 @@ export default {
           life: 3000,
         });
       } else {
-        this.$store.dispatch("loadingBeginAct");
-        this.$store.dispatch("datatableLoadingBeginAct");
         this.kayit_kontrol();
         this.isGuncelle = false;
         if (this.detail) {
@@ -948,7 +943,6 @@ export default {
                 detail: "Kasa Kaydetme Başarılı",
                 life: 3000,
               });
-              this.$store.dispatch("datatableLoadingEndAct");
 
               //kasa sayısı alınacak toplama göre hareket edilecek
             }
@@ -962,11 +956,10 @@ export default {
                 detail: "Kasa Kaydetme Başarılı",
                 life: 3000,
               });
-              this.$store.dispatch("datatableLoadingEndAct");
+
             }
           }
         }
-        this.$store.dispatch("loadingEndAct");
       }
     },
     btn_vazgec_click() {

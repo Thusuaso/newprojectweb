@@ -20,6 +20,8 @@ const state = {
   bgpProjectCompanyDetailList: null,
   bgpProjectStatisticCountryandReseptation: [],
   bgpProjectStatisticCountryandReseptationSum: 0,
+  filelink: "",
+  fileCloud: false,
 };
 
 const actions = {
@@ -65,9 +67,27 @@ const actions = {
   bgp_projects_statistics_country_reseptation_load({ commit }, data) {
     commit("bgp_projects_statistics_country_reseptation_mut", data);
   },
+  bgp_project_id_load({ commit }, data) {
+    commit("bgp_project_id_mut", data);
+  },
+  bgp_projects_filelink_load({ commit }, data) {
+    commit("bgp_projets_filelink_mut", data);
+  },
+  bgp_projects_fileCloud_load({ commit }, data) {
+    commit("bgp_projets_fileCloud_mut", data);
+  },
 };
 
 const mutations = {
+  bgp_projets_filelink_mut(state, data) {
+    state.filelink = data;
+  },
+  bgp_projets_fileCloud_mut(state, data) {
+    state.fileCloud = data;
+  },
+  bgp_project_id_mut(state, data) {
+    state.projectId = data;
+  },
   bgp_projets_list_mut(state, data) {
     state.bgpProjectList = data;
   },
@@ -175,6 +195,15 @@ const getters = {
   },
   bgpProjectStatisticCountryandReseptationSum(state) {
     return state.bgpProjectStatisticCountryandReseptationSum;
+  },
+  filelink(state) {
+    return state.filelink;
+  },
+  fileCloud(state) {
+    return state.fileCloud;
+  },
+  projectId(state) {
+    return state.projectId;
   },
 };
 

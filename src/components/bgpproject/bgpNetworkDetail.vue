@@ -10,13 +10,29 @@
             label="Yeni"
           ></Button>
         </div>
-        <div class="column">
+        <div class="column is-2">
           <Button
             class="p-button-danger"
             :disabled="username_kontrol"
             @click="deleteProject"
             >Delete Project</Button
           >
+        </div>
+        <div class="column is-2">
+          <custom-file-input
+            baslik="Gönder"
+            @sunucuDosyaYolla="bgpProjectDosyaGonder($event)"
+          />
+        </div>
+        <div class="column is-2">
+          <Button
+            type="button"
+            :disabled="!fileCloud"
+            @click="proformaDowload(filelink)"
+            icon="fas fa-download"
+            class=""
+            style="margin-right: 0.5em"
+          ></Button>
         </div>
       </div>
 
@@ -127,10 +143,13 @@ import { mapGetters } from "vuex";
 import bgpNetworkDetailFormYeni from "./bgpNetworkDetailFormYeni.vue";
 import bgpNetworkDetailForm from "./bgpNetworkDetailForm.vue";
 import bgpService from "@/service/BgpProjectService";
+import fileService from "@/service/FileService";
+import CustomInputFile from "@/components/shared/CustomInputFile";
 export default {
   components: {
     bgpNetworkDetailFormYeni,
     bgpNetworkDetailForm,
+    customFileInput: CustomInputFile,
   },
   data() {
     return {
@@ -144,9 +163,62 @@ export default {
     this.username = this.$store.getters.__getUserId;
   },
   computed: {
-    ...mapGetters(["bgpProjectAyrinti", "projectName", "username_kontrol"]),
+    ...mapGetters([
+      "bgpProjectAyrinti",
+      "projectName",
+      "username_kontrol",
+      "projectId",
+      "filelink",
+      "fileCloud"
+
+    ]),
   },
   methods: {
+    proformaDowload(link) {
+      this.evrak_indir(link, "BgpProject");
+    },
+    evrak_indir(dosya_link, dosya_adi) {
+      const link = document.createElement("a");
+      link.href = dosya_link;
+      link.setAttribute("download", `${dosya_adi}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+    },
+    bgpProjectDosyaGonder(event) {
+      fileService.bgpProjectGonder(event, this.projectId).then((data) => {
+        if (data.Status) {
+          const bgpProject = {
+            id: this.projectId,
+            link: `https://file-service.mekmar.com/file/download/bgpProject/${this.projectId}/${event.name}`,
+          };
+
+          bgpService.setBgpProjectFileData(bgpProject).then((veri) => {
+            if (veri) {
+              this.$toast.add({
+                severity: "success",
+                summary: "Dosya Yükleme",
+                detail: "Dosya başarıyla yüklendi",
+                life: 3500,
+              });
+            } else {
+              this.$toast.add({
+                severity: "error",
+                summary: "Dosya Yükleme",
+                detail: "Dosya yükleme hatası",
+                life: 3500,
+              });
+            }
+          });
+        } else {
+          this.$toast.add({
+            severity: "error",
+            summary: "Dosya Yükleme",
+            detail: "Dosya yükleme hatası",
+            life: 3500,
+          });
+        }
+      });
+    },
     newProjectDetail(event, durum) {
       if (durum == "Yeni") {
         this.is_form_new = true;
@@ -160,7 +232,6 @@ export default {
         bgpService.getBgpProjectDetailForm(event.data.id).then((data) => {
           this.$store.dispatch("bgp_project_ayrinti_form_load", data[0]);
           this.is_form_datas = true;
-
         });
       }
     },

@@ -174,7 +174,7 @@
               <label for="notlar">Notlar</label>
             </span>
           </div>
-          <div class="column is-6">
+          <div class="column is-4">
             <div class="columns">
               <div class="column is-2">
                 <Checkbox v-model="musteri_model.devir" :binary="true" /> Devir
@@ -191,6 +191,13 @@
                   :binary="true"
                 />
                 <label for="takip">Takip</label>
+              </div>
+              <div class="column is-2">
+                <h3>Son Kullanıcı</h3>
+                <InputSwitch
+                  id="sonkullanici"
+                  v-model="musteri_model.sonkullanici"
+                />
               </div>
             </div>
           </div>
@@ -297,7 +304,7 @@ export default {
   },
   data() {
     return {
-      submitted:false,
+      submitted: false,
       select_ulke: null,
       is_form: false,
       filter_ulke_list: null,

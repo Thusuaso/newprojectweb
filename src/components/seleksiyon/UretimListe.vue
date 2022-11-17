@@ -63,7 +63,6 @@
             header="Tarih"
             bodyStyle="text-align:center"
             :showFilterMenu="false"
-            
           >
             <template #body="{ data }">
               {{ data.tarih }}
@@ -240,26 +239,17 @@
             field="kasaadet"
             header="K.Adet"
             bodyStyle="text-align:center"
-            
           >
             <template #body="slotProps">
               {{ slotProps.data.kasaadet }}
             </template>
           </Column>
-          <Column
-            field="kutuadet"
-            header="Kutu"
-            bodyStyle="text-align:center"
-          >
+          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:center">
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
             </template>
           </Column>
-          <Column
-            field="m2"
-            header="M2"
-            bodyStyle="text-align:center"
-          >
+          <Column field="m2" header="M2" bodyStyle="text-align:center">
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
             </template>
@@ -306,11 +296,7 @@
               {{ formatDecimal(toplam_ton) }}
             </template>
           </Column> -->
-          <Column
-            field="kutu"
-            header="Kutu"
-            bodyStyle="text-align:center"
-          >
+          <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.kutu == true"
@@ -321,11 +307,7 @@
               <div v-else style="backgroundcolor: red; color: white">X</div>
             </template>
           </Column>
-          <Column
-            field="bagli"
-            header="Baglı"
-            bodyStyle="text-align:center"
-          >
+          <Column field="bagli" header="Baglı" bodyStyle="text-align:center">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.bagli == true"
@@ -393,6 +375,7 @@
           filterDisplay="row"
           :loading="datatableLoading"
           @filter="isFilters"
+          class="p-datatable-sm"
         >
           <Column
             field="kasa_no"
@@ -426,8 +409,13 @@
               {{ slotProps.data.tarih }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -440,8 +428,13 @@
               {{ slotProps.data.kategori }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -454,8 +447,13 @@
               {{ slotProps.data.ocak }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -468,8 +466,13 @@
               {{ slotProps.data.tedarikci }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column field="urunadi" header="Ürün" :showFilterMenu="false">
@@ -485,8 +488,13 @@
               </div>
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
             <template #footer>
               {{ seleksiyon_dis_uretimlist.slk_dis_kasa_top }}
@@ -502,8 +510,13 @@
               {{ slotProps.data.kenarislem }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -516,8 +529,13 @@
               {{ slotProps.data.en }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -530,8 +548,13 @@
               {{ slotProps.data.boy }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -544,8 +567,13 @@
               {{ slotProps.data.kenar }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -557,20 +585,12 @@
               {{ slotProps.data.kasaadet }}
             </template>
           </Column>
-          <Column
-            field="kutuadet"
-            header="Kutu"
-            bodyStyle="text-align:center"
-          >
+          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:center">
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
             </template>
           </Column>
-          <Column
-            field="m2"
-            header="M2"
-            bodyStyle="text-align:center"
-          >
+          <Column field="m2" header="M2" bodyStyle="text-align:center">
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
             </template>
@@ -617,11 +637,7 @@
               {{ formatDecimal(toplam_ton) }}
             </template>
           </Column> -->
-          <Column
-            field="kutu"
-            header="Kutu"
-            bodyStyle="text-align:center"
-          >
+          <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.kutu == true"
@@ -632,11 +648,7 @@
               <div v-else style="backgroundcolor: red; color: white">X</div>
             </template>
           </Column>
-          <Column
-            field="bagli"
-            header="Baglı"
-            bodyStyle="text-align:center"
-          >
+          <Column field="bagli" header="Baglı" bodyStyle="text-align:center">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.bagli == true"
@@ -657,8 +669,13 @@
               {{ slotProps.data.siparisaciklama }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -671,8 +688,13 @@
               {{ slotProps.data.aciklama }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText  type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
         </DataTable>
@@ -681,7 +703,7 @@
         <DataTable
           :value="seleksiyon_mekmer_dis_uretimlist"
           v-model:filters="filters"
-          filterDisplay="menu"
+          filterDisplay="row"
           :paginator="true"
           :rows="20"
           dataKey="id"
@@ -691,12 +713,13 @@
           @row-select="uretimSec($event)"
           :loading="datatableLoading"
           @filter="isFilters"
-
+          class="p-datatable-sm"
         >
           <Column
             field="kasa_no"
             header="No"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               <div :class="slotProps.data.disarda == true ? 'disarda_css' : ''">
@@ -704,8 +727,13 @@
               </div>
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
 
@@ -713,55 +741,79 @@
             field="tarih"
             header="Tarih"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.tarih }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="kategori"
             header="Kategori"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.kategori }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="ocak"
             header="Ocak"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.ocak }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="tedarikci"
             header="Kimden"
             bodyStyle="text-align:left"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.tedarikci }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün">
+          <Column field="urunadi" header="Ürün" :showFilterMenu="false">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -777,60 +829,89 @@
               {{ adet_kasa }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="kenarislem"
             header="İşlem Adı"
             bodyStyle="text-align:left"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.kenarislem }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="en"
             header="E"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.en }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="boy"
             header="B"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.boy }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="kenar"
             header="K"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.kenar }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
@@ -842,20 +923,12 @@
               {{ slotProps.data.kasaadet }}
             </template>
           </Column>
-          <Column
-            field="kutuadet"
-            header="Kutu"
-            bodyStyle="text-align:center"
-          >
+          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:center">
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
             </template>
           </Column>
-          <Column
-            field="m2"
-            header="M2"
-            bodyStyle="text-align:center"
-          >
+          <Column field="m2" header="M2" bodyStyle="text-align:center">
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
             </template>
@@ -902,11 +975,7 @@
               {{ formatDecimal(toplam_ton) }}
             </template>
           </Column> -->
-          <Column
-            field="kutu"
-            header="Kutu"
-            bodyStyle="text-align:center"
-          >
+          <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.kutu == true"
@@ -917,11 +986,7 @@
               <div v-else style="backgroundcolor: red; color: white">X</div>
             </template>
           </Column>
-          <Column
-            field="bagli"
-            header="Baglı"
-            bodyStyle="text-align:center"
-          >
+          <Column field="bagli" header="Baglı" bodyStyle="text-align:center">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.bagli == true"
@@ -936,32 +1001,44 @@
             field="siparisaciklama"
             header="Po"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.siparisaciklama }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
           <Column
             field="aciklama"
             header="Not"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.aciklama }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText style="width: 50px" type="text" v-model="filterModel.value" @input="filterCallback()"
-                class="p-column-filter" placeholder="Search by CrateNo" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by CrateNo"
+              />
             </template>
           </Column>
         </DataTable>
       </div>
     </div>
-    
+
     <Dialog
       v-model:visible="is_uretimform"
       header="Seleksiyon Form"
@@ -1006,11 +1083,7 @@
               @filter="filter_data_change2($event)"
               @row-select="uretimSec($event)"
             >
-              <Column
-                field="kasa_no"
-                header="No"
-                bodyStyle="text-align:center"
-              >
+              <Column field="kasa_no" header="No" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   <div
                     :class="slotProps.data.disarda == true ? 'disarda_css' : ''"
@@ -1038,11 +1111,7 @@
                   {{ slotProps.data.kategori }}
                 </template>
               </Column>
-              <Column
-                field="ocak"
-                header="Ocak"
-                bodyStyle="text-align:center"
-              >
+              <Column field="ocak" header="Ocak" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.ocak }}
                 </template>
@@ -1081,29 +1150,17 @@
                   {{ slotProps.data.kenarislem }}
                 </template>
               </Column>
-              <Column
-                field="en"
-                header="E"
-                bodyStyle="text-align:center"
-              >
+              <Column field="en" header="E" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.en }}
                 </template>
               </Column>
-              <Column
-                field="boy"
-                header="B"
-                bodyStyle="text-align:center"
-              >
+              <Column field="boy" header="B" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.boy }}
                 </template>
               </Column>
-              <Column
-                field="kenar"
-                header="K"
-                bodyStyle="text-align:center"
-              >
+              <Column field="kenar" header="K" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.kenar }}
                 </template>
@@ -1126,11 +1183,7 @@
                   {{ slotProps.data.kutuadet }}
                 </template>
               </Column>
-              <Column
-                field="m2"
-                header="M2"
-                bodyStyle="text-align:center"
-              >
+              <Column field="m2" header="M2" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.m2 }}
                 </template>
@@ -1138,11 +1191,7 @@
                   {{ formatDecimal(toplam_m2) }}
                 </template>
               </Column>
-              <Column
-                field="adet"
-                header="Adet"
-                bodyStyle="text-align:center"
-              >
+              <Column field="adet" header="Adet" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.adet }}
                 </template>
@@ -1151,11 +1200,7 @@
                   {{ formatDecimal(toplam_adet) }}
                 </template>
               </Column>
-              <Column
-                field="mt"
-                header="Mt"
-                bodyStyle="text-align:center"
-              >
+              <Column field="mt" header="Mt" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.mt }}
                 </template>
@@ -1163,11 +1208,7 @@
                   {{ formatDecimal(toplam_mt) }}
                 </template>
               </Column>
-              <Column
-                field="ton"
-                header="Ton"
-                bodyStyle="text-align:center"
-              >
+              <Column field="ton" header="Ton" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.ton }}
                 </template>
@@ -1176,11 +1217,7 @@
                   {{ formatDecimal(toplam_ton) }}
                 </template>
               </Column>
-              <Column
-                field="kutu"
-                header="Kutu"
-                bodyStyle="text-align:center"
-              >
+              <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   <div
                     v-if="slotProps.data.kutu == true"
@@ -1293,7 +1330,7 @@ export default {
       "slk_enb_dis",
       "slk_enb_mekmer_dis",
       "seleksiyon_dis_top_kasa",
-      "datatableLoading"
+      "datatableLoading",
     ]),
 
     sort_seleksiyon_uretimlist() {
@@ -1409,7 +1446,7 @@ export default {
   mounted() {},
   methods: {
     isFilters(event) {
-      this.toplam_islem(event.filteredValue)
+      this.toplam_islem(event.filteredValue);
     },
     formatDecimal(value) {
       let val = (value / 1).toFixed(2).replace(".", ",");

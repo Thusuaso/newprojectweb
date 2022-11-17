@@ -18,7 +18,6 @@
         </TabPanel>
         <TabPanel header="PROFORMA BİLGİLERİ">
           <proforma-bilgileri
-            
             @proformaBilgileriDegisim="kayitDurum = $event"
             @odemeTur="odemeTurDegisim($event)"
             @navlunDigerTutarDegisim="faturaBilgileriGuncelle"
@@ -41,14 +40,15 @@
         <TabPanel header="ÇEKİ LİSTESİ">
           <ceki-listesi :siparisNo="dtSiparisNo" :yeniSiparis="yeniSiparis" />
         </TabPanel>
+        <TabPanel header=" CHAT">
+          <chat :siparisNo="dtSiparisNo" :yeniSiparis="yeniSiparis" />
+        </TabPanel>
         <TabPanel header="KALAN SİPARİŞ BİLGİSİ">
           <gidecek-sip-bilgileri
             :selectOrderNo="dtSiparisNo"
           ></gidecek-sip-bilgileri>
         </TabPanel>
-        <!-- <TabPanel header=" CHAT">
-            <chat :siparisNo="dtSiparisNo" :yeniSiparis="yeniSiparis" />
-          </TabPanel> -->
+        
       </TabView>
     </div>
 

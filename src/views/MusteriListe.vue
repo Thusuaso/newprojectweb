@@ -49,7 +49,15 @@
         >
           <Column field="id" header="ID" headerStyle="width:55px">
             <template #body="slotProps">
-              {{ slotProps.data.id }}
+              <div
+                :style="{
+                  'background-color': slotProps.data.sonkullanici
+                    ? '#F1948A'
+                    : '',
+                }"
+              >
+                {{ slotProps.data.id }}
+              </div>
             </template>
             <template #filter="{ filterModel, filterCallback }">
               <InputText
@@ -66,13 +74,11 @@
             <template #body="slotProps">
               {{ slotProps.data.musteriadi }}
             </template>
-
           </Column>
           <Column field="unvan" header="Firma Adi">
             <template #body="slotProps">
               {{ slotProps.data.unvan }}
             </template>
-
           </Column>
           <Column field="adres" header="Adres" headerStyle="width:400px;">
             <template #body="slotProps">

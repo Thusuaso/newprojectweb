@@ -274,6 +274,7 @@ export default {
         this.$store.dispatch("mekmarTotalLoadMonthsAct", this.toplamListe);
         this.yuklemeToplamList(data.data.marketingYuklemeAylik);
         this.bdToplamList(data.data.marketingBd);
+        this.$store.dispatch("loadingEndAct");
       });
     },
     yuklemeToplamList(liste) {

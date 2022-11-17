@@ -1,6 +1,26 @@
 import axios from "../helpers/custom_fileaxios";
 
 const FileService = {
+  bgpProjectGonder(file, id) {
+    let kontrol = file.name.split(".").length;
+    if (kontrol > 2) {
+      alert(
+        "Lütfen Dosya İsmini Düzeltiniz.Dosya İsminde '.' karakteri olamaz."
+      );
+      return;
+    }
+    //let uzanti = file.name.split('.')[1];
+    let dosya = file.name;
+
+    const url = "file/upload/bgpProject/" + id + "/" + dosya;
+
+    let formData = new FormData();
+    formData.append("file", file);
+
+    return axios.post(url, formData).then((res) => {
+      return { ...res.data, dosyaAdi: dosya };
+    });
+  },
   proformaGonder(file, teklifId) {
     let kontrol = file.name.split(".").length;
     if (kontrol > 2) {

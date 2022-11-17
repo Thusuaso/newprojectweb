@@ -106,6 +106,11 @@ const BgpProjectService = {
       .get("/bgpProject/getBgpServiceSelectedCompany/" + firmaAdi)
       .then((res) => res.data);
   },
+  setBgpProjectFileData(data) {
+    return axios
+      .post("/bgpProject/setBgpProjectFile", data)
+      .then((res) => res.data);
+  },
 };
 
 export default BgpProjectService;

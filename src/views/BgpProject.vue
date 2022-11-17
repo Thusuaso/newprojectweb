@@ -85,8 +85,8 @@
             <p class="card__description">
             <div class="columns">
               <div class="column">
-                <Button class="card_buttons" @click="bgpProjectsDetail(item.projectName, item.ulkeAdi)"
-                  label="Detay Aç">Detay
+                <Button class="card_buttons"
+                  @click="bgpProjectsDetail(item.projectName,item.ulkeAdi,item.id,item.filelink,item.fileCloud)" label="Detay Aç">Detay
                   Aç</Button>
               </div>
               <div class="column">
@@ -340,14 +340,20 @@ export default {
         });
       }
     },
-    bgpProjectsDetail(projectName, ulkeAdi) {
-      this.p_name = projectName + " - " + ulkeAdi;
-      this.$store.dispatch("bgp_project_name_load", projectName);
-      this.$store.dispatch("bgp_project_ulke_load", ulkeAdi);
-      bgpService.getBgpProjectDetail(projectName).then((data) => {
-        this.$store.dispatch("bgp_projects_list_ayrinti_load", data);
-        this.bgp_project_ayrinti_form = true;
-      });
+    bgpProjectsDetail(projectName, ulkeAdi, id, filelink, fileCloud) {
+      this.p_name = projectName + ' - ' + ulkeAdi
+      this.$store.dispatch('bgp_project_name_load', projectName)
+      this.$store.dispatch('bgp_project_id_load', id)
+      this.$store.dispatch('bgp_projects_filelink_load', filelink);
+      this.$store.dispatch('bgp_projects_fileCloud_load', fileCloud);
+
+
+      this.$store.dispatch('bgp_project_ulke_load', ulkeAdi)
+      bgpService.getBgpProjectDetail(projectName).then(data => {
+        this.$store.dispatch('bgp_projects_list_ayrinti_load', data)
+        this.bgp_project_ayrinti_form = true
+      })
+
     },
     newProject() {
       this.new_project_form = true;

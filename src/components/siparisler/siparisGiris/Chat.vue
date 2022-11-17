@@ -237,7 +237,7 @@
   </div>
 </template>
 <script>
-import Opservice from "@/service/OperasyonService";
+import Opservice from "../../../service/OperasyonService";
 
 export default {
   data() {
@@ -261,7 +261,7 @@ export default {
       buton_fy: true,
       buton_ak: true,
       buton_hk: true,
-      button_sm: true,
+      buton_sm: true,
       alici: "",
       veri: [],
     };
@@ -295,34 +295,81 @@ export default {
   mounted() {},
   methods: {
     veridegisim(kim) {
-      if (kim == 1 && this.metin_fs.length > 0) {
-        this.buton_fs = false;
-      } else if (kim == 2 && this.metin_md.length > 0) {
-        this.buton_md = false;
-      } else if (kim == 3 && this.metin_ho.length > 0) {
-        this.buton_ho = false;
-      } else if (kim == 4 && this.metin_gu.length > 0) {
-        this.buton_gu = false;
-      } else if (kim == 5 && this.metin_oo.length > 0) {
-        this.buton_oo = false;
-      } else if (kim == 6 && this.metin_fy.length > 0) {
-        this.buton_fy = false;
-      } else if (kim == 7 && this.metin_ak.length > 0) {
-        this.buton_ak = false;
-      } else if (kim == 8 && this.metin_hk.length > 0) {
-        this.buton_hk = false;
-      } else if (kim == 9 && this.metin_sm.length > 0) {
-        this.buton_sm = false;
-      } else {
-        this.buton_fs = true;
-        this.buton_md = true;
-        this.buton_ho = true;
-        this.buton_gu = true;
-        this.buton_oo = true;
-        this.buton_fy = true;
-        this.buton_ak = true;
-        this.buton_hk = true;
-        this.buton_sm = true;
+      if (kim == 1) {
+        this.buton_fs = this.veriControl(kim);
+      } else if (kim == 2) {
+        this.buton_md = this.veriControl(kim);
+      } else if (kim == 3) {
+        this.buton_ho = this.veriControl(kim);
+      } else if (kim == 4) {
+        this.buton_gu = this.veriControl(kim);
+      } else if (kim == 5) {
+        this.buton_oo = this.veriControl(kim);
+      } else if (kim == 6) {
+        this.buton_fy = this.veriControl(kim);
+      } else if (kim == 7) {
+        this.buton_ak = this.veriControl(kim);
+      } else if (kim == 8) {
+        this.buton_hk = this.veriControl(kim);
+      } else if (kim == 9) {
+        this.buton_sm = this.veriControl(kim);
+      }
+    },
+    veriControl(kim) {
+      if (kim == 1) {
+        if (this.metin_fs.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 2) {
+        if (this.metin_md.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 3) {
+        if (this.metin_ho.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 4) {
+        if (this.metin_gu.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 5) {
+        if (this.metin_oo.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 6) {
+        if (this.metin_fy.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 7) {
+        if (this.metin_ak.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 8) {
+        if (this.metin_hk.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (kim == 9) {
+        if (this.metin_sm.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
       }
     },
     mailGonder(kim) {
@@ -373,6 +420,7 @@ export default {
         }
       });
     },
+    deneme() {},
   },
 };
 </script>
