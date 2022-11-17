@@ -1315,6 +1315,7 @@ export default {
   },
   data() {
     return {
+      maliyet_listesi_excel:[],
       is_quarter_dropdown: true,
       quarter_year: [
         { id: 1, quarter: "Hepsi" },
@@ -1414,28 +1415,38 @@ export default {
           (x) => x.yukleme_month >= 1 && x.yukleme_month <= 3
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
+        this.maliyet_listesi_excel = this.quarterMaliyet
+
         this.quarter_maliyet_form = true;
       } else if (event == "2. Çeyrek") {
         this.quarterMaliyet = this.maliyet_listesi.filter(
           (x) => x.yukleme_month >= 4 && x.yukleme_month <= 6
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
+        this.maliyet_listesi_excel = this.quarterMaliyet
+
         this.quarter_maliyet_form = true;
       } else if (event == "3. Çeyrek") {
         this.quarterMaliyet = this.maliyet_listesi.filter(
           (x) => x.yukleme_month >= 7 && x.yukleme_month <= 9
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
+        this.maliyet_listesi_excel = this.quarterMaliyet
+
         this.quarter_maliyet_form = true;
       } else if (event == "4. Çeyrek") {
         this.quarterMaliyet = this.maliyet_listesi.filter(
           (x) => x.yukleme_month >= 10 && x.yukleme_month <= 12
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
+        this.maliyet_listesi_excel = this.quarterMaliyet
+
         this.quarter_maliyet_form = true;
       } else if (event == "Hepsi") {
         this.quarterMaliyet = this.maliyet_listesi;
         this.tablo_toplam_guncelle(this.quarterMaliyet);
+        this.maliyet_listesi_excel = this.quarterMaliyet
+
         this.quarter_maliyet_form = true;
       }
     },
@@ -1443,6 +1454,7 @@ export default {
       //console.log(this.short_data.sort((a, b) => a.urunadi - b.name ))
 
       this.tablo_toplam_guncelle(event.filteredValue);
+      this.maliyet_listesi_excel = event.filteredValue
 
       return 1;
     },
@@ -1455,7 +1467,7 @@ export default {
       return "₺" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     excel_cikti_click() {
-      service.getMaliyetExcelCikti(this.maliyet_listesi).then((response) => {
+      service.getMaliyetExcelCikti(this.maliyet_listesi_excel).then((response) => {
         if (response.status) {
           this.musteri_loading = true;
           const link = document.createElement("a");
@@ -1478,7 +1490,7 @@ export default {
         .then((data) => {
           this.maliyet_listesi = [...data];
           this.local_maliyet_data = [...data];
-          console.log("getMaliyetRapor",data)
+          this.maliyet_listesi_excel = data
           this.tablo_toplam_guncelle(data);
 
           this.$store.dispatch("loadingEndAct");
@@ -1491,7 +1503,7 @@ export default {
       if (!this.maliyet_yil_listesi) {
         service.getMaliyetRaporYil(event).then((data) => {
           this.maliyet_listesi = data;
-
+          this.maliyet_listesi_excel = data
           this.tablo_toplam_guncelle(data);
           this.is_quarter_dropdown = false;
           this.$store.dispatch("loadingEndAct");
@@ -1500,6 +1512,7 @@ export default {
         this.maliyet_listesi = null;
         this.maliyet_listesi = this.maliyet_yil_listesi;
         this.tablo_toplam_guncelle();
+        this.maliyet_listesi_excel = data
         this.$store.dispatch("loadingEndAct");
       }
     },
@@ -1540,6 +1553,7 @@ export default {
         this.filteredFaturalama = this.maliyet_listesi.filter(
           (x) => x.faturatur == "Mekmar"
         );
+        this.maliyet_listesi_excel = this.filteredFaturalama
         this.local_maliyet_data = this.filteredFaturalama;
         this.tablo_toplam_guncelle(this.filteredFaturalama);
         this.is_hepsi = false;
@@ -1548,6 +1562,7 @@ export default {
         this.filteredFaturalama = this.maliyet_listesi.filter(
           (x) => x.faturatur == "Mekmer"
         );
+        this.maliyet_listesi_excel = this.filteredFaturalama
         this.local_maliyet_data = this.filteredFaturalama;
         this.tablo_toplam_guncelle(this.filteredFaturalama);
         this.is_hepsi = false;
@@ -1556,6 +1571,7 @@ export default {
         this.filteredFaturalama = this.maliyet_listesi.filter(
           (x) => x.faturatur == "Efes"
         );
+        this.maliyet_listesi_excel = this.filteredFaturalama
         this.local_maliyet_data = this.filteredFaturalama;
         this.tablo_toplam_guncelle(this.filteredFaturalama);
         this.is_hepsi = false;
