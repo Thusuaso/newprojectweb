@@ -1,7 +1,7 @@
 const state = {
-  data: null,
-  nakliyeAyrinti: null,
-  nakliye_data_list: null,
+  data: [],
+  nakliyeAyrinti: [],
+  nakliye_data_list: [],
 };
 
 const actions = {
@@ -21,7 +21,8 @@ const mutations = {
     state.data = data[0];
   },
   nakliye_yukle_mut(state, data) {
-    state.nakliyeAyrinti = data;
+    console.log("nakliye_yukle_mut", data)
+    state.nakliyeAyrinti = data[0];
   },
   nakliye_data_list_yukle_mut(state, data) {
     state.nakliye_data_list = data;

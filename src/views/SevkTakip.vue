@@ -16,7 +16,7 @@
         <DataTable
           :value="takip_listesi"
           v-model:filters="filters"
-          filterDisplay="menu"
+          filterDisplay="row"
           dataKey="id"
           sortField="kalan_alacak"
           :sortOrder="-1"
@@ -27,7 +27,7 @@
           @row-select="takipSec($event)"
           :loading="datatableLoading"
         >
-          <Column field="sira" header="#" headerStyle="width:2px">
+          <Column field="sira" header="#" headerStyle="width:2px" :showFilterMenu="false">
             <template #body="slotProps">
               {{ slotProps.data.sira }}
             </template>
@@ -37,6 +37,7 @@
             header="Müşteri"
             headerStyle="width:8px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.musteriadi }}
@@ -56,6 +57,7 @@
             header="Po"
             headerStyle="width:8px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.siparisno }}
@@ -75,6 +77,7 @@
             header="Sevk Tarihi"
             headerStyle="width:8px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.sevk_tarihi }}
@@ -94,6 +97,7 @@
             header="Konteynır No"
             headerStyle="width:10px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.konteynerno }}

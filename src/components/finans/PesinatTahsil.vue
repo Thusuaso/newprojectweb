@@ -4,7 +4,7 @@
     <br />
       <div class="columns">
         <div class="column">
-          <Calender icon="calendar-today" @input="kurSecim" v-model="tarih" :disabled="is_form" />
+          <Calendar icon="calendar-today" @date-select="kurSecim" v-model="tarih" :disabled="is_form" />
         </div>
         <div class="column">
           <span class="p-float-label">

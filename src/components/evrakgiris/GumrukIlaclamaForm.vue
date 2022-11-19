@@ -1,195 +1,158 @@
 <template>
   <section>
-    <div class="card is-centered" style="weight: 25px; height: 850px">
-      <div class="column is-12">
-        <b-field label="Adım 1" label-position="on-border">
-          <div class="card">
-            <div class="columns is-multiline">
-              <div class="column is-3">
-                <b-field label="Firma Seçiniz" label-position="on-border">
-                  <b-autocomplete
-                    rounded
-                    v-model="firma"
-                    :data="filterFaturaList"
-                    field="firma_adi"
-                    placeholder="Firma Seçiniz"
-                    @blur="faturaDegisim"
-                    @select="(option) => (selected = option)"
-                    :disabled="kaydetVisible1"
-                  >
-                  </b-autocomplete>
-                </b-field>
-              </div>
-
-              <div class="column is-3" size="is-small">
-                <b-field label="PO" label-position="on-border">
-                  <b-input
-                    v-model="SiparisEvrakList.siparisno"
-                    :disabled="true"
-                    size="is-small"
-                  ></b-input>
-                </b-field>
-              </div>
-              <div class="column is-3" size="is-small">
-                <b-field label="Fatura Türü" label-position="on-border">
-                  <Dropdown
-                    style="width: 200px"
-                    :disabled="kaydetVisible1"
-                    v-model="selectFaturaTur"
-                    :options="FaturaTurList"
-                    optionLabel="name"
-                  />
-                </b-field>
-              </div>
-              <div class="column is-3" size="is-small">
-                <Button
-                  label="+ Yeni Firma"
-                  style="
-                    width: 250px;
-                    background-color: green;
-                    font-weight: bold;
-                  "
-                  @click="yeniFirmaGiris"
-                />
-              </div>
-            </div>
-            <div class="columns is-multiline" style="margin-top: 75px">
-              <div class="column is-2">
-                <b-field label="Tarih" label-position="on-border">
-                  <b-datepicker
-                    v-model="tarih"
-                    :disabled="kaydetVisible1"
-                    size="is-small"
-                  />
-                </b-field>
-              </div>
-              <div class="column is-2" style="width: 350px">
-                <b-field label="FaturaNo" label-position="on-border">
-                  <b-input
-                    v-model="faturaNo"
-                    :disabled="kaydetVisible1"
-                    size="is-small"
-                  ></b-input>
-                </b-field>
-              </div>
-              <div class="column is-2">
-                <b-field label="Tutar (TL)" label-position="on-border">
-                  <b-input
-                    v-model="Tutar_tl"
-                    :disabled="kaydetVisible1"
-                    @input="miktar_input_event($event)"
-                    size="is-small"
-                  ></b-input>
-                </b-field>
-              </div>
-              <div class="column is-2">
-                <b-field label="Kur" label-position="on-border">
-                  <b-input
-                    v-model="kur"
-                    @input="toplam_adet_hesapla($event)"
-                    @focus.native="$event.target.select()"
-                    @click.native="$event.target.select()"
-                    :disabled="kaydetVisible1"
-                    size="is-small"
-                  ></b-input>
-                </b-field>
-              </div>
-              <div class="column is-2">
-                <b-field label="Tutar ($)" label-position="on-border">
-                  <b-input
-                    v-model="Tutar_dolar"
-                    @input="dolar_input_event($event)"
-                    :disabled="kaydetVisible1"
-                    size="is-small"
-                  >
-                  </b-input>
-                </b-field>
-              </div>
-            </div>
-
-            <div class="columns is-12" style="margin-left: 235px">
-              <div class="column is-12">
-                <Button
-                  class="p-button-rounded p-button-warning"
-                  label="Bilgileri Kaydet"
-                  :disabled="kaydetVisible1"
-                  @click="kaydetIslemi"
-                  icon="fas fa-check"
-                  iconPos="left"
-                />
-              </div>
-            </div>
+    <Card>
+      <template #content>
+        <div class="columns">
+          <div class="column">
+            <span class="p-float-label">
+              <AutoComplete
+                id="firma"
+                v-model="firma"
+                :suggestions="filterFaturaList"
+                :disabled="kaydetVisible1"
+                @complete="searchFatura($event)"
+                optionLabel="firma_adi"
+              />
+              <label for="firma">Firma Seçiniz</label>
+            </span>
           </div>
-        </b-field>
-        <br />
-        <div class="columns is-multiline">
-          <b-field label="Adım 2" label-position="on-border">
-            <div class="card">
-              <div class="p-col-12 p-md-6">
-                <div class="p-col-12 p-lg-12">
-                  <Button
-                    :disabled="dis_numuneDosyayukle"
-                    style="background-color: #green; color: black"
-                    label="Evrak Yukle"
-                    conPos="left"
-                    icon="fas fa-file-invoice-dollar"
-                    @click="proformaVisible = true"
-                  />
-                  <Dialog
-                    v-model:visible="proformaVisible"
-                    maximizable
-                    :modal="true"
-                    header="Evrak Girişi"
-                    position="top"
-                    
-                  >
-                    <div
-                      class="p-cardialog-content"
-                      style="height: 300px; background-color: #f4f4f4"
-                    >
-                      <div class="p-grid">
-                        <div class="p-col-12 p-lg-12">
-                          <div class="p-col-12 p-lg-12">
-                            <div class="p-grid">
-                              <div class="p-col-8" style="margin-left: -60px">
-                                <custom-file-input
-                                  :disabled="dis_DosyaAc"
-                                  @sunucuDosyaYolla="
-                                    konteynerDosyaGonder($event)
-                                  "
-                                  style="margin-left: 155px"
-                                  baslik="Evrak Yükle"
-                                />
-                              </div>
-                              <div class="p-col-4">
-                                <a :href="denizcilikLink" target="_blank">
-                                  <Button
-                                    label="Dosya Aç"
-                                    :disabled="dis_DosyaAc"
-                                  />
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Dialog>
-                </div>
-              </div>
-
-              <span style="color: red; font-size: 14px; font-weight: bold"
-                >Pdf formatında ve dosya isminin '.' içermediğine dikkat ediniz
-                .</span
-              >
-              <br />
-            </div>
-          </b-field>
-          <br />
+          <div class="column">
+            <span class="p-float-label">
+              <InputText
+                id="siparisno"
+                v-model="SiparisEvrakList.siparisno"
+                :disabled="true"
+              />
+              <label for="siparisno">PO</label>
+            </span>
+          </div>
+          <div class="column">
+            <Dropdown
+              style="width: 200px"
+              :disabled="kaydetVisible1"
+              v-model="selectFaturaTur"
+              :options="FaturaTurList"
+              optionLabel="name"
+            />
+          </div>
+          <div class="column">
+            <Button
+              label="+ Yeni Firma"
+              style="width: 250px; background-color: green; font-weight: bold"
+              @click="yeniFirmaGiris"
+            />
+          </div>
         </div>
+      </template>
+    </Card>
+    <Card>
+      <template #content>
+        <div class="columns">
+          <div class="column">
+            <span class="p-float-label">
+              <Calendar
+                id="tarih"
+                v-model="tarih"
+                :disabled="kaydetVisible1"
+                @date-select="isKurSelected"
+              />
+              <label for="tarih">Tarih</label>
+            </span>
+          </div>
+          <div class="column">
+            <span class="p-float-label">
+              <InputText
+                id="faturaNo"
+                v-model="faturaNo"
+                :disabled="kaydetVisible1"
+                size="is-small"
+              />
+              <label for="faturaNo">Fatura No</label>
+            </span>
+          </div>
+          <div class="column">
+            <span class="p-float-label">
+              <InputText
+                id="Tutar_tl"
+                v-model="Tutar_tl"
+                :disabled="kaydetVisible1"
+                @input="miktar_input_event($event)"
+                size="is-small"
+              />
+              <label for="Tutar_tl">Tutar (TL)</label>
+            </span>
+          </div>
+          <div class="column">
+            <span class="p-float-label">
+              <InputText
+                id="kur"
+                v-model="kur"
+                @input="toplam_adet_hesapla($event)"
+                @focus="$event.target.select()"
+                @click="$event.target.select()"
+                :disabled="kaydetVisible1"
+                size="is-small"
+              />
+              <label for="kur">Kur</label>
+            </span>
+          </div>
+          <div class="column">
+            <span class="p-float-label">
+              <InputText
+                id="Tutar_dolar"
+                v-model="Tutar_dolar"
+                @input="dolar_input_event($event)"
+                :disabled="kaydetVisible1"
+                size="is-small"
+              />
 
-        <div class="column is-12">
-          <div class="column is-4" style="margin-top: -30px">
+              <label for="Tutar_dolar">Tutar ($)</label>
+            </span>
+          </div>
+        </div>
+      </template>
+    </Card>
+    <Card>
+      <template #content>
+        <div class="columns">
+          <Button
+            class="p-button-rounded p-button-warning"
+            label="Bilgileri Kaydet"
+            :disabled="kaydetVisible1"
+            @click="kaydetIslemi"
+            icon="fas fa-check"
+            iconPos="left"
+          />
+        </div>
+      </template>
+    </Card>
+    <Card>
+      <template #content>
+        <div class="columns">
+          <div class="column">
+            <custom-file-input
+              :disabled="dis_DosyaAc"
+              @sunucuDosyaYolla="konteynerDosyaGonder($event)"
+              style="margin-left: 155px"
+              baslik="Evrak Yükle"
+            />
+          </div>
+          <div class="column">
+            <a :href="denizcilikLink" target="_blank">
+              <Button label="Dosya Aç" :disabled="dis_DosyaAc" />
+            </a>
+          </div>
+        </div>
+        <span style="color: red; font-size: 14px; font-weight: bold"
+          >Pdf formatında ve dosya isminin '.' içermediğine dikkat ediniz
+          .</span
+        >
+      </template>
+    </Card>
+    <Card>
+      <template #content>
+        <div class="columns">
+          <div class="column">
             <Button
               label="KAYDET"
               class="p-button-success"
@@ -197,20 +160,14 @@
               @click="kaydetolustur()"
             />
           </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 150px"
-          >
+          <div class="column">
             <Button
               label="Yeni Kayıt"
               :disabled="yenikayitVisible"
               @click="kayitolustur()"
             />
           </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 300px"
-          >
+          <div class="column">
             <Button
               label="Vazgec"
               class="p-button-danger"
@@ -219,8 +176,8 @@
             />
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </Card>
     <Dialog
       v-model:visible="is_firma_alani"
       header="Firma Listesi"
@@ -247,7 +204,7 @@ import CustomInputFile from "@/components/shared/CustomInputFile";
 import fileService from "@/service/FileService";
 import FirmaAlani from "./FirmaAlani";
 import { mapGetters } from "vuex";
-
+import service2 from "@/service/FinansService";
 export default {
   components: {
     customFileInput: CustomInputFile,
@@ -256,6 +213,7 @@ export default {
 
   data() {
     return {
+      filterFaturaList: [],
       firma: "",
       firma_list: [],
       siparis: "",
@@ -298,21 +256,6 @@ export default {
   },
   computed: {
     ...mapGetters(["SiparisEvrakList"]),
-
-    filterFaturaList() {
-      if (this.firma_list) {
-        return this.firma_list.filter((option) => {
-          return (
-            option.firma_adi
-              .toString()
-              .toLowerCase()
-              .indexOf(this.firma.toLowerCase()) >= 0
-          );
-        });
-      }
-
-      return null;
-    },
     filterSiparisList() {
       if (this.siparis_list) {
         return this.siparis_list.filter((option) => {
@@ -329,6 +272,32 @@ export default {
     },
   },
   methods: {
+    isKurSelected() {
+      const d = this.tarih;
+
+      const year = d.getFullYear(); // 2021
+      const mount = d.getMonth();
+      const day = d.getDate();
+
+      service2.getGuncelKur(year, mount + 1, day).then((data) => {
+        this.kur = data.result;
+      });
+    },
+    searchFatura(event) {
+
+
+      let result;
+
+      if (event.query.length == 0) result = [...this.firma_list];
+      else {
+        result = this.firma_list.filter((x) => {
+          return x.firma_adi
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
+      this.filterFaturaList = result;
+    },
     yeniFirmaGiris() {
       this.is_firma_alani = true;
 
@@ -399,7 +368,7 @@ export default {
         )
         .then((data) => {
           console.log("nakliyeDosyaGonder", data);
-          
+
           service.setGumrukFaturaKayit(this.denizcilik_data2).then((veri) => {
             if (veri.Status) {
               alert("Kayıt İşlemi Yapıldı.");
@@ -417,22 +386,11 @@ export default {
       let val = (value / 1).toFixed(2).replace(".", ",");
       return "₺" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
-    faturaDegisim() {
-      if (this.firma_list) {
-        setTimeout(() => {
-          const siparis_item = this.firma_list.find(
-            (x) => x.firma_adi == this.firma
-          );
-
-          this.firma_id = siparis_item.Firma_id;
-        }, 1000);
-      }
-    },
     nakliye_tablo_yukle() {
       this.tedarikci_loading = true;
     },
     kaydetIslemi() {
-      if (!this.firma) {
+      if (this.firma == "") {
         alert("Firma Adını Seçiniz..");
         return;
       }
@@ -455,15 +413,15 @@ export default {
 
       const denizcilik_data = {
         siparisno: this.siparis,
-        firma_adi: this.firma,
+        firma_adi: this.firma.firma_adi,
         faturaNo: this.faturaNo,
         Tutar_tl: this.Tutar_tl,
         kur: this.kur,
-        Firma_id: this.firma_id,
+        Firma_id: this.firma.Firma_id,
         Tutar_dolar: this.Tutar_dolar,
         fatura_tur_list: this.selectFaturaTur,
         tarih: this.localService.getDateString(this.tarih),
-        kullaniciAdi: this.$store.getters.getUser,
+        kullaniciAdi: this.$store.getters.__getUsername,
       };
       this.denizcilik_data2 = denizcilik_data;
 
@@ -479,7 +437,6 @@ export default {
           this.kur = 0;
           this.Tutar_dolar = 0;
           this.tarih = new Date();
-
         } else {
           alert("Ops! Kayıt İşlemi Yapılamadı, Lütfen Tekrar Deneyiniz.");
         }

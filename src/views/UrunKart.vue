@@ -22,20 +22,20 @@
         />
       </div>
     </div>
-    <div class="p-grid" v-if="isMobile > 576">
-      <div class="p-col-12">
+    <div class="columns" >
+      <div class="column is-12">
         <DataTable
           v-model:value="getUrunKartMenuList"
           v-model:selection="selectUrunKart"
           selectionMode="single"
           dataKey="id"
-          :paginator="true"
+          :paginator="true" 
           :rows="20"
           v-model:filters="filters"
-          :scrollable="true"
-          scrollHeight="700px"
           @row-select="urunKartDetayAc"
           filterDisplay="menu"
+          :scrollable="true" 
+          scrollHeight="700px"
         >
           <Column
             field="id"
@@ -190,187 +190,6 @@
         </DataTable>
       </div>
     </div>
-    <DataTable
-      v-else
-      v-model:value="getUrunKartMenuList"
-      v-model:selection="selectUrunKart"
-      selectionMode="single"
-      dataKey="id"
-      :paginator="true"
-      :rows="20"
-      :filters="filters"
-      @row-select="urunKartDetayAc"
-    >
-      <Column
-        field="kategoriAdi"
-        header="Kategori"
-        headerStyle="width: 20%;font-size:11px;"
-        bodyStyle="font-size:12px;text-align:left;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.kategoriAdi }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="1">
-            <InputText
-              type="text"
-              v-model="filters['kategoriAdi']"
-              class="p-column-filter"
-            />
-          </div>
-        </template>
-      </Column>
-      <Column
-        field="urunAdi"
-        header="Ürün"
-        headerStyle="width: 16%;font-size:11px;"
-        bodyStyle="font-size:12px;text-align:left;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.urunAdi }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="2">
-            <InputText
-              type="text"
-              v-model="filters['urunAdi']"
-              class="p-column-filter"
-            />
-          </div>
-        </template>
-      </Column>
-      <Column
-        field="yuzey_1"
-        header="Y1"
-        headerStyle="width: 16%;font-size:11px;"
-        bodyStyle="font-size:12px;text-align:left;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.yuzey_1 }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="3">
-            <InputText
-              type="text"
-              v-model="filters['yuzey_1']"
-              class="p-column-filter"
-            />
-          </div>
-        </template>
-      </Column>
-      <Column
-        field="yuzey_2"
-        header="Y2"
-        headerStyle="width: 16%;font-size:11px;"
-        bodyStyle="font-size:12px;text-align:left;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.yuzey_2 }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="4">
-            <InputText
-              type="text"
-              v-model="filters['yuzey_2']"
-              class="p-column-filter"
-            />
-          </div>
-        </template>
-      </Column>
-      <Column
-        field="yuzey_3"
-        header="Y3"
-        headerStyle="width: 16%;font-size:11px;"
-        bodyStyle="font-size:12px;text-align:left;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.yuzey_3 }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="5">
-            <InputText
-              type="text"
-              v-model="filters['yuzey_3']"
-              class="p-column-filter"
-            />
-          </div>
-        </template>
-      </Column>
-      <Column
-        field="en"
-        header="En"
-        bodyStyle="font-size:12px;text-align:left;"
-        headerStyle="width: 10%;font-size:11px;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.en }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="6">
-            <InputText
-              type="text"
-              v-model="filters['en']"
-              class="p-column-filter"
-            />
-          </div>
-        </template>
-      </Column>
-      <Column
-        field="boy"
-        header="Boy"
-        bodyStyle="font-size:12px;text-align:left;"
-        headerStyle="width: 10%;font-size:11px;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.boy }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="7">
-            <InputText
-              type="text"
-              v-model="filters['boy']"
-              class="p-column-filter"
-            />
-          </div>
-        </template>
-      </Column>
-      <Column
-        field="kenar"
-        header="Kenar"
-        bodyStyle="font-size:12px;text-align:left;"
-        headerStyle="width: 10%;font-size:11px;"
-      >
-        <template #body="slotProps">
-          <div id="icDuzenleme">
-            {{ slotProps.data.kenar }}
-          </div>
-        </template>
-        <template #filter>
-          <div tabindex="8">
-            <InputText
-              type="text"
-              v-model="filters['kenar']"
-              class="p-column-filter"
-              tabindex="8"
-            />
-          </div>
-        </template>
-      </Column>
-    </DataTable>
   </div>
   <Dialog
     v-model:visible="urunKartVisible"

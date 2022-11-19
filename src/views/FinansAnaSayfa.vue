@@ -94,10 +94,10 @@
           sortField="genel_bakiye"
           dataKey="id"
           :sortOrder="-1"
-          :scrollable="true"
-          scrollHeight="430%"
+          :scrollable="true" 
+          scrollHeight="800px"
           v-model:filters="filters"
-          filterDisplay="menu"
+          filterDisplay="row"
           @filter="siparisFilterDegisim($event)"
           selectionMode="single"
           v-model:selection="select_konteyner"
@@ -115,6 +115,7 @@
             field="musteriadi"
             headerStyle="width:16.6%;"
             :bodyStyle="{ fontSize: isMobile, paddingLeft: '20px' }"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.musteriadi }}

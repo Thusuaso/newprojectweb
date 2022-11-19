@@ -1,111 +1,66 @@
 <template>
-  <section>
-    <div class="columns" style="weight: 25px; height: 500px">
-      <div class="columns">
-        <div class="col-12 col-sm-12 stilim">
-          <div
-            class="col-12 col-sm-12 stilim"
-            style="
-              margin-top: 60px;
-              text-decoration: underline;
-              font-weight: bold;
-            "
-          >
-            <span> Tedarikçi Seçiniz: </span>
+  <br />
+  <br />
+  <br />
+  <div class="columns">
+    <div class="column">
+      <AutoComplete
+        :dropdown="true"
+        size="20%;"
+        v-model="TedarikciTur"
+        :suggestions="filterTedarikciTurList"
+        @complete="aramaTedarikciTur($event)"
+        field="tedarikci"
+        @item-select="siparisTurDegisim"
+      >
+        <template #items="slotProps">
+          <div class="p-clearfix p-autocomplete-brand-item">
+            <div>
+              {{ slotProps.tedarikci }}
+            </div>
           </div>
-          <div
-            class="col-12 col-sm-12 stilim"
-            style="
-              margin-top: 60px;
-              text-decoration: underline;
-              font-weight: bold;
-            "
-          >
-            <span> Fatura Numarası : </span>
-          </div>
-        </div>
-        <div class="col-12 col-sm-12 stilim">
-          <div class="col-12 col-sm-12 stilim" style="margin-top: 50px">
-            <AutoComplete
-              :dropdown="true"
-              size="20%;"
-              v-model="TedarikciTur"
-              :suggestions="filterTedarikciTurList"
-              @complete="aramaTedarikciTur($event)"
-              field="tedarikci"
-              @item-select="siparisTurDegisim"
-            >
-              <template #items="slotProps">
-                <div class="p-clearfix p-autocomplete-brand-item">
-                  <div>
-                    {{ slotProps.tedarikci }}
-                  </div>
-                </div>
-              </template>
-            </AutoComplete>
-          </div>
-          <div class="col-12 col-sm-12 stilim" style="margin-top: 50px">
-            <b-input v-model="faturaNo" style="width: 220px" />
-          </div>
-          <div class="col-12 col-sm-12 stilim" style="margin-top: 40px">
-            <b-button type="is-primary" expanded @click="urunKaydet">
-              KAYDET
-            </b-button>
-          </div>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="col-12 col-sm-12 stilim">
-          <div
-            class="col-12 col-sm-12 stilim"
-            style="
-              margin-top: 60px;
-              text-decoration: underline;
-              font-weight: bold;
-            "
-          >
-            <span> Dosya Yükle: </span>
-          </div>
-          <div
-            class="col-12 col-sm-12 stilim"
-            style="
-              margin-top: 60px;
-              text-decoration: underline;
-              font-weight: bold;
-            "
-          >
-            <span> Dosya Aç : </span>
-          </div>
-        </div>
-        <div class="col-12 col-sm-12 stilim">
-          <div class="col-12 col-sm-12 stilim" style="margin-top: 50px">
-            <custom-file-input
-              baslik="  Dosya Yükle  "
-              @sunucuDosyaYolla="faturaDosyaGonder($event)"
-            />
-          </div>
-          <div class="col-12 col-sm-12 stilim" style="margin-top: 40px">
-            <a :href="tedarikciLink" target="_self">
-              <Button
-                label="Download"
-                style="width: 120px"
-                class="p-button-success"
-                iconPos="left"
-                icon="fas fa-download"
-                :disabled="dis_DosyaAc"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
+        </template>
+      </AutoComplete>
     </div>
-  </section>
+    <div class="column">
+      <custom-file-input
+        baslik="  Dosya Yükle  "
+        @sunucuDosyaYolla="faturaDosyaGonder($event)"
+      />
+    </div>
+    <div class="column">
+      <InputText v-model="faturaNo" />
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-12">
+      <Button
+        @click="urunKaydet"
+        style="width: 100%"
+        class="p-button-success"
+        label="KAYDET"
+      />
+    </div>
+    <!-- <div class="column">
+        <a :href="tedarikciLink" target="_self">
+          <Button
+            label="Download"
+            style="width: 120px"
+            class="p-button-success"
+            icon="fas fa-download"
+            :disabled="dis_DosyaAc"
+          />
+        </a>
+      </div> -->
+    <!-- <div class="column">
+        <Button v-model="faturaNo" style="width: 220px" />
+      </div> -->
+  </div>
 </template>
 <script>
 import service from "@/service/OperasyonService";
 import { mapGetters } from "vuex";
-import store from "@/store";
+// import store from "@/store";
 import fileService from "@/service/FileService";
 import CustomInputFile from "@/components/shared/CustomInputFile";
 export default {
@@ -116,7 +71,6 @@ export default {
     ...mapGetters(["SiparisEvrakList"]),
   },
   created() {
-
     if (this.SiparisEvrakList.Listem != null) {
       this.evrakLink = `${this.SiparisEvrakList.Listem.Draft}`;
       this.dis_download = false;
@@ -190,13 +144,12 @@ export default {
         tedarikci: this.TedarikciTur.tedarikci,
         evrak: this.TedarikciTur.tedarikci + ".pdf",
         siparisno: this.SiparisEvrakList.siparisno,
-        kullaniciAdi: this.$store.getters.getUser,
+        kullaniciAdi: this.$store.getters.__getUsername,
       };
 
       service.setTedarikciEvrakFaturaKayit(veri).then((veri) => {
         if (veri.Status) {
           alert("Kayıt İşlemi Yapıldı.");
-
         } else {
           alert("Ops! Lütfen Yeniden Deneyiniz.");
         }

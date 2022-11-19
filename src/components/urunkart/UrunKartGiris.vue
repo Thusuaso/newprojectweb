@@ -1,7 +1,14 @@
 <template>
   <br />
   <Card>
-    <template #header> </template>
+    <template #header
+      ><div
+        v-if="seleksiyonKasaKontrol"
+        style="background-color: red; color: white; text-align: center"
+      >
+        {{ kontrolText }}
+      </div>
+    </template>
     <template #content>
       <div class="columns">
         <div class="column">
@@ -208,7 +215,7 @@ export default {
       yuzeyIslem: null,
       filterYuzeyIslemList: null,
       yuzeyIslemList: null,
-      seleksiyonKasaKontrol: null,
+      seleksiyonKasaKontrol: false,
       username: null,
     };
   },
@@ -429,6 +436,7 @@ export default {
     });
     this.username = this.$store.getters.__getUsername.toUpperCase();
     this.emitter.on("seleksiyonKasaKontrol", (data) => {
+      console.log("seleksiyonKasaKontrol",data)
       this.seleksiyonKasaKontrol = data;
     });
     if (!this.yeniKayit) {

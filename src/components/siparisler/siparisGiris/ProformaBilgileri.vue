@@ -527,20 +527,24 @@
                 <label for="detayTutar_4">Mekus Masrafı</label>
               </span>
             </div>
+            
+
+          </div>
+          <div class=columns>
             <div class="column is-6">
               <span class="p-float-label">
-                <InputNumber
-                  class="p-inputtext-sm"
-                  id="sigorta_tutar"
-                  @change="currencyDegisim('sigorta_tutar', $event)"
-                  v-model="profData.sigorta_tutar"
-                  :disAktif="sigorta_tutar"
-                  mode="currency"
-                  currency="USD"
-                  locale="jp-JP"
-                />
-
-                <label for="sigorta_tutar">Sigorta</label>
+                <InputNumber class="p-inputtext-sm" id="sigorta_tutar_satis" 
+                  v-model="profData.sigorta_tutar_satis" :disabled="sigorta_tutar" mode="currency" currency="USD" locale="jp-JP" />
+            
+                <label for="sigorta_tutar_satis">Sigorta Satış</label>
+              </span>
+            </div>
+            <div class="column is-6">
+              <span class="p-float-label">
+                <InputNumber class="p-inputtext-sm" id="sigorta_tutar" @change="currencyDegisim('sigorta_tutar', $event)"
+                  v-model="profData.sigorta_tutar" :disabled="sigorta_tutar" mode="currency" currency="USD" locale="jp-JP" />
+            
+                <label for="sigorta_tutar">Sigorta Alış</label>
               </span>
             </div>
           </div>

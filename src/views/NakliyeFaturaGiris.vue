@@ -20,8 +20,10 @@
             <div class="columns is-multiline">
                 <div class="column is-4">
                     <span class="p-float-label">
+                      {{firma}}
                         <AutoComplete v-model="firma" :suggestions="filterFaturaList" optionLabel="firma_adi" @blur="faturaDegisim"
-                            :disabled="kaydetVisible1" @complete="isComplate" id="firma" />
+                            :disabled="kaydetVisible1" @complete="searchFaturaList" id="firma" />
+                            
                         <label for="firma">Firma Adı</label>
                     </span>
                 </div>
@@ -43,7 +45,7 @@
                 <div class="column is-4" size="is-small">
                     <span class="p-float-label">
                         <AutoComplete v-model="siparis" :suggestions="filterSiparisList" optionLabel="siparisno"
-                            :disabled="kaydetVisible2" id="siparissec" />
+                            :disabled="kaydetVisible2" id="siparissec" @complete="searchSiparis($event)" />
                         <label for="siparissec">Siparis Seçiniz</label>
                     </span>
                 </div>
@@ -171,35 +173,18 @@
         </div>
 
         <div class="column is-12">
-          <div class="column is-4" style="margin-top: -30px">
-            <Button
-              label="Kaydet"
-              class="p-button-success"
-              :disabled="yenikaydetVisible"
-              @click="kaydetolustur()"
-            />
+          <div class="columns">
+            <div class="column is-4">
+              <Button label="Kaydet" class="p-button-success" :disabled="yenikaydetVisible" @click="kaydetolustur()" />
+            </div>
+            <div class="column is-4">
+              <Button label="Yeni Kayıt" :disabled="yenikayitVisible" @click="kayitolustur()" />
+            </div>
+            <div class="column is-4">
+              <Button label="Vazgec" class="p-button-danger" :disabled="vazgecVisible" @click="vazgec()" />
+            </div>
           </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 150px"
-          >
-            <Button
-              label="Yeni Kayıt"
-              :disabled="yenikayitVisible"
-              @click="kayitolustur()"
-            />
-          </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 300px"
-          >
-            <Button
-              label="Vazgec"
-              class="p-button-danger"
-              :disabled="vazgecVisible"
-              @click="vazgec()"
-            />
-          </div>
+          
         </div>
       </div>
 
@@ -239,6 +224,8 @@ export default {
 
   data() {
     return {
+      filterSiparisList:[],
+      filterFaturaList:[],
       isMobile: null,
       firma: "",
       is_firma_alani: false,
@@ -275,38 +262,47 @@ export default {
   localService: null,
 
   computed: {
-    filterFaturaList() {
-      if (this.firma_list) {
-        return this.firma_list.filter((option) => {
-          return (
-            option.firma_adi.toString().toLowerCase().indexOf(this.firma) >= 0
-          );
-        });
-      }
 
-      return null;
-    },
-
-    filterSiparisList() {
-      if (this.siparis_list) {
-        return this.siparis_list.filter((option) => {
-          return (
-            option.siparisno.toString().toLowerCase().indexOf(this.siparis) >= 0
-          );
-        });
-      }
-
-      return null;
-    },
   },
   methods: {
+    searchSiparis(event) {
+      let result;
+
+      if (event.query.length == 0) result = [...this.siparis_list];
+      else {
+        result = this.siparis_list.filter((x) => {
+          return x.siparisno
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
+      this.filterSiparisList = result;
+    },
+    searchFirma(event) {
+      let result;
+
+      if (event.query.length == 0) result = [...this.firma_list];
+      else {
+        result = this.firma_list.filter((x) => {
+          return x.firma_adi
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
+      this.filterFaturaList = result;
+    },
     siparisUrunSec(event) {
       if (this.selectUrun) {
         this.urunler = { ...event.data };
 
         this.firma_id = this.urunler.Firma_id;
         this.Tutar_dolar = this.urunler.Tutar_dolar;
+
         this.siparis = this.urunler.siparisno;
+        this.siparis = this.siparis_list.filter(
+          (x) => x.siparisno == this.urunler.siparisno
+        );
+
         this.faturaNo = this.urunler.faturaNo;
         this.firma_adi = this.urunler.firma_adi;
         this.Tutar_tl = this.urunler.Tutar_tl;
@@ -367,7 +363,7 @@ export default {
     urunIslemleri() {
       this.urunler.Firma_id = this.firma_id;
       this.urunler.Tutar_dolar = this.Tutar_dolar;
-      this.urunler.siparisno = this.siparis;
+      this.urunler.siparisno = this.siparis.siparisno;
       this.urunler.faturaNo = this.faturaNo;
       this.urunler.firma_adi = this.firma_adi;
       this.urunler.Tutar_tl = this.Tutar_tl;
@@ -514,12 +510,12 @@ export default {
       }
 
       const nakliye_data = {
-        siparisno: this.siparis,
-        firma_adi: this.firma,
+        siparisno: this.siparis.siparisno,
+        firma_adi: this.firma.firma_adi,
         faturaNo: this.faturaNo,
         Tutar_tl: this.Tutar_tl,
         kur: this.kur,
-        Firma_id: this.firma_id,
+        Firma_id: this.firma.Firma_id,
         Tutar_dolar: this.Tutar_dolar,
 
         tarih: this.localService.getDateString(this.tarih),

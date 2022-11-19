@@ -50,6 +50,7 @@
           <Column headerStyle="width:10%;" bodyStyle="text-align:left">
             <template #body="slotProps">
               <Button
+                :disabled="true"
                 label="Sil"
                 class="p-button-danger"
                 @click="faturaDosyaSilme(slotProps.data.faturaId)"

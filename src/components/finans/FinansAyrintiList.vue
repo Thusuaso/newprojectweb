@@ -39,9 +39,15 @@
                       {{ slotProps.data.siparisno }}
                     </div>
                   </template>
-                  <template #filter="{filterModel,filterCallback}">
-                    <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                      :placeholder="`Search by name - `" v-tooltip.top.focus="'Hit enter key to filter'" />
+                  <template #filter="{ filterModel, filterCallback }">
+                    <InputText
+                      type="text"
+                      v-model="filterModel.value"
+                      @input="filterCallback()"
+                      class="p-column-filter"
+                      :placeholder="`Search by name - `"
+                      v-tooltip.top.focus="'Hit enter key to filter'"
+                    />
                   </template>
                 </Column>
                 <Column
@@ -304,7 +310,7 @@ export default {
   },
   methods: {
     isFinansAyrintiFilter(event) {
-      console.log(event)
+      console.log(event);
     },
     formatPrice(value) {
       let val = (value / 1).toFixed(2).replace(".", ",");

@@ -27,8 +27,8 @@
           </div>
           <div class="column is-6">
             <span class="p-float-label">
-              <InputText
-                @input="kurSecim"
+              <Calendar
+                @date-select="kurSecim"
                 id="date"
                 type="text"
                 :disabled="is_form"

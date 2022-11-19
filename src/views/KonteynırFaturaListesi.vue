@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column is-12" >
+      <div class="column is-12">
         <DataTable
           v-model:filters="filters"
           filterDisplay="menu"
@@ -14,7 +14,6 @@
           :selection="selectFatura"
           @row-select="FaturaSec($event)"
           :loading="$store.getters.datatableLoading"
-
         >
           <template #header>
             <div class="columns is-multiline">
@@ -33,10 +32,14 @@
               {{ slotProps.data.yukleme_tarihi }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by Customer" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by Customer"
+              />
             </template>
-
           </Column>
 
           <Column
@@ -49,10 +52,14 @@
               {{ slotProps.data.firma_adi }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by Customer" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by Customer"
+              />
             </template>
-
           </Column>
           <Column
             field="siparis_no"
@@ -64,10 +71,14 @@
               {{ slotProps.data.siparis_no }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by Customer" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by Customer"
+              />
             </template>
-
           </Column>
 
           <Column
@@ -80,8 +91,13 @@
               {{ slotProps.data.fatura_no }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by Customer" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by Customer"
+              />
             </template>
           </Column>
 
@@ -95,8 +111,13 @@
               {{ slotProps.data.tur }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by Customer" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by Customer"
+              />
             </template>
           </Column>
 
@@ -176,7 +197,6 @@ export default {
         siparis_no: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         fatura_no: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         tur: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-
       },
       konteyner_listesi: null,
       loading: false,
@@ -191,7 +211,6 @@ export default {
     service.getKonteynerListesi().then((data) => {
       this.konteyner_listesi = data;
       this.$store.dispatch("datatableLoadingEndAct");
-
     });
   },
 

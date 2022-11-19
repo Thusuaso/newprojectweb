@@ -1,43 +1,31 @@
 <template>
-  <section>
-    <div class="columns is-multiline">
-      <div class="column">
-        <span style="text-decoration: underline; font-size: 17px">
-          Dosya Yükleme:
-        </span>
-      </div>
-      <div class="column">
-        <custom-file-input
-          multiple
-          v-model="files"
-          :state="Boolean(files)"
-          baslik="Upload2"
-          @sunucuDosyaYolla="faturaDosyaGonder($event)"
-        />
-      </div>
-
-      <div class="column">
-        <span style="text-decoration: underline; font-size: 17px"> İndir </span>
-      </div>
-      <div class="column">
-        <a :href="evrakLink" target="_blank">
-          <Button
-            style="width: 150px"
-            :disabled="dis_download"
-            iconPos="left"
-            icon="fas fa-download"
-            class="p-button-success"
-            v-tooltip="'Aç'"
-            label="Aç"
-          />
-        </a>
-      </div>
+  <div class="columns">
+    <div class="column">
+      <custom-file-input
+        multiple
+        v-model="files"
+        :state="Boolean(files)"
+        baslik="Upload2"
+        @sunucuDosyaYolla="faturaDosyaGonder($event)"
+      />
     </div>
-  </section>
+
+    <div class="column">
+      <a :href="evrakLink" target="_blank">
+        <Button
+          :disabled="dis_download"
+          iconPos="left"
+          icon="fas fa-download"
+          class="p-button-success"
+          v-tooltip="'Aç'"
+          label="Aç"
+        />
+      </a>
+    </div>
+  </div>
 </template>
 <script>
 import service from "@/service/OperasyonService";
-
 import CustomInputFile from "@/components/shared/CustomInputFile";
 import { mapGetters } from "vuex";
 import fileService from "@/service/FileService";

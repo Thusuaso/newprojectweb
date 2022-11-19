@@ -86,7 +86,7 @@
               <label for="marketing">Pazarlama</label>
             </span>
           </div>
-          <div class="column is-3">
+          <div class="column is-3" style="margin-left:100px;">
             <span class="p-float-label">
               <AutoComplete
                 id="ulke"
@@ -114,7 +114,7 @@
               <label for="telefon">TELEFON</label>
             </span>
           </div>
-          <div class="column is-3">
+          <div class="column is-3" style="margin-left:100px;">
             <span class="p-float-label">
               <AutoComplete
                 id="temsilci"
@@ -131,7 +131,7 @@
           </div>
         </div>
         <div class="columns">
-          <div class="column is-3">
+          <div class="column is-3" >
             <span class="p-float-label">
               <AutoComplete
                 id="satisci"
@@ -146,7 +146,7 @@
               <label for="satisci">Satışçı</label>
             </span>
           </div>
-          <div class="column is-3">
+          <div class="column is-3" style="margin-left:100px;">
             <span class="p-float-label">
               <Dropdown
                 id="oncelik"
@@ -176,14 +176,14 @@
           </div>
           <div class="column is-4">
             <div class="columns">
-              <div class="column is-2">
+              <div class="column is-2" style="margin-right:70px;">
                 <Checkbox v-model="musteri_model.devir" :binary="true" /> Devir
               </div>
-              <div class="column is-2">
+              <div class="column is-2" style="margin-right:70px;">
                 <Checkbox v-model="musteri_model.ozel" :binary="true" />
                 Özel
               </div>
-              <div class="column is-2">
+              <div class="column is-2" style="margin-right:70px;">
                 <Checkbox
                   id="takip"
                   v-model="musteri_model.takip"
@@ -192,7 +192,7 @@
                 />
                 <label for="takip">Takip</label>
               </div>
-              <div class="column is-2">
+              <div class="column is-2" style="margin-right:70px;">
                 <h3>Son Kullanıcı</h3>
                 <InputSwitch
                   id="sonkullanici"
@@ -238,7 +238,7 @@
     </div>
 
     <div class="columns is-multiline is-centered">
-      <div class="column is-1">
+      <div class="column is-2">
         <Button
           :disabled="is_kaydet"
           @click="musteri_kaydet_click"

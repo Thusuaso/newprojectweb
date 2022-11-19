@@ -523,7 +523,7 @@
     <template #content>
       <div class="columns">
         <div class="column">
-          <InputText @input="metinDegisim($event)" v-model="ek_id" style="width: 29px" />
+          <InputText @input="metinDegisim($event)" v-model="ek_id" style="width: 55px" />
           <span style="font-size: 13px; text-decoration: underline; color: red">
             Açıklama eklemek istediğiniz ürünün kalem numarası ile birlikte
             açıklamayı yazınız .

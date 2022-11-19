@@ -3,130 +3,46 @@
     <div class="columns" style="height: 950px; background-color: White">
       <div class="column is-5" style="margin-top: 35px">
         <div class="columns">
-          <div class="col-12 col-sm-12">
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 30px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span> Sipariş No: </span>
-            </div>
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 50px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span>Müşteri Adı : </span>
-            </div>
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 50px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span>Müşteri Maili : </span>
-            </div>
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 50px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span>Konteyner No : </span>
-            </div>
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 50px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span>Teslim Şekli: </span>
-            </div>
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 50px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span>Ödeme Şekli : </span>
-            </div>
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 50px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span>Navlun Alış : </span>
-            </div>
-            <div
-              class="col-12 col-sm-12 stilim"
-              style="
-                margin-top: 50px;
-                text-decoration: underline;
-                font-weight: bold;
-              "
-            >
-              <span>Navlun Satış : </span>
-            </div>
-          </div>
-          <div class="columns stilim">
+          <div class="column">
             <div class="col-12 col-sm-12 stilim">
-              <div class="col-12 col-sm-12 stilim">
-                <AutoComplete
-                  v-model="SiparisTur"
-                  :suggestions="filterSiparisTurList"
-                  @complete="aramaSiparisTur($event)"
-                  :dropdown="true"
-                  field="siparisno"
-                  placeholder="Sipariş Seçiniz"
-                  @item-select="siparisTurDegisim"
-                >
-                  <template #items="slotProps">
-                    <div class="p-clearfix p-autocomplete-brand-item">
-                      <div>
-                        {{ slotProps.siparisno }}
-                      </div>
+              <AutoComplete
+                v-model="SiparisTur"
+                :suggestions="filterSiparisTurList"
+                @complete="aramaSiparisTur($event)"
+                :dropdown="true"
+                field="siparisno"
+                placeholder="Sipariş Seçiniz"
+                @item-select="siparisTurDegisim"
+              >
+                <template #items="slotProps">
+                  <div class="p-clearfix p-autocomplete-brand-item">
+                    <div>
+                      {{ slotProps.siparisno }}
                     </div>
-                  </template>
-                </AutoComplete>
-              </div>
-              <div class="col-12 col-sm-12 stilim" style="margin-top: 20px">
-                <InputText v-model="musteriAdi" :disabled="true" /> 
-              </div>
-              <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
-                <InputText v-model="mail" :disabled="true" /> 
-              </div>
-              <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
-                <InputText v-model="KonteynerNo" :disabled="true" /> 
-              </div>
-              <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
-                <InputText v-model="teslim" :disabled="true" /> 
-              </div>
-              <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
-                <InputText v-model="odeme" :disabled="true" />
-              </div>
-              <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
-                <InputText v-model="navlunAlis" :disabled="true" /> 
-              </div>
-              <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
-                <InputText v-model="navlunSatis" :disabled="true" /> 
-              </div>
+                  </div>
+                </template>
+              </AutoComplete>
+            </div>
+            <div class="col-12 col-sm-12 stilim" style="margin-top: 20px">
+              <InputText v-model="musteriAdi" :disabled="true" />
+            </div>
+            <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
+              <InputText v-model="mail" :disabled="true" />
+            </div>
+            <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
+              <InputText v-model="KonteynerNo" :disabled="true" />
+            </div>
+            <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
+              <InputText v-model="teslim" :disabled="true" />
+            </div>
+            <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
+              <InputText v-model="odeme" :disabled="true" />
+            </div>
+            <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
+              <InputText v-model="navlunAlis" :disabled="true" />
+            </div>
+            <div class="col-12 col-sm-12 stilim" style="margin-top: 35px">
+              <InputText v-model="navlunSatis" :disabled="true" />
             </div>
           </div>
         </div>
@@ -141,10 +57,10 @@
             :value="SiparisEvrakList1"
             :scrollable="true"
             scrollHeight="700px"
-            dataKey="Faturaid"
             selectionMode="single"
-            :selection="select_ayrinti"
+            v-model:selection="select_ayrinti"
             @row-select="select_ayrinti_sec($event)"
+            :loading="table_loading"
           >
             <template #header>
               <div class="columns is-multiline">
@@ -200,25 +116,9 @@
             v-model:header="evrakFormBaslik"
             position="top"
             :modal="true"
+            maximizable
           >
-            <section>
-              <div
-                class="container"
-                style="height: 800px; background-color: white"
-              >
-                <div
-                  class="columns"
-                  style="height: 800px; background-color: white"
-                >
-                  <div
-                    class="column is-12"
-                    style="height: 800px; background-color: white"
-                  >
-                    <EvrakDigerForm />
-                  </div>
-                </div>
-              </div>
-            </section>
+            <EvrakDigerForm />
           </Dialog>
 
           <Dialog
@@ -226,125 +126,45 @@
             v-model:header="evrakFormBaslik"
             position="top"
             :modal="true"
+            maximizable
           >
-            <section>
-              <div
-                class="container"
-                style="height: 800px; background-color: white"
-              >
-                <div
-                  class="columns"
-                  style="height: 800px; background-color: white"
-                >
-                  <div
-                    class="column is-12"
-                    style="height: 800px; background-color: white"
-                  >
-                    <EvrakTedarikciForm />
-                  </div>
-                </div>
-              </div>
-            </section>
+            <EvrakTedarikciForm />
           </Dialog>
           <Dialog
             v-model:visible="is_nakliye"
             v-model:header="evrakFormBaslik"
             position="top"
             :modal="true"
+            maximizable=""
           >
-            <section>
-              <div
-                class="container"
-                style="height: 900px; background-color: white"
-              >
-                <div
-                  class="columns"
-                  style="height: 900px; background-color: white"
-                >
-                  <div
-                    class="column is-12"
-                    style="height: 900px; background-color: white"
-                  >
-                    <NakliyeFaturaGiris />
-                  </div>
-                </div>
-              </div>
-            </section>
+            <NakliyeFaturaGiris />
           </Dialog>
           <Dialog
             v-model:visible="is_denizcilik"
             v-model:header="evrakFormBaslik"
             position="top"
             :modal="true"
+            maximizable
           >
-            <section>
-              <div
-                class="container"
-                style="height: 900px; background-color: white"
-              >
-                <div
-                  class="columns"
-                  style="height: 900px; background-color: white"
-                >
-                  <div
-                    class="column is-12"
-                    style="height: 900px; background-color: white"
-                  >
-                    <EvrakDenizcilikForm />
-                  </div>
-                </div>
-              </div>
-            </section>
+            <EvrakDenizcilikForm />
           </Dialog>
           <Dialog
             v-model:visible="is_gumruk_ilaclama"
             v-model:header="evrakFormBaslik"
             position="top"
             :modal="true"
+            maximizable
           >
-            <section>
-              <div
-                class="container"
-                style="height: 900px; background-color: white"
-              >
-                <div
-                  class="columns"
-                  style="height: 900px; background-color: white"
-                >
-                  <div
-                    class="column is-12"
-                    style="height: 900px; background-color: white"
-                  >
-                    <GumrukIlaclamaForm />
-                  </div>
-                </div>
-              </div>
-            </section>
+            <GumrukIlaclamaForm />
           </Dialog>
           <Dialog
             v-model:visible="is_ozeliscilik"
             v-model:header="evrakFormBaslik"
             position="top"
             :modal="true"
+            maximizable
           >
-            <section>
-              <div
-                class="container"
-                style="height: 900px; background-color: white"
-              >
-                <div
-                  class="columns"
-                  style="height: 900px; background-color: white"
-                >
-                  <div
-                    class="column is-12"
-                    style="height: 900px; background-color: white"
-                  >
-                    <EvrakOzelIscilikForm />
-                  </div>
-                </div>
-              </div>
-            </section>
+            <EvrakOzelIscilikForm />
           </Dialog>
         </div>
       </div>
@@ -414,20 +234,17 @@ export default {
     this.$store.dispatch("loadingBeginAct");
 
     service.getEvrakSiparisListe().then((data) => {
-
       this.SiparisList = data.siparis_liste;
       this.$store.dispatch("loadEvrakForm1", data.evrak_listesi);
 
       this.SiparisTur = this.SiparisList.find((x) => x.id == this.id);
       this.yeniKayitBaslangicIslemler();
       this.$store.dispatch("loadingEndAct");
-
     });
   },
   created() {},
   methods: {
     yeniKayitBaslangicIslemler() {
-
       service.getEvrakFaturaModel().then((data) => {
         this.evrak = data.evrak;
       });

@@ -1,40 +1,15 @@
 <template>
   <section>
     <div class="columns">
-      <div class="col-12 col-sm-12 stilim">
-        <div
-          class="col-12 col-sm-12 stilim"
-          style="
-            margin-top: 60px;
-            text-decoration: underline;
-            font-weight: bold;
-          "
-        >
-          <span> Dosya Yükle: </span>
-        </div>
-        <div
-          class="col-12 col-sm-12 stilim"
-          style="
-            margin-top: 60px;
-            text-decoration: underline;
-            font-weight: bold;
-          "
-        >
-          <span> Dosya Aç : </span>
-        </div>
-      </div>
-      <div class="col-12 col-sm-12 stilim">
-        <div class="col-12 col-sm-12 stilim" style="margin-top: 50px">
-          <custom-file-input
-            baslik="  Dosya Yükle  "
-            @sunucuDosyaYolla="faturaDosyaGonder($event)"
-          />
-        </div>
-        <div class="col-12 col-sm-12 stilim" style="margin-top: 40px">
+      <div class="column">
+        <custom-file-input
+          baslik="  Dosya Yükle  "
+          @sunucuDosyaYolla="faturaDosyaGonder($event)"
+        />
+        <div class="column">
           <a :href="tedarikciLink" target="_self">
             <Button
               label="Download"
-              style="width: 120px"
               class="p-button-success"
               iconPos="left"
               icon="fas fa-download"
@@ -49,7 +24,6 @@
 <script>
 import service from "@/service/OperasyonService";
 import { mapGetters } from "vuex";
-import store from "@/store";
 import fileService from "@/service/FileService";
 import CustomInputFile from "@/components/shared/CustomInputFile";
 export default {
@@ -60,7 +34,6 @@ export default {
     ...mapGetters(["SiparisEvrakList"]),
   },
   created() {
-    console.log(this.SiparisEvrakList);
 
     if (this.SiparisEvrakList.Listem != null) {
       this.evrakLink = `${this.SiparisEvrakList.Listem.Draft}`;

@@ -68,12 +68,7 @@
         position="top"
       >
         <section>
-          <div
-            class="p-cardialog-content"
-            style="height: 800px; background-color: white"
-          >
-            <DepoAyrintiList />
-          </div>
+          <DepoAyrintiList />
         </section>
       </Dialog>
     </div>

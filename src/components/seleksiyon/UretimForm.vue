@@ -737,6 +737,7 @@ export default {
           detail: "Zorunlu alanları doldurunuz",
           life: 3000,
         });
+
       } else {
 
         this.isGuncelle = true;
@@ -762,12 +763,16 @@ export default {
                       this.$store.dispatch("seleksiyonGuncelleClickActions");
 
                       this.$emit("seleksiyon_form_kapat");
+
                     });
                 } else {
                   this.dataSifirla();
                   this.$store.dispatch("seleksiyonGuncelleClickActions");
+
                   this.$emit("seleksiyon_form_kapat");
+
                 }
+
               });
               this.$toast.add({
                 severity: "success",
@@ -782,6 +787,7 @@ export default {
                 detail: "Kayıt Güncelleme Hatalı",
                 life: 3000,
               });
+
             }
           });
         }
@@ -920,7 +926,6 @@ export default {
     },
     btn_kaydet_click() {
       this.submitted = true;
-
       if (this.v$.$invalid) {
         this.$toast.add({
           severity: "error",
@@ -928,6 +933,7 @@ export default {
           detail: "Zorunlu alanları doldurunuz",
           life: 3000,
         });
+
       } else {
         this.kayit_kontrol();
         this.isGuncelle = false;

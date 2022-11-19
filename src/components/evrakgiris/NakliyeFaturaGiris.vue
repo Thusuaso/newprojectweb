@@ -1,595 +1,267 @@
 <template>
-  <section>
-    <div
-      class="is-centered"
-      style="weight: 55px; height: 900px"
-      v-if="isMobile > 576"
-    >
-      <div class="column is-12">
-        <Button
-          label="+ Yeni Firma"
-          style="
-            width: 150px;
-            margin-left: 1000px;
-            background-color: green;
-            font-weight: bold;
-          "
-          @click="yeniFirmaGiris"
-        />
-      </div>
-      <div class="column is-12">
-        <b-field label="Adım 1" label-position="on-border">
-          <div class="card">
-            <div class="columns is-multiline">
-              <div class="column is-4">
-                <b-field label="Firma Seçiniz" label-position="on-border">
-                  <b-autocomplete
-                    rounded
-                    v-model="firma"
-                    :data="filterFaturaList"
-                    field="firma_adi"
-                    placeholder="Firma Seçiniz"
-                    @blur="faturaDegisim"
-                    @select="(option) => (selected = option)"
-                    :disabled="kaydetVisible1"
-                  >
-                  </b-autocomplete>
-                </b-field>
-              </div>
-
-              <div class="column is-2">
-                <b-field label="Tarih" label-position="on-border">
-                  <b-datepicker
-                    v-model="tarih"
-                    @input="kurSecim"
-                    :disabled="kaydetVisible1"
-                    size="is-small"
-                  />
-                </b-field>
-              </div>
-              <div class="column is-2">
-                <b-field label="FaturaNo" label-position="on-border">
-                  <b-input
-                    v-model="faturaNo"
-                    :disabled="kaydetVisible1"
-                    size="is-small"
-                    style="width: 220px"
-                  ></b-input>
-                </b-field>
-              </div>
-            </div>
-            <div class="columns is-multiline">
-              <div class="column is-4" size="is-small">
-                <b-field label="Sipariş Seçiniz" label-position="on-border">
-                  <b-autocomplete
-                    rounded
-                    v-model="siparis"
-                    :data="filterSiparisList"
-                    field="siparisno"
-                    placeholder="Siparis Seçiniz"
-                    @select="(option) => (selected = option)"
-                    :disabled="kaydetVisible2"
-                  >
-                  </b-autocomplete>
-                </b-field>
-              </div>
-
-              <div class="column is-2">
-                <b-field label="Tutar (TL)" label-position="on-border">
-                  <b-input
-                    v-model="Tutar_tl"
-                    :disabled="kaydetVisible2"
-                    @input="miktar_input_event($event)"
-                    size="is-small"
-                  ></b-input>
-                </b-field>
-              </div>
-              <div class="column is-2">
-                <b-field label="Kur" label-position="on-border">
-                  <b-input
-                    v-model="kur"
-                    @input="toplam_adet_hesapla($event)"
-                    @focus.native="$event.target.select()"
-                    @click.native="$event.target.select()"
-                    :disabled="kaydetVisible2"
-                    size="is-small"
-                  ></b-input>
-                </b-field>
-              </div>
-              <div class="column is-2">
-                <b-field label="Tutar ($)" label-position="on-border">
-                  <b-input
-                    v-model="Tutar_dolar"
-                    @input="dolar_input_event($event)"
-                    :disabled="kaydetVisible2"
-                    size="is-small"
-                  >
-                  </b-input>
-                </b-field>
-              </div>
-              <div class="column is-5">
-                <div class="columns">
-                  <div class="column is-3">
-                    <Button
-                      class="p-button-rounded p-button-secondary"
-                      @click="btn_yeni_click"
-                      label="Yeni"
-                      icon="pi pi-file-o"
-                      iconPos="left"
-                    />
-                  </div>
-                  <div class="column is-3">
-                    <Button
-                      label="İptal"
-                      class="p-button-rounded p-button-danger"
-                      icon="pi pi-times"
-                      iconPos="left"
-                    />
-                  </div>
-                  <div class="column is-3">
-                    <Button
-                      label="Ekle"
-                      class="p-button-rounded p-button-success"
-                      @click="btn_ekle_click"
-                      icon="pi pi-plus"
-                      iconPos="left"
-                    />
-                  </div>
-                  <div class="column is-3">
-                    <Button
-                      class="p-button-rounded p-button-warning"
-                      label="Değiştir"
-                      @click="btn_degistir_click"
-                      icon="pi pi-refresh"
-                      iconPos="left"
-                    />
-                  </div>
-                  <div class="column is-3">
-                    <Button
-                      label="Sil"
-                      class="p-button-rounded"
-                      @click="btn_sil_click"
-                      style="background-color: yellow; color: black"
-                      icon="pi pi-times-circle"
-                      iconPos="left"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="column is-12">
-                <DataTable
-                  class="p-datatable-responsive p-datatable-cars"
-                  :value="siparisToplu"
-                  :selection.sync="selectUrun"
-                  selectionMode="single"
-                  @row-select="siparisUrunSec"
-                  dataKey="id"
-                >
-                  <Column
-                    field="siparisno"
-                    header="PO"
-                    headerStyle="width:90%;"
-                  >
-                    <template #body="slotProps">
-                      {{ slotProps.data.siparisno }}
-                    </template>
-                  </Column>
-                  <Column
-                    field="Tutar_tl"
-                    header="Tutar TRY"
-                    headerStyle="width:90%;"
-                  >
-                    <template #body="slotProps">
-                      {{ slotProps.data.Tutar_tl }}
-                    </template>
-                  </Column>
-                  <Column
-                    field="Tutar_dolar"
-                    header="Tutar USD"
-                    headerStyle="width:90%;"
-                  >
-                    <template #body="slotProps">
-                      {{ slotProps.data.Tutar_dolar }}
-                    </template>
-                  </Column>
-                  <Column field="kur" header="Kur" headerStyle="width:90%;">
-                    <template #body="slotProps">
-                      {{ slotProps.data.kur }}
-                    </template>
-                  </Column>
-                </DataTable>
-              </div>
-            </div>
-            <div class="columns is-12" style="margin-left: 235px">
-              <div class="column is-12">
-                <Button
-                  class="p-button-rounded p-button-warning"
-                  label="Bilgileri Kaydet"
-                  :disabled="kaydetVisible1"
-                  @click="kaydetIslemi"
-                  icon="fas fa-check"
-                  iconPos="left"
-                />
-              </div>
-            </div>
-          </div>
-        </b-field>
-        <br />
-        <div class="columns is-multiline">
-          <b-field label="Adım 2" label-position="on-border">
-            <div class="card">
-              <div class="p-col-12 p-md-6">
-                <div class="p-col-12 p-lg-12">
-                  <Button
-                    :disabled="dis_numuneDosyayukle"
-                    style="background-color: #green; color: black"
-                    label="Evrak Yukle"
-                    conPos="left"
-                    icon="fas fa-file-invoice-dollar"
-                    @click="proformaVisible = true"
-                  />
-                  <Dialog
-                    v-model:visible="proformaVisible"
-                    maximizable
-                    :modal="true"
-                    header="Evrak Girişi"
-                    position="top"
-                  >
-                    <div
-                      class="p-cardialog-content"
-                      style="height: 300px; background-color: #f4f4f4"
-                    >
-                      <div class="p-grid">
-                        <div class="p-col-12 p-lg-12">
-                          <div class="p-col-12 p-lg-12">
-                            <div class="p-grid">
-                              <div class="p-col-8" style="margin-left: -60px">
-                                <custom-file-input
-                                  :disabled="dis_numuneDosyaAc"
-                                  @sunucuDosyaYolla="nakliyeDosyaGonder($event)"
-                                  style="margin-left: 155px"
-                                  baslik="Evrak Yükle"
-                                />
-                              </div>
-                              <div class="p-col-4">
-                                <a :href="numuneLink" target="_blank">
-                                  <Button
-                                    label="Dosya Aç"
-                                    :disabled="dis_numuneDosyaAc"
-                                  />
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Dialog>
-                </div>
-              </div>
-
-              <span style="color: red; font-size: 14px; font-weight: bold"
-                >Pdf formatında ve dosya isminin '.' içermediğine dikkat ediniz
-                .</span
-              >
-              <br />
-            </div>
-          </b-field>
-          <br />
-        </div>
-
-        <div class="column is-12">
-          <div class="column is-4" style="margin-top: -30px">
-            <Button
-              label="Kaydet"
-              class="p-button-success"
-              :disabled="yenikaydetVisible"
-              @click="kaydetolustur()"
-            />
-          </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 150px"
-          >
-            <Button
-              label="Yeni Kayıt"
-              :disabled="yenikayitVisible"
-              @click="kayitolustur()"
-            />
-          </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 300px"
-          >
-            <Button
-              label="Vazgec"
-              class="p-button-danger"
-              :disabled="vazgecVisible"
-              @click="vazgec()"
-            />
-          </div>
-        </div>
-      </div>
-
-      <Dialog
-        v-model:visible="is_firma_alani"
-        header="Firma Listesi"
-        maximizable
-        :modal="true"
-        position="top"
-      >
-        <section>
-          <div class="container">
-            <div class="columns">
-              <div class="column is-12">
-                <FirmaAlani />
-              </div>
-            </div>
-          </div>
-        </section>
-      </Dialog>
-    </div>
-    <div style="margin-left: -15px" v-else>
-      <Button
-        label="+ Yeni Firma"
-        style="width: 150px; background-color: green; font-weight: bold"
-        @click="yeniFirmaGiris"
-      />
-
-      <div class="card">
-        <div class="columns">
-          <div class="column">
-            <b-field label="Firma Seçiniz" label-position="on-border">
-              <b-autocomplete
-                rounded
-                v-model="firma"
-                :data="filterFaturaList"
-                field="firma_adi"
-                placeholder="Firma Seçiniz"
-                @blur="faturaDegisim"
-                @select="(option) => (selected = option)"
-                :disabled="kaydetVisible1"
-              >
-              </b-autocomplete>
-            </b-field>
-          </div>
-
-          <div class="column">
-            <b-field label="Tarih" label-position="on-border">
-              <b-datepicker
-                v-model="tarih"
-                @input="kurSecim"
-                :disabled="kaydetVisible1"
-                size="is-small"
-              />
-            </b-field>
-          </div>
-          <div class="column">
-            <b-field label="FaturaNo" label-position="on-border">
-              <b-input
-                v-model="faturaNo"
-                :disabled="kaydetVisible1"
-                size="is-small"
-                style="width: 220px"
-              >
-              </b-input>
-            </b-field>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-4" size="is-small">
-            <b-field label="Sipariş Seçiniz" label-position="on-border">
-              <b-autocomplete
-                rounded
-                v-model="siparis"
-                :data="filterSiparisList"
-                field="siparisno"
-                placeholder="Siparis Seçiniz"
-                @select="(option) => (selected = option)"
-                :disabled="kaydetVisible2"
-              >
-              </b-autocomplete>
-            </b-field>
-          </div>
-
-          <div class="column is-2">
-            <b-field label="Tutar (TL)" label-position="on-border">
-              <b-input
-                v-model="Tutar_tl"
-                :disabled="kaydetVisible2"
-                @input="miktar_input_event($event)"
-                size="is-small"
-              ></b-input>
-            </b-field>
-          </div>
-          <div class="column is-2">
-            <b-field label="Kur" label-position="on-border">
-              <b-input
-                v-model="kur"
-                @input="toplam_adet_hesapla($event)"
-                @focus.native="$event.target.select()"
-                @click.native="$event.target.select()"
-                :disabled="kaydetVisible2"
-                size="is-small"
-              ></b-input>
-            </b-field>
-          </div>
-          <div class="column is-2">
-            <b-field label="Tutar ($)" label-position="on-border">
-              <b-input
-                v-model="Tutar_dolar"
-                @input="dolar_input_event($event)"
-                :disabled="kaydetVisible2"
-                size="is-small"
-              >
-              </b-input>
-            </b-field>
-          </div>
-          <div class="column is-5">
-            <div class="columns">
-              <div class="column is-3">
-                <Button
-                  class="p-button-rounded p-button-secondary"
-                  @click="btn_yeni_click"
-                  label="Yeni"
-                  icon="pi pi-file-o"
-                  iconPos="left"
-                />
-              </div>
-              <div class="column is-3">
-                <Button
-                  label="İptal"
-                  class="p-button-rounded p-button-danger"
-                  icon="pi pi-times"
-                  iconPos="left"
-                />
-              </div>
-              <div class="column is-3">
-                <Button
-                  label="Ekle"
-                  class="p-button-rounded p-button-success"
-                  @click="btn_ekle_click"
-                  icon="pi pi-plus"
-                  iconPos="left"
-                />
-              </div>
-              <div class="column is-3">
-                <Button
-                  class="p-button-rounded p-button-warning"
-                  label="Değiştir"
-                  @click="btn_degistir_click"
-                  icon="pi pi-refresh"
-                  iconPos="left"
-                />
-              </div>
-              <div class="column is-3">
-                <Button
-                  label="Sil"
-                  class="p-button-rounded"
-                  @click="btn_sil_click"
-                  style="background-color: yellow; color: black"
-                  icon="pi pi-times-circle"
-                  iconPos="left"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="column is-12">
-            <DataTable
-              class="p-datatable-responsive p-datatable-cars"
-              :value="siparisToplu"
-              :selection.sync="selectUrun"
-              selectionMode="single"
-              @row-select="siparisUrunSec"
-              dataKey="id"
-            >
-              <Column field="siparisno" header="PO" headerStyle="width:90%;">
-                <template #body="slotProps">
-                  {{ slotProps.data.siparisno }}
-                </template>
-              </Column>
-              <Column
-                field="Tutar_tl"
-                header="Tutar TRY"
-                headerStyle="width:90%;"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.Tutar_tl }}
-                </template>
-              </Column>
-              <Column
-                field="Tutar_dolar"
-                header="Tutar USD"
-                headerStyle="width:90%;"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.Tutar_dolar }}
-                </template>
-              </Column>
-              <Column field="kur" header="Kur" headerStyle="width:90%;">
-                <template #body="slotProps">
-                  {{ slotProps.data.kur }}
-                </template>
-              </Column>
-            </DataTable>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <Button
-              class="p-button-rounded p-button-warning"
-              label="Bilgileri Kaydet"
-              :disabled="kaydetVisible1"
-              @click="kaydetIslemi"
-              icon="fas fa-check"
-              iconPos="left"
-            />
-          </div>
-        </div>
-      </div>
-
-      <br />
+  <br />
+  <Card>
+    <template #content>
       <div class="columns">
-        <b-field label="Adım 2" label-position="on-border">
-          <div class="card">
-            <div class="p-col-12 p-md-6">
-              <div class="p-col-12 p-lg-12">
-                <Button
-                  :disabled="dis_numuneDosyayukle"
-                  style="background-color: #green; color: black"
-                  label="Evrak Yukle"
-                  conPos="left"
-                  icon="fas fa-file-invoice-dollar"
-                  @click="proformaVisible = true"
-                />
-                <Dialog
-                  v-model:visible="proformaVisible"
-                  :modal="true"
-                  header="Evrak Girişi"
-                  position="top"
-                >
-                  <div
-                    class="p-cardialog-content"
-                    style="height: 300px; background-color: #f4f4f4"
-                  >
+        <div class="column">
+          <span class="p-float-label">
+            <AutoComplete
+              id="firma"
+              v-model="firma"
+              :suggestions="filterFaturaList"
+              optionLabel="firma_adi"
+              @complete="searchFatura($event)"
+            />
+            <label for="firma">Firma Seçiniz</label>
+          </span>
+        </div>
+        <div class="column">
+          <span class="p-float-label">
+            <Calendar
+              id="tarih"
+              v-model="tarih"
+              @input="kurSecim"
+              :disabled="kaydetVisible1"
+              size="is-small"
+            />
+            <label for="tarih">Tarih</label>
+          </span>
+        </div>
+        <div class="column">
+          <span class="p-float-label">
+            <InputText
+              id="faturaNo"
+              v-model="faturaNo"
+              :disabled="kaydetVisible1"
+              size="is-small"
+              style="width: 220px"
+            />
+            <label for="faturaNo">Fatura No</label>
+          </span>
+        </div>
+        <div class="column">
+          <Button
+            label="+ Yeni Firma"
+            style="background-color: green; font-weight: bold"
+            @click="yeniFirmaGiris"
+          />
+        </div>
+      </div>
+    </template>
+  </Card>
+  <Card>
+    <template #content>
+      <div class="columns">
+        <div class="column">
+          <span class="p-float-label">
+            <AutoComplete
+              id="siparis"
+              v-model="siparis"
+              :suggestions="filterSiparisList"
+              optionLabel="siparisno"
+              :disabled="kaydetVisible2"
+              @complete="searchSiparis($event)"
+            />
+            <label for="siparis">Sipariş Seçiniz</label>
+          </span>
+        </div>
+        <div class="column">
+          <span class="p-float-label">
+            <InputText
+              id="Tutar_tl"
+              v-model="Tutar_tl"
+              :disabled="kaydetVisible2"
+              @input="miktar_input_event($event)"
+              size="is-small"
+            />
+            <label for="Tutar_tl">Tutar (TL)</label>
+          </span>
+        </div>
+        <div class="column">
+          <span class="p-float-label">
+            <InputText
+              id="kur"
+              v-model="kur"
+              @input="toplam_adet_hesapla($event)"
+              @focus="$event.target.select()"
+              @click="$event.target.select()"
+              :disabled="kaydetVisible2"
+              size="is-small"
+            />
+            <label for="kur">Kur</label>
+          </span>
+        </div>
+        <div class="column">
+          <span class="p-float-label">
+            <InputText
+              id="Tutar_dolar"
+              v-model="Tutar_dolar"
+              @input="dolar_input_event($event)"
+              :disabled="kaydetVisible2"
+              size="is-small"
+            />
+            <label for="Tutar_dolar">Tutar ($)</label>
+          </span>
+        </div>
+      </div>
+    </template>
+  </Card>
+
+  <Card>
+    <template #content>
+      <div class="columns">
+        <div class="column">
+          <Button
+            class="p-button-rounded p-button-secondary"
+            @click="btn_yeni_click"
+            label="Yeni"
+            icon="pi pi-file-o"
+            iconPos="left"
+          />
+        </div>
+        <div class="column">
+          <Button
+            label="İptal"
+            class="p-button-rounded p-button-danger"
+            icon="pi pi-times"
+            iconPos="left"
+          />
+        </div>
+        <div class="column">
+          <Button
+            label="Ekle"
+            class="p-button-rounded p-button-success"
+            @click="btn_ekle_click"
+            icon="pi pi-plus"
+            iconPos="left"
+          />
+        </div>
+        <div class="column">
+          <Button
+            class="p-button-rounded p-button-warning"
+            label="Değiştir"
+            @click="btn_degistir_click"
+            icon="pi pi-refresh"
+            iconPos="left"
+          />
+        </div>
+        <div class="column">
+          <Button
+            label="Sil"
+            class="p-button-rounded"
+            @click="btn_sil_click"
+            style="background-color: yellow; color: black"
+            icon="pi pi-times-circle"
+            iconPos="left"
+          />
+        </div>
+      </div>
+    </template>
+  </Card>
+  <Card>
+    <template #content>
+      <DataTable
+        class="p-datatable-responsive p-datatable-cars"
+        :value="siparisToplu"
+        v-model:selection="selectUrun"
+        selectionMode="single"
+        @row-select="siparisUrunSec"
+        dataKey="id"
+      >
+        <Column field="siparisno" header="PO" headerStyle="width:90%;">
+          <template #body="slotProps">
+            {{ slotProps.data.siparisno }}
+          </template>
+        </Column>
+        <Column field="Tutar_tl" header="Tutar TRY" headerStyle="width:90%;">
+          <template #body="slotProps">
+            {{ slotProps.data.Tutar_tl }}
+          </template>
+        </Column>
+        <Column field="Tutar_dolar" header="Tutar USD" headerStyle="width:90%;">
+          <template #body="slotProps">
+            {{ slotProps.data.Tutar_dolar }}
+          </template>
+        </Column>
+        <Column field="kur" header="Kur" headerStyle="width:90%;">
+          <template #body="slotProps">
+            {{ slotProps.data.kur }}
+          </template>
+        </Column>
+      </DataTable>
+    </template>
+  </Card>
+  <Card>
+    <template #content>
+      <Button
+        class="p-button-rounded p-button-warning"
+        label="Bilgileri Kaydet"
+        :disabled="kaydetVisible1"
+        @click="kaydetIslemi"
+        icon="fas fa-check"
+        iconPos="left"
+      />
+    </template>
+  </Card>
+  <Card>
+    <template #content>
+      <div class="columns">
+        <div class="column">
+          <Button
+            :disabled="dis_numuneDosyayukle"
+            style="background-color: #green; color: black"
+            label="Evrak Yukle"
+            conPos="left"
+            icon="fas fa-file-invoice-dollar"
+            @click="proformaVisible = true"
+          />
+          <Dialog
+            v-model:visible="proformaVisible"
+            maximizable
+            :modal="true"
+            header="Evrak Girişi"
+            position="top"
+          >
+            <div
+              class="p-cardialog-content"
+              style="height: 300px; background-color: #f4f4f4"
+            >
+              <div class="p-grid">
+                <div class="p-col-12 p-lg-12">
+                  <div class="p-col-12 p-lg-12">
                     <div class="p-grid">
-                      <div class="p-col-12 p-lg-12">
-                        <div class="p-col-12 p-lg-12">
-                          <div class="p-grid">
-                            <div class="p-col-8">
-                              <custom-file-input
-                                :disabled="dis_numuneDosyaAc"
-                                @sunucuDosyaYolla="nakliyeDosyaGonder($event)"
-                                baslik="Evrak Yükle"
-                              />
-                            </div>
-                            <div class="p-col-4">
-                              <a :href="numuneLink" target="_blank">
-                                <Button
-                                  label="Dosya Aç"
-                                  :disabled="dis_numuneDosyaAc"
-                                />
-                              </a>
-                            </div>
-                          </div>
-                        </div>
+                      <div class="p-col-8" style="margin-left: -60px">
+                        <custom-file-input
+                          :disabled="dis_numuneDosyaAc"
+                          @sunucuDosyaYolla="nakliyeDosyaGonder($event)"
+                          style="margin-left: 155px"
+                          baslik="Evrak Yükle"
+                        />
+                      </div>
+                      <div class="p-col-4">
+                        <a :href="numuneLink" target="_blank">
+                          <Button
+                            label="Dosya Aç"
+                            :disabled="dis_numuneDosyaAc"
+                          />
+                        </a>
                       </div>
                     </div>
                   </div>
-                </Dialog>
+                </div>
               </div>
             </div>
-
-            <span style="color: red; font-size: 14px; font-weight: bold"
-              >Pdf formatında ve dosya isminin '.' içermediğine dikkat ediniz
-              .</span
-            >
-            <br />
-          </div>
-        </b-field>
-        <br />
+          </Dialog>
+        </div>
+        <span style="color: red; font-size: 14px; font-weight: bold"
+          >Pdf formatında ve dosya isminin '.' içermediğine dikkat ediniz
+          .</span
+        >
       </div>
-
+    </template>
+  </Card>
+  <Card>
+    <template #content>
       <div class="columns">
         <div class="column">
           <Button
@@ -615,26 +287,26 @@
           />
         </div>
       </div>
+    </template>
+  </Card>
 
-      <Dialog
-        v-model:visible="is_firma_alani"
-        header="Firma Listesi"
-        :modal="true"
-        maximizable
-        position="top"
-      >
-        <section>
-          <div class="container">
-            <div class="columns">
-              <div class="column is-12">
-                <FirmaAlani />
-              </div>
-            </div>
+  <Dialog
+    v-model:visible="is_firma_alani"
+    header="Firma Listesi"
+    maximizable
+    :modal="true"
+    position="top"
+  >
+    <section>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-12">
+            <FirmaAlani />
           </div>
-        </section>
-      </Dialog>
-    </div>
-  </section>
+        </div>
+      </div>
+    </section>
+  </Dialog>
 </template>
 <script>
 import service2 from "@/service/FinansService";
@@ -643,7 +315,6 @@ import LocalService from "@/service/LocalService";
 import CustomInputFile from "@/components/shared/CustomInputFile";
 import fileService from "@/service/FileService";
 import FirmaAlani from "./FirmaAlani";
-import store from "@/store";
 
 export default {
   components: {
@@ -653,6 +324,7 @@ export default {
 
   data() {
     return {
+      filterSiparisList:[],
       isMobile: null,
       firma: "",
       is_firma_alani: false,
@@ -688,45 +360,49 @@ export default {
 
   localService: null,
 
-  computed: {
-    filterFaturaList() {
-      if (this.firma_list) {
-        return this.firma_list.filter((option) => {
-          return (
-            option.firma_adi
-              .toString()
-              .toLowerCase()
-              .indexOf(this.firma.toLowerCase()) >= 0
-          );
-        });
-      }
-
-      return null;
-    },
-
-    filterSiparisList() {
-      if (this.siparis_list) {
-        return this.siparis_list.filter((option) => {
-          return (
-            option.siparisno
-              .toString()
-              .toLowerCase()
-              .indexOf(this.siparis.toLowerCase()) >= 0
-          );
-        });
-      }
-
-      return null;
-    },
-  },
+  computed: {},
   methods: {
+    searchSiparis(event) {
+      let result;
+
+      if (event.query.length == 0) result = [...this.siparis_list];
+      else {
+        result = this.siparis_list.filter((x) => {
+          return x.siparisno
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
+      this.filterSiparisList = result;
+    },
+    searchFatura(event) {
+      let result;
+
+      if (event.query.length == 0) result = [...this.firma_list];
+      else {
+        result = this.firma_list.filter((x) => {
+          return x.firma_adi
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
+      this.filterFaturaList = result;
+    },
     siparisUrunSec(event) {
       if (this.selectUrun) {
         this.urunler = { ...event.data };
 
         this.firma_id = this.urunler.Firma_id;
         this.Tutar_dolar = this.urunler.Tutar_dolar;
-        this.siparis = this.urunler.siparisno;
+
+
+        // this.siparis = this.urunler.siparisno;
+        this.siparis = this.siparis_list.filter(
+          (x) => x.siparisno == this.urunler.siparisno
+        );
+
+
+
         this.faturaNo = this.urunler.faturaNo;
         this.firma_adi = this.urunler.firma_adi;
         this.Tutar_tl = this.urunler.Tutar_tl;
@@ -788,7 +464,7 @@ export default {
     urunIslemleri() {
       this.urunler.Firma_id = this.firma_id;
       this.urunler.Tutar_dolar = this.Tutar_dolar;
-      this.urunler.siparisno = this.siparis;
+      this.urunler.siparisno = this.siparis.siparisno;
       this.urunler.faturaNo = this.faturaNo;
       this.urunler.firma_adi = this.firma_adi;
       this.urunler.Tutar_tl = this.Tutar_tl;
@@ -912,22 +588,11 @@ export default {
       let val = (value / 1).toFixed(2).replace(".", ",");
       return "₺" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
-    faturaDegisim() {
-      if (this.firma_list) {
-        setTimeout(() => {
-          const siparis_item = this.firma_list.find(
-            (x) => x.firma_adi == this.firma
-          );
-
-          this.firma_id = siparis_item.Firma_id;
-        }, 1000);
-      }
-    },
     nakliye_tablo_yukle() {
       this.tedarikci_loading = true;
     },
     kaydetIslemi() {
-      if (!this.firma) {
+      if (this.firma == "") {
         alert("Firma Adını Seçiniz.");
         return;
       }
@@ -937,12 +602,12 @@ export default {
       }
 
       const nakliye_data = {
-        siparisno: this.siparis,
-        firma_adi: this.firma,
+        siparisno: this.siparis.siparisno,
+        firma_adi: this.firma.firma_adi,
         faturaNo: this.faturaNo,
         Tutar_tl: this.Tutar_tl,
         kur: this.kur,
-        Firma_id: this.firma_id,
+        Firma_id: this.firma.Firma_id,
         Tutar_dolar: this.Tutar_dolar,
 
         tarih: this.localService.getDateString(this.tarih),
@@ -977,7 +642,6 @@ export default {
           this.kur = 0;
           this.Tutar_dolar = 0;
           this.tarih = new Date();
-
         } else {
           alert("Ops! Kayıt İşlemi Yapılamadı, Lütfen Tekrar Deneyiniz.");
         }

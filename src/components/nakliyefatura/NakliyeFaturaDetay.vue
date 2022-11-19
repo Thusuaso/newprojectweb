@@ -7,7 +7,7 @@
         >
         <div class="p-col">
           <InputText
-            v-model="nakliyeAyrinti[0].faturaNo"
+            v-model="nakliyeAyrinti.faturaNo"
             id="firstname"
             type="text"
             disabled="true"
@@ -20,7 +20,7 @@
         >
         <div class="p-col">
           <InputText
-            v-model="nakliyeAyrinti[0].kur"
+            v-model="nakliyeAyrinti.kur"
             id="firstname"
             type="text"
             @input="isInputKur"
@@ -33,7 +33,7 @@
         >
         <div class="p-col">
           <InputText
-            v-model="nakliyeAyrinti[0].Tutar_dolar"
+            v-model="nakliyeAyrinti.Tutar_dolar"
             id="lastname"
             type="text"
             @input="isInputDolar"

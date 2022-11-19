@@ -5,7 +5,7 @@
         <DataTable
           :value="nakliye_data_list"
           v-model:filters="filters"
-          filterDisplay="menu"
+          filterDisplay="row"
           :paginator="true"
           :rows="15"
           selectionMode="single"
@@ -26,6 +26,7 @@
             header="Tarih"
             bodyStyle="text-align:center"
             headerStyle="width:10px;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.tarih }}
@@ -45,6 +46,7 @@
             header="Order"
             bodyStyle="text-align:center"
             headerStyle="width:10px;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.siparis_no }}
@@ -64,6 +66,7 @@
             header="Firma Adı"
             bodyStyle="text-align:left"
             headerStyle="width:50px;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.firma_adi }}
@@ -83,6 +86,7 @@
             header="Fatura Numarası"
             bodyStyle="text-align:left"
             headerStyle="width:20px;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.faturaNo }}
@@ -103,6 +107,7 @@
             header="Tutar (TRY)"
             bodyStyle="text-align:center"
             headerStyle="width:10px;"
+            
           >
             <template #body="slotProps">
               {{ formatPriceTL(slotProps.data.Tutar_tl) }}

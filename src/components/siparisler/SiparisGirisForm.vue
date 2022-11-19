@@ -185,6 +185,7 @@
                 <input-currency
                   id="navlun"
                   :disAktif="true"
+                  :value="siparis.navlunSatis"
                   @input="siparis.navlunSatis = $event"
                   class="inputs"
                 />
@@ -196,6 +197,8 @@
                 <input-currency
                   id="diger"
                   :disAktif="true"
+                  :value="siparis.digerTutarToplam"
+
                   @input="siparis.digerTutarToplam = $event"
                   class="inputs"
                 />
@@ -207,6 +210,7 @@
                 <input-currency
                   id="genelToplam"
                   :disAktif="true"
+                  :value="siparis.genelToplam"
                   @input="siparis.genelToplam = $event"
                   class="inputs"
                 />
@@ -850,6 +854,7 @@ export default {
       this.maliyet.mekus_masraf = this.siparis.mekus_masraf;
       //    this.maliyet.genelToplam = this.maliyet.fobMasraf + this.maliyet.uretici + this.maliyet.navlun + this.maliyet.digerTutar + this.maliyet.iscilik +this.maliyet.mekus_masraf ;
       this.$store.dispatch("iscilik_act", this.maliyet.iscilik);
+      this.$store.dispatch('fob_masraf_act', this.maliyet.fobMasraf)
       this.$store.dispatch("uretici_act", this.maliyet.uretici);
       this.$store.dispatch("navlun_act", this.maliyet.navlun);
       this.$store.dispatch("komisyon_act", this.maliyet.komisyon);
@@ -981,11 +986,11 @@ export default {
       this.siparis.iscilikTutar = data.iscilikToplam;
     });
 
-    // eventListener.$on('currencyInputIscilik', data => {
-    //     this.iscilikData = data
-    //     this.maliyetYenile()
+    this.emitter.on('currencyInputIscilik', data => {
+        this.iscilikData = data
+        this.maliyetYenile()
 
-    //  })
+     })
   },
 };
 </script>

@@ -36,28 +36,72 @@
           :scrollable="true"
           scrollHeight="365px"
           :loading="loading"
+          v-model:filters="filters"
+          filterDisplay="row"
+          @filter="isFilterChange($event)"
         >
-          <Column header="Ödeme Tarihi" field="tarih" headerStyle="width:10%">
+          <Column
+            header="Ödeme Tarihi"
+            :showFilterMenu="false"
+            field="tarih"
+            headerStyle="width:10%"
+          >
             <template #body="slotProps">
               {{ slotProps.data.tarih }}
+            </template>
+            <template #filter="{ filterModel, filterCallback }">
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by"
+                v-tooltip.top.focus="'Filter as you type'"
+              />
             </template>
           </Column>
           <Column
             header="Müşteri Adı"
             headerStyle="width:25%"
             field="musteriadi"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.musteriadi }}
             </template>
+            <template #filter="{ filterModel, filterCallback }">
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by"
+                v-tooltip.top.focus="'Filter as you type'"
+              />
+            </template>
           </Column>
-          <Column header="Sipariş Numarası" headerStyle="width:25%" field="po">
+          <Column
+            header="Sipariş Numarası"
+            :showFilterMenu="false"
+            headerStyle="width:25%"
+            field="po"
+          >
             <template #body="slotProps">
               <div
                 :class="slotProps.data.status == 'Numune' ? 'genel_status' : ''"
               >
                 {{ slotProps.data.po }}
               </div>
+            </template>
+            <template #filter="{ filterModel, filterCallback }">
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by"
+                v-tooltip.top.focus="'Filter as you type'"
+              />
             </template>
           </Column>
           <Column
@@ -80,9 +124,15 @@
 </template>
 <script>
 import service from "@/service/FinansService";
+import { FilterMatchMode } from "primevue/api";
 export default {
   data() {
     return {
+      filters: {
+        tarih: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        musteriadi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        po: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      },
       yil_listesi: null,
       ay_listesi: null,
       odeme_listesi: null,
@@ -119,6 +169,9 @@ export default {
     });
   },
   methods: {
+    isFilterChange(event) {
+      this.odemeListesiTopla(event.filteredValue);
+    },
     formatPrice(value) {
       let val = (value / 1).toFixed(2).replace(".", ",");
       return "$" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -144,17 +197,19 @@ export default {
       });
     },
     odeme_listesi_yukle() {
-      this.odeme_toplam = 0;
       service
         .getMusteriOdemeListesi(this.select_yil.yil, this.select_ay)
         .then((data) => {
-          for (let key in data) {
-            this.odeme_toplam += data[key].tutar;
-          }
-
+          this.odemeListesiTopla(data);
           this.odeme_listesi = data;
           this.loading = false;
         });
+    },
+    odemeListesiTopla(event) {
+      this.odeme_toplam = 0;
+      for (let key in event) {
+        this.odeme_toplam += event[key].tutar;
+      }
     },
     excel_cikti_click() {
       alert("excel listesi yapılacak");

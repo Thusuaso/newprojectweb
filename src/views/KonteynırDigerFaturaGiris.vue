@@ -14,8 +14,8 @@
                     v-model="firma"
                     :suggestions="filterFaturaList"
                     optionLabel="firma_adi"
-                    @blur="faturaDegisim"
                     :disabled="kaydetVisible1"
+                    @complete="searchFirma($event)"
                   />
                   <label for="firma">Firma Seçiniz</label>
                 </span>
@@ -30,6 +30,7 @@
                     optionLabel="siparisno"
                     @blur="faturaDegisim"
                     :disabled="kaydetVisible1"
+                    @complete="searchSiparis($event)"
                   />
                   <label for="siparis">Sipariş Seçiniz</label>
                 </span>
@@ -201,34 +202,30 @@
         </div>
 
         <div class="column is-12">
-          <div class="column is-4" style="margin-top: -30px">
-            <Button
-              label="KAYDET"
-              class="p-button-success"
-              :disabled="yenikaydetVisible"
-              @click="kaydetolustur()"
-            />
-          </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 150px"
-          >
-            <Button
-              label="Yeni Kayıt"
-              :disabled="yenikayitVisible"
-              @click="kayitolustur()"
-            />
-          </div>
-          <div
-            class="column is-4"
-            style="margin-top: -60px; margin-left: 300px"
-          >
-            <Button
-              label="Vazgec"
-              class="p-button-danger"
-              :disabled="vazgecVisible"
-              @click="vazgec()"
-            />
+          <div class="columns">
+            <div class="column is-4">
+              <Button
+                label="KAYDET"
+                class="p-button-success"
+                :disabled="yenikaydetVisible"
+                @click="kaydetolustur()"
+              />
+            </div>
+            <div class="column is-4">
+              <Button
+                label="Yeni Kayıt"
+                :disabled="yenikayitVisible"
+                @click="kayitolustur()"
+              />
+            </div>
+            <div class="column is-4">
+              <Button
+                label="Vazgec"
+                class="p-button-danger"
+                :disabled="vazgecVisible"
+                @click="vazgec()"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -267,6 +264,8 @@ export default {
 
   data() {
     return {
+      filterSiparisList:[],
+      filterFaturaList: [],
       isMobile: null,
       firma: "",
       firma_list: [],
@@ -312,36 +311,35 @@ export default {
     });
   },
   computed: {
-    filterFaturaList() {
-      if (this.firma_list) {
-        return this.firma_list.filter((option) => {
-          return (
-            option.firma_adi
-              .toString()
-              .toLowerCase()
-              .indexOf(this.firma.toLowerCase()) >= 0
-          );
-        });
-      }
-
-      return null;
-    },
-    filterSiparisList() {
-      if (this.siparis_list) {
-        return this.siparis_list.filter((option) => {
-          return (
-            option.siparisno
-              .toString()
-              .toLowerCase()
-              .indexOf(this.siparis.toLowerCase()) >= 0
-          );
-        });
-      }
-
-      return null;
-    },
+    
   },
   methods: {
+    searchSiparis(event) {
+      let result;
+
+      if (event.query.length == 0) result = [...this.siparis_list];
+      else {
+        result = this.siparis_list.filter((x) => {
+          return x.siparisno
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
+      this.filterSiparisList = result;
+    },
+    searchFirma(event) {
+      let result;
+
+      if (event.query.length == 0) result = [...this.firma_list];
+      else {
+        result = this.firma_list.filter((x) => {
+          return x.firma_adi
+            .toLowerCase()
+            .startsWith(event.query.toLowerCase());
+        });
+      }
+      this.filterFaturaList = result;
+    },
     yeniFirmaGiris() {
       this.is_firma_alani = true;
 
@@ -481,7 +479,7 @@ export default {
       }
 
       const nakliye_data = {
-        siparisno: this.siparis,
+        siparisno: this.siparis.siparisno,
         firma_adi: this.firma,
         faturaNo: this.faturaNo,
         Tutar_tl: this.Tutar_tl,
