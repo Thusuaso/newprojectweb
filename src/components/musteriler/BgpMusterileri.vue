@@ -27,7 +27,7 @@
       header="Bgp Müşteri Ayrıntı"
       :modal="true"
       :breakpoints="{ '960px': '75vw', '640px': '100vw' }"
-      :style="{ width: '55vw' }"
+      :style="{ width: '60vw' }"
     >
       <br />
       <div class="columns">
@@ -123,7 +123,7 @@
       header="Bgp Yeni Müşteri Kayıt"
       :modal="true"
       :breakpoints="{ '960px': '75vw', '640px': '100vw' }"
-      :style="{ width: '55vw' }"
+      :style="{ width: '60vw' }"
     >
       <br />
 
@@ -150,14 +150,14 @@
         </div>
         <div class="column is-4">
           <span class="p-float-label">
-            <b-field label="ÜLKE" label-position="on-border">
-              <AutoComplete
-                v-model="select_ulke"
-                :suggestions="filter_ulke_list"
-                @complete="ulke_complete_event($event)"
-                field="ulkeAdi"
-              />
-            </b-field>
+            <AutoComplete
+              id="ulke"
+              v-model="select_ulke"
+              :suggestions="filter_ulke_list"
+              @complete="ulke_complete_event($event)"
+              field="ulkeAdi"
+            />
+            <label for="ulke">Ülke</label>
           </span>
         </div>
       </div>

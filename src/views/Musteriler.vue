@@ -9,7 +9,9 @@
     <TabPanel header="Fuar ve Ziyaret Müşterileri">
       <FuarMusterileri></FuarMusterileri>
     </TabPanel>
-    <TabPanel header="Bgp Müşterileri"> Content III </TabPanel>
+    <TabPanel header="Bgp Müşterileri"> 
+      <BgpMusterileri></BgpMusterileri>
+    </TabPanel>
   </TabView>
 </template>
 <script>
@@ -18,14 +20,15 @@ import service from "@/service/MusteriIslemService";
 import MusteriListesi from "@/components/musteriler/MusteriListesi";
 import TeklifMusterileri from "@/components/musteriler/TeklifMusterileri";
 import FuarMusterileri from "@/components/musteriler/FuarMusterileri";
-
+import BgpMusterileri from "@/components/musteriler/BgpMusterileri";
 import socket from "@/service/SocketService";
 import { FilterMatchMode } from "primevue/api";
 export default {
   components: {
     MusteriListesi,
     TeklifMusterileri,
-    FuarMusterileri
+    FuarMusterileri,
+    BgpMusterileri
 
   },
   computed: {
