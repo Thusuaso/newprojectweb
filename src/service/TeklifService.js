@@ -1,5 +1,5 @@
-import axios from "../helpers/custom_axios";
-import store from "../store";
+import axios from "@/helpers/custom_axios";
+import store from "@/store";
 
 const teklifService = {
   getTakvimList() {

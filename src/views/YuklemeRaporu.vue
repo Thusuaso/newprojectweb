@@ -1,33 +1,34 @@
 <template>
-  <section>
-    <div class="columns is-centered">
-      <div
-        class="column is-4"
-        style="height: 60px; background-color: #f4f4f4; margin-right: 15px"
-      >
-        <div class="columns is-multiline">
-          <div class="column is-3">
-            <Dropdown
-              v-model="select_yil"
-              @change="yil_degisim_event"
-              :options="yil_listesi"
-              optionLabel="yil"
-              placeholder="Select a Year"
-              style="transform: scale(0.6)"
-            />
-          </div>
-          <div class="column is-5">
-            <Dropdown
-              v-model="select_aystr"
-              @change="ay_degisim_event"
-              :options="ay_listesi"
-              optionLabel="ay_str"
-              placeholder="Select a Month"
-              style="transform: scale(0.6)"
-            />
-          </div>
-          <div class="column is-4">
-            <div>
+  <div class="columns">
+    <div class="column">
+      <Card>
+        <template #content>
+          <div class="columns">
+            <div class="column">
+              <Dropdown
+                v-model="select_yil"
+                @change="yil_degisim_event"
+                :options="yil_listesi"
+                optionLabel="yil"
+                placeholder="Select a Year"
+              >
+                <template #value="slotProps">
+                  {{ slotProps.value }}
+                </template>
+              </Dropdown>
+              <Dropdown
+                v-model="select_aystr"
+                @change="ay_degisim_event"
+                :options="ay_listesi"
+                optionLabel="ay_str"
+                placeholder="Select a Month"
+              >
+                <template #value="slotProps">
+                  {{ slotProps.value }}
+                </template>
+              </Dropdown>
+            </div>
+            <div class="column">
               <RadioButton
                 name="name"
                 value="musteri"
@@ -43,296 +44,305 @@
               />
               PO
             </div>
+            <div class="column"></div>
           </div>
-        </div>
-      </div>
-
-      <div
-        class="column is-4 box"
-        style="height: 60px; background-color: #f4f4f4;margin-right:15px;"
-      >
-        <div class="columns is-centered">
-          <div class="block">
-            <RadioButton
-              name="name"
-              value="Hepsi"
-              v-model="marketing"
-              @click="statuSecim2"
-            />
-            Hepsi
-            <RadioButton
-              name="name"
-              value="Mekmar"
-              v-model="marketing"
-              @click="statuSecim2"
-            />
-            Mekmar
-            <RadioButton
-              name="name"
-              value="BD"
-              v-model="marketing"
-              @click="statuSecim2"
-            />
-            BD
-            <RadioButton
-              name="name"
-              value="SM"
-              v-model="marketing"
-              @click="statuSecim2"
-            />
-            SM
-            <RadioButton
-              name="name"
-              value="Ghana"
-              v-model="marketing"
-              @click="statuSecim2"
-            />
-            Ghana
-            <RadioButton
-              name="name"
-              value="İç Piyasa"
-              v-model="marketing"
-              @click="statuSecim2"
-            />
-            İç Piyasa
-            <RadioButton
-              name="name"
-              value="SU"
-              v-model="marketing"
-              @click="statuSecim2"
-            />
-            SU
-          </div>
-        </div>
-      </div>
-      <div
-        class="column is-2 box"
-        style="height: 60px; background-color: #f4f4f4;margin-right:15px;"
-      >
-        <div class="columnis is-multiline">
-          <div>
-            <RadioButton
-              name="name"
-              value="aylik"
-              v-model="excelrapor"
-              @click="statuSecim3"
-            />
-            Aylık
-            <RadioButton
-              name="name"
-              value="yillik"
-              v-model="excelrapor"
-              @click="statuSecim3"
-            />
-            Yıllık
-          </div>
-        </div>
-      </div>
-      <div
-        class="column is-2 box"
-        style="height: 60px; background-color: #f4f4f4;margin-right:15px;"
-      >
-        <div class="columns is-multiline">
-          <div>
-            <RadioButton
-              name="name"
-              value="aylik"
-              v-model="pdfrapor"
-              @click="statuSecim4"
-            />
-            Aylık
-            <RadioButton
-              name="name"
-              value="yillik"
-              v-model="pdfrapor"
-              @click="statuSecim4"
-            />
-            Yıllık
-          </div>
-        </div>
-      </div>
+        </template>
+      </Card>
     </div>
-    <div class="columns is-multiline is-centered">
-      <div class="column is-5">
-        <DataTable
-          :value="aylik_liste"
-          :scrollable="true"
-          scrollHeight="420px"
-          v-model:filters="filters"
-          filterDisplay="menu"
-          dataKey="id"
-          :loading="$store.getters.datatableLoading"
-          @filter="isFilteredValue"
-        >
-          <template #header>
-            <div class="columns is-multiline">
-              <div class="column is-12">
-                <span style="font-size: 15px">Aylık Toplam Yükleme </span>
-              </div>
-            </div>
-          </template>
-          <Column
-            field="siparis_no"
-            header="Sipariş Numarası"
-            bodyStyle="text-align:center;"
-          >
-            <template #body="slotProps">
-              {{ slotProps.data.siparis_no }}
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText
-                type="text"
-                v-model="filterModel.value"
-                @input="filterCallback()"
-                class="p-column-filter"
-                placeholder="Search by Customer"
+    <div class="column">
+      <Card>
+        <template #content>
+          <div class="columns">
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="Hepsi"
+                v-model="marketing"
+                @click="statuSecim2"
               />
-            </template>
-          </Column>
-          <Column
-            field="musteri_adii"
-            header="Müşteri Adı"
-            bodyStyle="text-align:center;"
-          >
-            <template #body="slotProps">
-              {{ slotProps.data.musteri_adii }}
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText
-                type="text"
-                v-model="filterModel.value"
-                @input="filterCallback()"
-                class="p-column-filter"
-                placeholder="Search by Customer"
-              />
-            </template>
-          </Column>
-          <Column field="fob" header="F" bodyStyle="text-align:center;">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.fob) }}
-            </template>
-            <template #footer>
-              {{ formatPrice(fob_ay_top) }}
-            </template>
-          </Column>
-          <Column field="dtp" header="C/D" bodyStyle="text-align:center;">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.dtp) }}
-            </template>
-            <template #footer>
-              {{ formatPrice(dtp_ay_top) }}
-            </template>
-          </Column>
-        </DataTable>
-      </div>
-      <div class="column is-4">
-        <DataTable
-          :value="yillik_liste"
-          :scrollable="true"
-          scrollHeight="390px"
-          v-model:filters="filters3"
-          filterDisplay="menu"
-          dataKey="id"
-          :loading="$store.getters.datatableLoading"
-          @filter="isSumYear"
-        >
-          <template #header>
-            <div class="columns is-multiline">
-              <div class="column is-12">
-                <span style="font-size: 15px"> Yıllık Toplam Yükleme </span>
-              </div>
+              Hepsi
             </div>
-          </template>
-
-          <Column
-            field="musteri_adi"
-            header="Müşteri Adı"
-            bodyStyle="text-align:center;"
-          >
-            <template #body="slotProps">
-              {{ slotProps.data.musteri_adi }}
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText
-                type="text"
-                v-model="filterModel.value"
-                @input="filterCallback()"
-                class="p-column-filter"
-                placeholder="Search by Customer"
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="BD"
+                v-model="marketing"
+                @click="statuSecim2"
               />
-            </template>
-          </Column>
-          <Column field="fob" header="F" bodyStyle="text-align:center;">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.fob) }}
-            </template>
-            <template #footer>
-              {{ formatPrice(fob_yil_top) }}
-            </template>
-          </Column>
-          <Column field="dtp" header="C/D" bodyStyle="text-align:center;">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.dtp) }}
-            </template>
-            <template #footer>
-              {{ formatPrice(dtp_yil_top) }}
-            </template>
-          </Column>
-        </DataTable>
-      </div>
-      <div class="column is-3">
-        <DataTable
-          :value="yillik_sayim_listesi"
-          :loading="$store.getters.datatableLoading"
-          v-model:filters="filters2"
-
-        >
-          <template #header>
-            <div class="columns is-multiline">
-              <div class="column is-12">
-                <span style="font-size: 15px">
-                  Pazarlama Bazında Toplam Yüklemeler
-                </span>
-              </div>
+              BD
             </div>
-          </template>
-          <Column
-            field="marketing"
-            header="Pazarlama Tür"
-            bodyStyle="text-align:center;"
-          >
-            <template #body="slotProps">
-              {{ slotProps.data.marketing }}
-            </template>
-          </Column>
-          <Column
-            field="yukleme_sayisiay"
-            header="Ay"
-            bodyStyle="text-align:center;"
-          >
-            <template #body="slotProps">
-              {{ slotProps.data.yukleme_sayisiay }}
-            </template>
-            <template #footer>
-              {{ yukleme_ay_top }}
-            </template>
-          </Column>
-          <Column
-            field="yukleme_sayisi"
-            header="Yıl"
-            bodyStyle="text-align:center;"
-          >
-            <template #body="slotProps">
-              {{ slotProps.data.yukleme_sayisi }}
-            </template>
-            <template #footer>
-              {{ yukleme_yil_top }}
-            </template>
-          </Column>
-        </DataTable>
-      </div>
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="SM"
+                v-model="marketing"
+                @click="statuSecim2"
+              />
+              SM
+            </div>
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="Ghana"
+                v-model="marketing"
+                @click="statuSecim2"
+              />
+              Ghana
+            </div>
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="İç Piyasa"
+                v-model="marketing"
+                @click="statuSecim2"
+              />
+              İç Piyasa
+            </div>
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="SU"
+                v-model="marketing"
+                @click="statuSecim2"
+              />
+              SU
+            </div>
+          </div>
+        </template>
+      </Card>
     </div>
-  </section>
+    <div class="column">
+      <Card>
+        <template #content>
+          <div class="columns">
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="aylik"
+                v-model="excelrapor"
+                @change="statuSecim3"
+              />
+              Aylık <i class="pi pi-file-excel"></i>
+            </div>
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="yillik"
+                v-model="excelrapor"
+                @change="statuSecim3"
+              />
+              Yıllık <i class="pi pi-file-excel"></i>
+            </div>
+          </div>
+        </template>
+      </Card>
+    </div>
+    <div class="column">
+      <Card>
+        <template #content>
+          <div class="columns">
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="aylik"
+                v-model="pdfrapor"
+                @change="statuSecim4"
+              />
+              Aylık <i class="pi pi-file-pdf"></i>
+            </div>
+            <div class="column">
+              <RadioButton
+                name="name"
+                value="yillik"
+                v-model="pdfrapor"
+                @change="statuSecim4"
+              />
+              Yıllık <i class="pi pi-file-pdf"></i>
+            </div>
+          </div>
+        </template>
+      </Card>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <DataTable
+        :value="aylik_liste"
+        :scrollable="true"
+        scrollHeight="420px"
+        v-model:filters="filters"
+        filterDisplay="menu"
+        dataKey="id"
+        :loading="$store.getters.datatableLoading"
+        @filter="isFilteredValue($event)"
+      >
+        <template #header>
+          <div class="columns is-multiline">
+            <div class="column is-12">
+              <span style="font-size: 15px">Aylık Toplam Yükleme </span>
+            </div>
+          </div>
+        </template>
+        <Column
+          field="siparis_no"
+          header="Sipariş Numarası"
+          bodyStyle="text-align:center;"
+        >
+          <template #body="slotProps">
+            {{ slotProps.data.siparis_no }}
+          </template>
+          <template #filter="{ filterModel, filterCallback }">
+            <InputText
+              type="text"
+              v-model="filterModel.value"
+              @input="filterCallback()"
+              class="p-column-filter"
+              placeholder="Search by Customer"
+            />
+          </template>
+        </Column>
+        <Column
+          field="musteri_adii"
+          header="Müşteri Adı"
+          bodyStyle="text-align:center;"
+        >
+          <template #body="slotProps">
+            {{ slotProps.data.musteri_adii }}
+          </template>
+          <template #filter="{ filterModel, filterCallback }">
+            <InputText
+              type="text"
+              v-model="filterModel.value"
+              @input="filterCallback()"
+              class="p-column-filter"
+              placeholder="Search by Customer"
+            />
+          </template>
+        </Column>
+        <Column field="fob" header="F" bodyStyle="text-align:center;">
+          <template #body="slotProps">
+            {{ formatPrice(slotProps.data.fob) }}
+          </template>
+          <template #footer>
+            {{ formatPrice(fob_ay_top) }}
+          </template>
+        </Column>
+        <Column field="dtp" header="C/D" bodyStyle="text-align:center;">
+          <template #body="slotProps">
+            {{ formatPrice(slotProps.data.dtp) }}
+          </template>
+          <template #footer>
+            {{ formatPrice(dtp_ay_top) }}
+          </template>
+        </Column>
+      </DataTable>
+    </div>
+    <div class="column">
+      <DataTable
+        :value="yillik_liste"
+        :scrollable="true"
+        scrollHeight="390px"
+        v-model:filters="filters3"
+        filterDisplay="menu"
+        dataKey="id"
+        :loading="$store.getters.datatableLoading"
+        @filter="isSumYear"
+      >
+        <template #header>
+          <div class="columns is-multiline">
+            <div class="column is-12">
+              <span style="font-size: 15px"> Yıllık Toplam Yükleme </span>
+            </div>
+          </div>
+        </template>
+
+        <Column
+          field="musteri_adi"
+          header="Müşteri Adı"
+          bodyStyle="text-align:center;"
+        >
+          <template #body="slotProps">
+            {{ slotProps.data.musteri_adi }}
+          </template>
+          <template #filter="{ filterModel, filterCallback }">
+            <InputText
+              type="text"
+              v-model="filterModel.value"
+              @input="filterCallback()"
+              class="p-column-filter"
+              placeholder="Search by Customer"
+            />
+          </template>
+        </Column>
+        <Column field="fob" header="F" bodyStyle="text-align:center;">
+          <template #body="slotProps">
+            {{ formatPrice(slotProps.data.fob) }}
+          </template>
+          <template #footer>
+            {{ formatPrice(fob_yil_top) }}
+          </template>
+        </Column>
+        <Column field="dtp" header="C/D" bodyStyle="text-align:center;">
+          <template #body="slotProps">
+            {{ formatPrice(slotProps.data.dtp) }}
+          </template>
+          <template #footer>
+            {{ formatPrice(dtp_yil_top) }}
+          </template>
+        </Column>
+      </DataTable>
+    </div>
+    <div class="column">
+      <DataTable
+        :value="yillik_sayim_listesi"
+        :loading="$store.getters.datatableLoading"
+        v-model:filters="filters2"
+      >
+        <template #header>
+          <div class="columns is-multiline">
+            <div class="column is-12">
+              <span style="font-size: 15px">
+                Pazarlama Bazında Toplam Yüklemeler
+              </span>
+            </div>
+          </div>
+        </template>
+        <Column
+          field="marketing"
+          header="Pazarlama Tür"
+          bodyStyle="text-align:center;"
+        >
+          <template #body="slotProps">
+            {{ slotProps.data.marketing }}
+          </template>
+        </Column>
+        <Column
+          field="yukleme_sayisiay"
+          header="Ay"
+          bodyStyle="text-align:center;"
+        >
+          <template #body="slotProps">
+            {{ slotProps.data.yukleme_sayisiay }}
+          </template>
+          <template #footer>
+            {{ yukleme_ay_top }}
+          </template>
+        </Column>
+        <Column
+          field="yukleme_sayisi"
+          header="Yıl"
+          bodyStyle="text-align:center;"
+        >
+          <template #body="slotProps">
+            {{ slotProps.data.yukleme_sayisi }}
+          </template>
+          <template #footer>
+            {{ yukleme_yil_top }}
+          </template>
+        </Column>
+      </DataTable>
+    </div>
+  </div>
 </template>
 <script>
 import service from "@/service/RaporService";
@@ -412,22 +422,20 @@ export default {
   },
   methods: {
     isSumYear(event) {
-      this.fob_yil_top = 0
-      this.dtp_yil_top = 0
+      this.fob_yil_top = 0;
+      this.dtp_yil_top = 0;
       for (let i in event.filteredValue) {
-        this.fob_yil_top += event.filteredValue[i].fob
-        this.dtp_yil_top += event.filteredValue[i].dtp
-        
+        this.fob_yil_top += event.filteredValue[i].fob;
+        this.dtp_yil_top += event.filteredValue[i].dtp;
       }
     },
     isFilteredValue(event) {
-      this.fob_ay_top = 0
-      this.dtp_ay_top = 0
-      console.log(event)
+      this.fob_ay_top = 0;
+      this.dtp_ay_top = 0;
+      console.log(event);
       for (let item in event.filteredValue) {
-        this.fob_ay_top += event.filteredValue[item].fob
-        this.dtp_ay_top += event.filteredValue[item].dtp
-
+        this.fob_ay_top += event.filteredValue[item].fob;
+        this.dtp_ay_top += event.filteredValue[item].dtp;
       }
     },
     generatePdf() {
@@ -736,6 +744,9 @@ export default {
       this.select_ay = this.ay_listesi.find(
         (x) => x.ay_str == event.value.ay_str
       ).ay;
+      this.select_aystr = this.ay_listesi.find(
+        (x) => x.ay_str == event.value.ay_str
+      ).ay_str;
       this.ay_baslik = this.select_aystr;
       this.yukleme_listesi_yukle();
     },
@@ -761,7 +772,6 @@ export default {
     excel_cikti_click(data) {
       service.getYuklemePoExcelCikti(data).then((response) => {
         if (response.status) {
-          this.musteri_loading = true;
           const link = document.createElement("a");
           link.href =
             this.servis_adres + "raporlar/listeler/yuklemepoExcelCikti";
@@ -775,7 +785,6 @@ export default {
     excel_Musteri_click(data) {
       service.getYuklemeMuExcelCikti(data).then((response) => {
         if (response.status) {
-          this.musteri_loading = true;
           const link = document.createElement("a");
 
           link.href =
@@ -790,7 +799,6 @@ export default {
     excel_Yil_click(data) {
       service.getYuklemeYilExcelCikti(data).then((response) => {
         if (response.status) {
-          this.musteri_loading = true;
           const link = document.createElement("a");
 
           link.href =

@@ -1,9 +1,10 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
   <section>
+    <br/>
     <div class="columns">
       <div class="column is-12">
-        <div class="columns is-multiline">
+        <div class="columns is-multiline" style="margin-left:22px;">
           <div class="column is-2" style="background-color: white">
             
             <span class="p-float-label" v-if="yeniSiparis">

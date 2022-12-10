@@ -6,11 +6,11 @@
           :value="musteri_data"
           :loading="$store.getters.datatableLoading"
           v-model:filters="filters"
-          filterDisplay="menu"
+          filterDisplay="row"
           :paginator="true"
           :rows="15"
         >
-          <Column field="year" header="Yıl" bodyStyle="text-align:center;">
+          <Column field="year" header="Yıl" bodyStyle="text-align:left;" :showFilterMenu="false">
             <template #body="slotProps">
               {{ slotProps.data.year }}
             </template>
@@ -28,7 +28,8 @@
           <Column
             field="firmaadi"
             header="Müşteri"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.firmaadi }}
@@ -47,7 +48,8 @@
             field="siparisno"
             header="Sipariş No"
             headerStyle="width:100px;"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.siparisno }}
@@ -55,6 +57,7 @@
             <template #filter="{ filterModel, filterCallback }">
               <InputText
                 type="text"
+                style="width:70px;"
                 v-model="filterModel.value"
                 @input="filterCallback()"
                 class="p-column-filter"
@@ -66,7 +69,7 @@
             field="satisFiyati"
             header="Satış Fiyatı($)"
             headerStyle="width:100px;"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ formatDecimal(slotProps.data.satisFiyati) }}
@@ -76,7 +79,8 @@
             field="urunbirim"
             header="Ürün Birim"
             headerStyle="width:100px;"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.urunbirim }}
@@ -86,7 +90,8 @@
           <Column
             field="urunadi"
             header="Ürün Adı"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.urunadi }}
@@ -104,7 +109,8 @@
           <Column
             field="yuzeyadi"
             header="Yüzey Adı"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.yuzeyadi }}
@@ -123,7 +129,8 @@
             field="en"
             header="En"
             headerStyle="width:100px;"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.en }}
@@ -142,7 +149,8 @@
             field="boy"
             header="Boy"
             headerStyle="width:100px;"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.boy }}
@@ -161,7 +169,8 @@
             field="kenar"
             header="Kenar"
             headerStyle="width:100px;"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.kenar }}

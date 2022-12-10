@@ -19,8 +19,7 @@
         <DataTable
           :value="musteriTeklifList"
           v-model:filters="filters"
-          filterDisplay="menu"
-          dataKey="id"
+          filterDisplay="row"
           :scrollable="true"
           scrollHeight="408px"
           selectionMode="single"

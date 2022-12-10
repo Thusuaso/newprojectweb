@@ -6,9 +6,9 @@
       @row-select="isSelectedRow"
       selectionMode="single"
       v-model:filters="filters"
-      filterDisplay="menu"
+      filterDisplay="row"
     >
-      <Column field="musteri_adi" header="Müşteri Adı">
+      <Column field="musteri_adi" header="Müşteri Adı" :showFilterMenu="false">
         <template #body="slotProps">
           {{ slotProps.data.musteri_adi }}
         </template>
@@ -18,7 +18,8 @@
             v-model="filterModel.value"
             @input="filterCallback()"
             class="p-column-filter"
-            placeholder="Search by Customer"
+            placeholder="Search by"
+            style="width:150px;"
           />
         </template>
       </Column>

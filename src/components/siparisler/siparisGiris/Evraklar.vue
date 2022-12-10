@@ -10,13 +10,13 @@
           <Column
             field="faturano"
             header="#"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
             headerStyle="width:5%;"
           ></Column>
           <Column
             field="yuklemeTarihi"
             headerStyle="width:5%;"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             header="Evrak Yukleme Tarihi"
           ></Column>
           <Column
@@ -29,7 +29,7 @@
           <Column
             header="İndir"
             headerStyle="width:4%;"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               <Button
@@ -42,15 +42,16 @@
             </template>
           </Column>
           <Column
+            header="Yükleyen"
             field="kullanici"
             headerStyle="width:5%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
           </Column>
           <Column headerStyle="width:10%;" bodyStyle="text-align:left">
             <template #body="slotProps">
               <Button
-                :disabled="true"
+                :disabled="false"
                 label="Sil"
                 class="p-button-danger"
                 @click="faturaDosyaSilme(slotProps.data.faturaId)"
@@ -86,9 +87,30 @@ export default {
     faturaDosyaSilme(event) {
       if (confirm("Gerçekten silmek istiyor musunuz?")) {
         service.setDeleteFaturaEvrak(event, this.siparisNo).then((data) => {
-          this.$store.dispatch("siparis_evrak_list_load", data.data);
+          if (data) {
+            this.$store.dispatch("datatableLoadingBeginAct");
+            service.getEvrakFaturaList(this.siparisNo).then((data) => {
+              this.$toast.add({
+                severity: "success",
+                summary: "Evrak Silme",
+                detail: "Evrak başarıyla silindi.",
+                life: 3000,
+              });
+              this.$store.dispatch(
+                "siparis_evrak_list_load",
+                data.fatura_listesi
+              );
 
-
+              this.$store.dispatch("datatableLoadingEndAct");
+            });
+          } else {
+            this.$toast.add({
+              severity: "error",
+              summary: "Evrak Silme",
+              detail: "Evrak silme hata.",
+              life: 3000,
+            });
+          }
         });
       } else {
         console.log("hayır");

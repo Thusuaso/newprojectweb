@@ -566,6 +566,11 @@
         >
       </div>
     </div>
+    <div class=columns>
+      <div class="column">
+          <ceyreklikSatislar></ceyreklikSatislar>
+      </div>
+    </div>
     <Dialog
       v-model:visible="is_form"
       header="Sipariş Özeti Ayrıntı"
@@ -589,13 +594,14 @@
 import service from "@/service/RaporService";
 import OzetAyrinti from "@/components/siparisozet/OzetAyrinti";
 import { mapGetters } from "vuex";
-
+import ceyreklikSatislar from "@/components/raporlar/CeyreklikSatislar"
 export default {
   components: {
     OzetAyrinti,
+    ceyreklikSatislar
   },
   computed: {
-    ...mapGetters(["siparis_ozet_ayrinti_act", "siparis_ozet_ayrinti"]),
+    ...mapGetters([ "siparis_ozet_ayrinti"]),
   },
   data() {
     return {
@@ -664,7 +670,9 @@ export default {
     this.gecen_yil = tarih.getFullYear() - 1;
     this.bu_yil = tarih.getFullYear();
     this.$store.dispatch("loadingBeginAct");
-      service.getSiparisOzetRapor().then((data) => {
+    service.getSiparisOzetRapor().then((data) => {
+          
+
           this.siparis_list = data.siparis_list;
           this.sevk_list = data.sevk_list;
 
@@ -694,7 +702,7 @@ export default {
                   data.sevkiyat_gecen_yil_list
               );
               this.satisci_toplam_buyil_sevkiyat_guncelle(data.sevkiyat_bu_yil_list);
-            this.$store.dispatch("loadingEndAct");
+             this.$store.dispatch("loadingEndAct");
 
 
           });

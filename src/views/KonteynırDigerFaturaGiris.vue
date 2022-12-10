@@ -359,8 +359,8 @@ export default {
         this.kur = data.result;
       });
     },
-    dolar_input_event(event) {
-      if (event) this.Tutar_dolar = event.replace(",", ".");
+    dolar_input_event() {
+      this.Tutar_dolar = this.Tutar_dolar.replace(",", ".");
 
       if (this.kur != 0) {
         this.Tutar_tl = this.Tutar_dolar * this.kur;
@@ -396,15 +396,15 @@ export default {
       this.dis_numuneDosyayukle = true;
       this.yenikaydetVisible = true;
     },
-    miktar_input_event(event) {
-      if (event) this.Tutar_tl = event.replace(",", ".");
+    miktar_input_event() {
+      this.Tutar_tl = this.Tutar_tl.replace(",", ".");
       if (this.Tutar_tl > 0 && this.kur > 0) {
         this.Tutar_dolar = this.Tutar_tl / this.kur;
         this.Tutar_dolar = (this.Tutar_dolar / 1).toFixed(2).replace(",", ".");
       }
     },
-    toplam_adet_hesapla(event) {
-      if (event) this.kur = event.replace(",", ".");
+    toplam_adet_hesapla() {
+      this.kur = this.kur.replace(",", ".");
       if (this.Tutar_tl > 0 && this.kur > 0) {
         this.Tutar_dolar = this.Tutar_tl / this.kur;
         this.Tutar_tl = (this.Tutar_tl / 1).toFixed(2).replace(",", ".");
@@ -442,7 +442,7 @@ export default {
       if (this.firma_list) {
         setTimeout(() => {
           const siparis_item = this.firma_list.find(
-            (x) => x.firma_adi == this.firma
+            (x) => x.firma_adi == this.firma.firma_adi
           );
           this.firma_id = siparis_item.Firma_id;
         }, 1000);
@@ -480,11 +480,11 @@ export default {
 
       const nakliye_data = {
         siparisno: this.siparis.siparisno,
-        firma_adi: this.firma,
+        firma_adi: this.firma.firma_adi,
         faturaNo: this.faturaNo,
         Tutar_tl: this.Tutar_tl,
         kur: this.kur,
-        Firma_id: this.firma_id,
+        Firma_id: this.firma.Firma_id,
         Tutar_dolar: this.Tutar_dolar,
         fatura_tur_list: this.selectFaturaTur,
         tarih: this.localService.getDateString(this.tarih),
@@ -503,7 +503,7 @@ export default {
             fatura_tur_list: this.selectFaturaTur,
             urunID: data.konteyner_liste[0].id,
             tarih: nakliye_data.tarih,
-            kullaniciAdi: this.$store.getters.getUser,
+            kullaniciAdi: this.$store.getters.__getUsername,
           };
           this.nakliye_data2 = nakliye_data2;
         });

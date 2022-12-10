@@ -5,6 +5,7 @@
       <div class="columns">
         <div class="column">
           <span class="p-float-label">
+            {{ firma }}
             <AutoComplete
               id="firma"
               v-model="firma"
@@ -324,7 +325,7 @@ export default {
 
   data() {
     return {
-      filterSiparisList:[],
+      filterSiparisList: [],
       isMobile: null,
       firma: "",
       is_firma_alani: false,
@@ -395,13 +396,10 @@ export default {
         this.firma_id = this.urunler.Firma_id;
         this.Tutar_dolar = this.urunler.Tutar_dolar;
 
-
         // this.siparis = this.urunler.siparisno;
         this.siparis = this.siparis_list.filter(
           (x) => x.siparisno == this.urunler.siparisno
         );
-
-
 
         this.faturaNo = this.urunler.faturaNo;
         this.firma_adi = this.urunler.firma_adi;
@@ -462,14 +460,14 @@ export default {
       return result;
     },
     urunIslemleri() {
-      this.urunler.Firma_id = this.firma_id;
+      this.urunler.Firma_id = this.firma.Firma_id;
       this.urunler.Tutar_dolar = this.Tutar_dolar;
       this.urunler.siparisno = this.siparis.siparisno;
       this.urunler.faturaNo = this.faturaNo;
-      this.urunler.firma_adi = this.firma_adi;
+      this.urunler.firma_adi = this.firma.firma_adi;
       this.urunler.Tutar_tl = this.Tutar_tl;
       this.urunler.kur = this.kur;
-      (this.urunler.kullaniciAdi = this.$store.getters.getUser),
+      (this.urunler.kullaniciAdi = this.$store.getters.__getUsername),
         (this.urunler.tarih = this.localService.getDateString(this.tarih));
       if (!this.urunler.id) {
         this.urunler.id = this.idOlustur();
@@ -531,16 +529,16 @@ export default {
       this.dis_numuneDosyayukle = true;
       this.yenikaydetVisible = true;
     },
-    dolar_input_event(event) {
-      if (event) this.Tutar_dolar = event.replace(",", ".");
+    dolar_input_event() {
+      this.Tutar_dolar = this.Tutar_dolar.replace(",", ".");
 
       if (this.kur != 0) {
         this.Tutar_tl = this.Tutar_dolar * this.kur;
         this.Tutar_tl = (this.Tutar_tl / 1).toFixed(2).replace(",", ".");
       }
     },
-    miktar_input_event(event) {
-      if (event) this.Tutar_tl = event.replace(",", ".");
+    miktar_input_event() {
+      this.Tutar_tl = this.Tutar_tl.replace(",", ".");
 
       if (this.kur != 0) {
         if (this.Tutar_tl > 0 && this.kur > 0) {
@@ -552,7 +550,7 @@ export default {
       }
     },
     toplam_adet_hesapla(event) {
-      if (event) this.kur = event.replace(",", ".");
+      this.kur = this.kur.replace(",", ".");
       if (this.Tutar_tl > 0 && this.kur > 0) {
         this.Tutar_dolar = this.Tutar_tl / this.kur;
         this.Tutar_dolar = (this.Tutar_dolar / 1).toFixed(2).replace(",", ".");
@@ -625,7 +623,7 @@ export default {
             Tutar_dolar: nakliye_data.Tutar_dolar,
             urunID: data.nakliye_liste[0].id,
             tarih: nakliye_data.tarih,
-            kullaniciAdi: this.$store.getters.getUser,
+            kullaniciAdi: this.$store.getters.__getUsername,
           };
           this.nakliye_data2 = nakliye_data2;
         });

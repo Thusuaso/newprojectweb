@@ -1,4 +1,11 @@
 <template>
+  <Checkbox
+    v-model="alisFiyatiDurum"
+    @change="isAlisFiyatiControlChange"
+    :binary="true"
+  />
+  Alış Fiyatı <span v-if="alisFiyatiDurum">Var</span>
+
   <section>
     <div class="column is-12">
       <DataTable :value="masraf_list" :loading="loading">
@@ -424,8 +431,8 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import service from "../../service/RaporService";
-import operasyon from "../../service/OperasyonService";
+import service from "@/service/RaporService";
+import operasyon from "@/service/OperasyonService";
 
 export default {
   computed: {
@@ -444,6 +451,7 @@ export default {
     this.loading = true;
     service.getMaliyetAyrintiYeni(this.siparisno).then((data) => {
       this.masraf_list = data.maliyet;
+      this.alisFiyatiDurum = this.masraf_list[0].alisFiyatiControl
       this.maliyet_usd = data.maliyet[0].total_in;
 
       this.banka = data.banka;
@@ -471,6 +479,7 @@ export default {
   },
   data() {
     return {
+      alisFiyatiDurum:false,
       siparisno: null,
       masraf_list: null,
       banka: null,
@@ -487,6 +496,17 @@ export default {
     };
   },
   methods: {
+    isAlisFiyatiControlChange() {
+      const data = {
+        'siparisno': this.siparisno,
+        'alisFiyatiControl': this.masraf_list[0].alisFiyatiControl
+      }
+      service.setAlisFiyatiControl(data).then(data => {
+        if (data) {
+          this.$toast.add({ severity: 'success', summary: 'Alış Fiyatı Kontrol', detail: 'Alış fiyatı durumu başarıyla değiştirildi.', life: 3000 });
+        }
+      })
+    },
     evrak_indir(dosya_link, dosya_adi) {
       this.$store.dispatch("loadBegin");
       const link = document.createElement("a");

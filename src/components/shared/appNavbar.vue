@@ -1,451 +1,5 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-    <!-- <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-
-    
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-    
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Satışçı
-                    </a>
-    
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/satisci">
-                            <a>
-                                Takip
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/bgpNetwork">
-                            <a>
-                                Bgp Project
-                            </a>
-                        </router-link>
-                    </div>
-                    
-
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Siparişler
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/siparisler/uretim">
-                            <a>
-                                Üretim
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/siparisler/sevk">
-                            <a>
-                                Sevk
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/siparisler/bekleyen">
-                            <a>
-                                Bekleyen
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="is_h">
-                    <a class="navbar-link">
-                        Seleksiyon
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/seleksiyon/seleksiyonGiris">
-                            <a>
-                                <i class="fa fa-sharp fa-solid fa-wand-sparkles fa-l" style="margin-right:8px;"></i>Seleksiyon Giriş
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/seleksiyon/kasaDetayOlculeri">
-                            <a>
-                                Kasa Detay
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Finans
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/finans/finansAnaListe">
-                            <a>
-                                Finans Ana Liste
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/finans/odemelerfinansAnaListesi">
-                            <a>
-                                Ödemeler Listesi
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="isOthers">
-                    <a class="navbar-link">
-                        Maliyet Raporu
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/maliyet/maliyetRaporu">
-                            <a>
-                                Ayo Raporu
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Operasyon
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/urunKartListesi">
-                            <a>
-                                Ürün Kart Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/operasyon/tedarikciListe">
-                            <a>
-                                Tedarikçi Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/operasyon/sevkiyatForm">
-                            <a>
-                                Sevkiyat
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/evrakYukleme">
-                            <a>
-                                Yükleme Formu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/operasyon/sevkTakipListesi">
-                            <a>
-                                Konteynır Takip
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/operasyon/sevkTakipDusenListesi">
-                            <a>
-                                Konteynır Takipten Düşen
-                            </a>
-                        </router-link>
-                        <hr class="navbar-divider">
-
-                        <router-link class="navbar-item" to="/operasyon/nakliyeFaturaGiris">
-                            <a>
-                                Nakliye Fatura Giriş
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/operasyon/nakliyeFaturaListesi">
-                            <a>
-                                Nakliye Fatura Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/operasyon/konteynerFaturaGiris">
-                            <a>
-                                Konteynır Fatura Girişi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/operasyon/konteynerFaturaListesi">
-                            <a>
-                                Konteynır Fatura Listesi
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Müşteriler
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/musteriler/musteriListesi">
-                            <a>
-                                Müşteri Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/musteriler/musteriSiparisListesi">
-                            <a>
-                                Müşteri Sipariş Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/musteriler/ulkeyeGoreMusteriler">
-                            <a>
-                                Ülkeye Göre Müşteriler
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="isOthers">
-                    <a class="navbar-link">
-                        Atlanta SM
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/atlanta/stokListesi">
-                            <a>
-                                Stok
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="is_h">
-                    <a class="navbar-link">
-                        Raporlar
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/raporlar/yuklemeRapor">
-                            <a>
-                                Yükleme Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/atlantaRapor">
-                            <a>
-                                Atlanta SM Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/siparisOzetRapor">
-                            <a>
-                                Sipariş Özet Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/musteriler">
-                            <a>
-                                Müşteriler Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/ceyreklikSatislar">
-                            <a>
-                                Çeyrek Finansal Sonuçlar
-                            </a>
-                        </router-link>
-                        <hr class="navbar-divider">
-                        <router-link class="navbar-item" to="/raporlar/uretimRaporu">
-                            <a>
-                                Üretim Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/sevkiyatRaporu">
-                            <a>
-                                Sevkiyat Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/stokRaporu">
-                            <a>
-                                Stok Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/ocakListesi">
-                            <a>
-                                Ocak Listesi Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/gidSipBilgileri">
-                            <a>
-                                Gidecek Sipariş Raporu
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/raporlar/uretilecekUrunler">
-                            <a>
-                                Üretilecek Ürünler Raporu
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="is_h">
-                    <a class="navbar-link">
-                        Numuneler
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/numune/numuneList">
-                            <a>
-                                Takip Listesi
-                            </a>
-                        </router-link>
-
-                        <router-link class="navbar-item" to="/numune/finansList">
-                            <a>
-                                Finans Listesi
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="is_h">
-                    <a class="navbar-link">
-                        Teklifler
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/teklifListesi">
-                            <a>
-                                Teklif Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/teklif/musteriListesi">
-                            <a>
-                                Müşteri Listesi
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="is_">
-                    <a class="navbar-link">
-                        Mekmar USA
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/panel/mekmarusa/depoUrunList">
-                            <a>
-                                Ürün Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/panel/mekmarusa/urunYorumListesi">
-                            <a>
-                                Depo Ürün Yorumları
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/panel/mekmarusa/depoTurkeyUrunList">
-                            <a>
-                                Mekmar Ürün Listesi
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                <div class="navbar-item has-dropdown is-hoverable" v-if="is_">
-                    <a class="navbar-link">
-                        Mekmar Panel
-                    </a>
-                
-                    <div class="navbar-dropdown">
-                        <router-link class="navbar-item" to="/panel/mekmarcom/urunListesi">
-                            <a>
-                                Ürün Listesi
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/panel/mekmarcom/urunSiraListesi">
-                            <a>
-                                Ürün Sırası Değiştir
-                            </a>
-                        </router-link>
-                        <router-link class="navbar-item" to="/panel/mekmarcom/musteriListesi">
-                            <a>
-                                Username
-                            </a>
-                        </router-link>
-                    </div>
-                
-                
-                </div>
-                
-            </div>
-    
-            <div class="navbar-end">
-                
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary" @click="logout" v-if="$store.getters.__isAuthentication">
-                            <strong><i class="pi pi-sign-out"></i></strong>
-                        </a>
-
-
-                    </div>
-                </div>
-                <div class="navbar-item" v-if="isNotification>0">
-                    <Button type="button" :label="isNotification" icon="pi pi-bell" @click="toggle" />
-                        <OverlayPanel ref="op" style="background-color:#FFD373;">
-                            <div class="main-container" v-for="item in notificationData" :key="item" v-show="notificationData.length>0">
-                                <div class="cards">
-                                    <div class="card card-1">
-                                        <div class="card__icon" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;padding-left:5px;font-size:18px;">{{ item.baslik}}</div>
-                                        <h2 class="card__title">{{ item.hatirlatma_notu }}</h2>
-                                        <p class="card__apply">
-                                        <p class="card__link" style="margin-bottom:5px;">{{ item.hatirlatmaTarihi }} <i class="fas fa-arrow-right"></i></p>
-                                        </p>
-                                        <Button @click="isRowSelected(item.musteriadi)" label="Show" id="isBorderButton"  >
-                                        
-                                        </Button>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-container" v-for="item in hatirlatmaTrueDatas" :key="item" v-show="hatirlatmaTrueDatas.length>0">
-      
-                                <div class="cards">
-                                    <div class="card card-1">
-                                        <div class="card__icon" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; padding-left:10px;font-size:18px;">{{ item.title }}</div>
-                                        <h2 class="card__title">{{ item.hatirlatmaAciklama }}</h2>
-                                        <p class="card__apply">
-                                            <p class="card__link" style="margin-bottom:5px;">{{ item.end }} <i class="fas fa-arrow-right"></i></p>
-                                        </p>
-                                        <Button @click="isTeklifHatirlatmaSelected(item.id)" label="Show" id="isBorderButton" >
-                                        
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-container" v-for="item in bgpHatirlatmaList" :key="item" v-show="bgpHatirlatmaList.length>0">
-
-                                <div class="cards">
-                                    <div class="card card-1">
-                                        <div class="card__icon"
-                                            style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; padding-left:10px;font-size:18px;">{{
-                                            item.firmaAdi }}</div>
-                                        <h2 class="card__title">{{ item.hatirlatmaAciklama }}</h2>
-                                        <p class="card__apply">
-                                        <p class="card__link" style="margin-bottom:5px;">{{ item.hatirlatmaTarihi }} <i class="fas fa-arrow-right"></i></p>
-                                        </p>
-                                        <Button @click="isTeklifHatirlatmaSelected(item.id)" label="Show" id="isBorderButton">
-                            
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </OverlayPanel>
-
-                    
-                </div>
-            </div>
-
-        </div>
-    </nav>
-    -->
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" active-text-color="#545c64">
         <router-link class="navbar-item" to="/">
             <el-menu-item index="1" style="width:10px;">
@@ -490,17 +44,11 @@
             <router-link to="/finans/finansAnaListe">
                 <el-menu-item index="5-1"> Finans Ana Liste </el-menu-item>
             </router-link>
-            <router-link to="/finans/efesAnaListe">
+            <!-- <router-link to="/finans/efesAnaListe">
                 <el-menu-item index="5-1"> Efes Ana Liste </el-menu-item>
-            </router-link>
+            </router-link> -->
             <router-link to="/finans/odemelerfinansAnaListesi">
                 <el-menu-item index="5-2"> Ödemeler Listesi </el-menu-item>
-            </router-link>
-        </el-sub-menu>
-        <el-sub-menu index="6" v-if="isOthers">
-            <template #title>Maliyet Raporu</template>
-            <router-link to="/maliyet/maliyetRaporu">
-                <el-menu-item index="6-1"> Ayo Raporu </el-menu-item>
             </router-link>
         </el-sub-menu>
         <el-sub-menu index="7">
@@ -525,17 +73,21 @@
             </router-link>
             <el-sub-menu index="7-7">
                 <template #title>Faturalar</template>
+                
+                <router-link to="/operasyon/mekmerdisfatura">
+                    <el-menu-item index="7-7-1"> İç Piyasa Fatura Giriş </el-menu-item>
+                </router-link>
                 <router-link to="/operasyon/nakliyeFaturaGiris">
-                    <el-menu-item index="7-7-1"> Nakliye Fatura Giriş </el-menu-item>
+                    <el-menu-item index="7-7-2"> Nakliye Fatura Giriş </el-menu-item>
                 </router-link>
                 <router-link to="/operasyon/nakliyeFaturaListesi">
-                    <el-menu-item index="7-7-2"> Nakliye Fatura Listesi </el-menu-item>
+                    <el-menu-item index="7-7-3"> Nakliye Fatura Listesi </el-menu-item>
                 </router-link>
                 <router-link to="/operasyon/konteynerFaturaGiris">
-                    <el-menu-item index="7-7-3"> Konteynır Fatura Girişi </el-menu-item>
+                    <el-menu-item index="7-7-4"> Konteynır Fatura Girişi </el-menu-item>
                 </router-link>
                 <router-link to="/operasyon/konteynerFaturaListesi">
-                    <el-menu-item index="7-7-3"> Konteynır Fatura Listesi </el-menu-item>
+                    <el-menu-item index="7-7-5"> Konteynır Fatura Listesi </el-menu-item>
                 </router-link>
             </el-sub-menu>
         </el-sub-menu>
@@ -559,31 +111,18 @@
         </el-sub-menu>
         <el-sub-menu index="10" v-if="is_h">
             <template #title>Raporlar</template>
-            <router-link to="/raporlar/yeniYuklemeRaporlari">
-                <el-menu-item index="10-1"> Yeni Yükleme Raporu </el-menu-item>
-            </router-link>
-            <router-link to="/raporlar/yuklemeRapor">
-                <el-menu-item index="10-2"> Yükleme Raporu </el-menu-item>
-            </router-link>
-            <router-link to="/raporlar/atlantaRapor">
-                <el-menu-item index="10-3"> Atlanta SM Raporu </el-menu-item>
-            </router-link>
-            <router-link to="/raporlar/siparisOzetRapor">
-                <el-menu-item index="10-4"> Sipariş Özet Raporu </el-menu-item>
-            </router-link>
-            <router-link to="/musteriler">
-                <el-menu-item index="10-5"> Müşteriler Raporu </el-menu-item>
-            </router-link>
-            <router-link to="/raporlar/ceyreklikSatislar">
-                <el-menu-item index="10-6"> Çeyrek Finansal Sonuçlar </el-menu-item>
-            </router-link>
+            
+
             <el-sub-menu index="10-10">
-                <template #title>Üretim Raporları</template>
+                <template #title>Mekmer Raporları</template>
                 <router-link to="/raporlar/uretimRaporu">
                     <el-menu-item index="10-10-1"> Üretim Raporu </el-menu-item>
                 </router-link>
-                <router-link to="/raporlar/sevkiyatRaporu">
+                <router-link to="/raporlar/sevkiyatRaporuMekmer">
                     <el-menu-item index="10-10-2"> Sevkiyat Raporu </el-menu-item>
+                </router-link>
+                <router-link to="/raporlar/sevkiyatRaporuAll">
+                    <el-menu-item index="10-10-2"> Sevkiyat Raporu Hepsi </el-menu-item>
                 </router-link>
                 <router-link to="/raporlar/stokRaporu">
                     <el-menu-item index="10-10-3"> Stok Raporu </el-menu-item>
@@ -591,14 +130,34 @@
                 <router-link to="/raporlar/ocakListesi">
                     <el-menu-item index="10-10-4"> Ocak Listesi Raporu </el-menu-item>
                 </router-link>
-                <router-link to="/raporlar/gidSipBilgileri">
-                    <el-menu-item index="10-10-5"> Gidecek Sipariş Raporu </el-menu-item>
-                </router-link>
                 <router-link to="/raporlar/uretilecekUrunler">
                     <el-menu-item index="10-10-6"> Üretilecek Ürünler </el-menu-item>
                 </router-link>
             </el-sub-menu>
+            <el-sub-menu index="10-11">
+                <template #title>Mekmar Raporları</template>
+                <router-link to="/maliyet/maliyetRaporu">
+                    <el-menu-item index="10-11-1"> Ayo Raporu </el-menu-item>
+                </router-link>
+                <router-link to="/raporlar/yeniYuklemeRaporlari">
+                    <el-menu-item index="10-11-2"> MK Raporu </el-menu-item>
+                </router-link>
+                <router-link to="/raporlar/yuklemeRapor">
+                    <el-menu-item index="10-11-3"> Yükleme Raporu </el-menu-item>
+                </router-link>
+                <router-link to="/raporlar/sevkiyatRaporuMekmar">
+                    <el-menu-item index="10-11-4"> Sevkiyat Raporu </el-menu-item>
+                </router-link>
+                <router-link to="/raporlar/siparisOzetRapor">
+                    <el-menu-item index="10-11-5"> Sipariş Özet Raporu </el-menu-item>
+                </router-link>
+                <router-link to="/raporlar/mekusMasraflari">
+                    <el-menu-item index="10-11-6"> Mekus Masrafları </el-menu-item>
+                </router-link>
+            </el-sub-menu>
         </el-sub-menu>
+
+
         <el-sub-menu index="11" v-if="is_h">
             <template #title>Numuneler</template>
             <router-link to="/numune/numuneList">
@@ -799,7 +358,6 @@ export default {
     methods: {
         bgpProjectHatirlatmaList(users) {
             service.getBgpProjectsHatirlatma(users).then(data => {
-                console.log("getBgpProjectsHatirlatma",data)
                 this.$store.dispatch('bgp_projects_hatirlatma_list_load', data.result)
                 this.isNotification += data.result.length
             })

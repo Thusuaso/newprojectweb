@@ -37,7 +37,7 @@
           <Column
             field="kasa_no"
             header="No"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMatchModes="false"
             :showClear="false"
             :showFilterMenu="false"
@@ -61,7 +61,7 @@
           <Column
             field="tarih"
             header="Tarih"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="{ data }">
@@ -80,7 +80,7 @@
           <Column
             field="kategori"
             header="Kategori"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -99,7 +99,7 @@
           <Column
             field="ocak"
             header="Ocak"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -134,7 +134,7 @@
               />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün" :showFilterMenu="false">
+          <Column field="urunadi" header="Ürün" :showFilterMenu="false" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -181,7 +181,7 @@
           <Column
             field="en"
             header="E"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -200,7 +200,7 @@
           <Column
             field="boy"
             header="B"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -219,7 +219,7 @@
           <Column
             field="kenar"
             header="K"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -238,18 +238,18 @@
           <Column
             field="kasaadet"
             header="K.Adet"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasaadet }}
             </template>
           </Column>
-          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:center">
+          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:left">
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
             </template>
           </Column>
-          <Column field="m2" header="M2" bodyStyle="text-align:center">
+          <Column field="m2" header="M2" bodyStyle="text-align:left">
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
             </template>
@@ -296,7 +296,7 @@
               {{ formatDecimal(toplam_ton) }}
             </template>
           </Column> -->
-          <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
+          <Column field="kutu" header="Kutu" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.kutu == true"
@@ -307,7 +307,7 @@
               <div v-else style="backgroundcolor: red; color: white">X</div>
             </template>
           </Column>
-          <Column field="bagli" header="Baglı" bodyStyle="text-align:center">
+          <Column field="bagli" header="Baglı" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.bagli == true"
@@ -321,7 +321,7 @@
           <Column
             field="siparisaciklama"
             header="Po"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMatchModes="false"
             :showFilterMenu="false"
           >
@@ -342,7 +342,7 @@
           <Column
             field="aciklama"
             header="Not"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -380,7 +380,7 @@
           <Column
             field="kasa_no"
             header="No"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -402,7 +402,7 @@
           <Column
             field="tarih"
             header="Tarih"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -421,7 +421,7 @@
           <Column
             field="kategori"
             header="Kategori"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -440,7 +440,7 @@
           <Column
             field="ocak"
             header="Ocak"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -475,7 +475,7 @@
               />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün" :showFilterMenu="false">
+          <Column field="urunadi" header="Ürün" :showFilterMenu="false" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -522,7 +522,7 @@
           <Column
             field="en"
             header="E"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -541,7 +541,7 @@
           <Column
             field="boy"
             header="B"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -560,7 +560,7 @@
           <Column
             field="kenar"
             header="K"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -579,18 +579,18 @@
           <Column
             field="kasaadet"
             header="K.Adet"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasaadet }}
             </template>
           </Column>
-          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:center">
+          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:left">
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
             </template>
           </Column>
-          <Column field="m2" header="M2" bodyStyle="text-align:center">
+          <Column field="m2" header="M2" bodyStyle="text-align:left">
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
             </template>
@@ -637,7 +637,7 @@
               {{ formatDecimal(toplam_ton) }}
             </template>
           </Column> -->
-          <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
+          <Column field="kutu" header="Kutu" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.kutu == true"
@@ -648,7 +648,7 @@
               <div v-else style="backgroundcolor: red; color: white">X</div>
             </template>
           </Column>
-          <Column field="bagli" header="Baglı" bodyStyle="text-align:center">
+          <Column field="bagli" header="Baglı" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.bagli == true"
@@ -662,7 +662,7 @@
           <Column
             field="siparisaciklama"
             header="Po"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -681,7 +681,7 @@
           <Column
             field="aciklama"
             header="Not"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -718,7 +718,7 @@
           <Column
             field="kasa_no"
             header="No"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -740,7 +740,7 @@
           <Column
             field="tarih"
             header="Tarih"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -759,7 +759,7 @@
           <Column
             field="kategori"
             header="Kategori"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -778,7 +778,7 @@
           <Column
             field="ocak"
             header="Ocak"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -813,7 +813,7 @@
               />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün" :showFilterMenu="false">
+          <Column field="urunadi" header="Ürün" bodyStyle="text-align:left" :showFilterMenu="false">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.urunadi.includes('Vein Cut')"
@@ -860,7 +860,7 @@
           <Column
             field="en"
             header="E"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -879,7 +879,7 @@
           <Column
             field="boy"
             header="B"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -898,7 +898,7 @@
           <Column
             field="kenar"
             header="K"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -917,18 +917,18 @@
           <Column
             field="kasaadet"
             header="K.Adet"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasaadet }}
             </template>
           </Column>
-          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:center">
+          <Column field="kutuadet" header="Kutu" bodyStyle="text-align:left">
             <template #body="slotProps">
               {{ slotProps.data.kutuadet }}
             </template>
           </Column>
-          <Column field="m2" header="M2" bodyStyle="text-align:center">
+          <Column field="m2" header="M2" bodyStyle="text-align:left">
             <template #body="slotProps">
               {{ slotProps.data.m2 }}
             </template>
@@ -975,7 +975,7 @@
               {{ formatDecimal(toplam_ton) }}
             </template>
           </Column> -->
-          <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
+          <Column field="kutu" header="Kutu" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.kutu == true"
@@ -986,7 +986,7 @@
               <div v-else style="backgroundcolor: red; color: white">X</div>
             </template>
           </Column>
-          <Column field="bagli" header="Baglı" bodyStyle="text-align:center">
+          <Column field="bagli" header="Baglı" bodyStyle="text-align:left">
             <template #body="slotProps">
               <div
                 v-if="slotProps.data.bagli == true"
@@ -1000,7 +1000,7 @@
           <Column
             field="siparisaciklama"
             header="Po"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -1019,7 +1019,7 @@
           <Column
             field="aciklama"
             header="Not"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
             :showFilterMenu="false"
           >
             <template #body="slotProps">
@@ -1074,6 +1074,7 @@
             <DataTable
               :value="filterProducts"
               v-model:filters="filters3"
+              filterDisplay="menu"
               :paginator="true"
               :rows="20"
               dataKey="id"
@@ -1110,6 +1111,10 @@
                 <template #body="slotProps">
                   {{ slotProps.data.kategori }}
                 </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
+                </template>
               </Column>
               <Column field="ocak" header="Ocak" bodyStyle="text-align:center">
                 <template #body="slotProps">
@@ -1124,6 +1129,10 @@
                 <template #body="slotProps">
                   {{ slotProps.data.tedarikci }}
                 </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
+                </template>
               </Column>
               <Column field="urunadi" header="Ürün">
                 <template #body="slotProps">
@@ -1137,8 +1146,12 @@
                     {{ slotProps.data.urunadi }}
                   </div>
                 </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
+                </template>
                 <template #footer>
-                  {{ adet_kasa }}
+                  {{ adet_kasa_a }}
                 </template>
               </Column>
               <Column
@@ -1149,20 +1162,36 @@
                 <template #body="slotProps">
                   {{ slotProps.data.kenarislem }}
                 </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
+                </template>
               </Column>
               <Column field="en" header="E" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.en }}
+                </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
                 </template>
               </Column>
               <Column field="boy" header="B" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.boy }}
                 </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
+                </template>
               </Column>
               <Column field="kenar" header="K" bodyStyle="text-align:center">
                 <template #body="slotProps">
                   {{ slotProps.data.kenar }}
+                </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
                 </template>
               </Column>
               <Column
@@ -1188,7 +1217,7 @@
                   {{ slotProps.data.m2 }}
                 </template>
                 <template #footer>
-                  {{ formatDecimal(toplam_m2) }}
+                  {{ formatDecimal(toplam_m2_a) }}
                 </template>
               </Column>
               <Column field="adet" header="Adet" bodyStyle="text-align:center">
@@ -1197,7 +1226,7 @@
                 </template>
 
                 <template #footer>
-                  {{ formatDecimal(toplam_adet) }}
+                  {{ formatDecimal(toplam_adet_a) }}
                 </template>
               </Column>
               <Column field="mt" header="Mt" bodyStyle="text-align:center">
@@ -1205,7 +1234,7 @@
                   {{ slotProps.data.mt }}
                 </template>
                 <template #footer>
-                  {{ formatDecimal(toplam_mt) }}
+                  {{ formatDecimal(toplam_mt_a) }}
                 </template>
               </Column>
               <Column field="ton" header="Ton" bodyStyle="text-align:center">
@@ -1214,7 +1243,7 @@
                 </template>
 
                 <template #footer>
-                  {{ formatDecimal(toplam_ton) }}
+                  {{ formatDecimal(toplam_ton_a) }}
                 </template>
               </Column>
               <Column field="kutu" header="Kutu" bodyStyle="text-align:center">
@@ -1251,6 +1280,10 @@
                 <template #body="slotProps">
                   {{ slotProps.data.siparisaciklama }}
                 </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
+                </template>
               </Column>
               <Column
                 field="aciklama"
@@ -1259,6 +1292,10 @@
               >
                 <template #body="slotProps">
                   {{ slotProps.data.aciklama }}
+                </template>
+                <template #filter="{ filterModel, filterCallback }">
+                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                    placeholder="Search by" />
                 </template>
               </Column>
             </DataTable>
@@ -1359,7 +1396,20 @@ export default {
         },
         aciklama: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
       },
-
+      filters3: {
+        kategori: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        tedarikci: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        urunadi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        en: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        boy: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        kenar: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        kenarislem: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        siparisaciklama: {
+          value: null,
+          matchMode: FilterMatchMode.STARTS_WITH,
+        },
+        aciklama: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      },
       select_uretim: null,
       is_mekmar: true,
       is_uretimform: false,
@@ -1368,6 +1418,13 @@ export default {
       toplam_adet: 0,
       toplam_ton: 0,
       adet_kasa: 0,
+
+      toplam_m2_a: 0,
+      toplam_mt_a: 0,
+      toplam_adet_a: 0,
+      toplam_ton_a: 0,
+      adet_kasa_a: 0,
+
       short_data: [],
       activeColor: "black",
       urn_adi: "Vein Cut",
@@ -1534,7 +1591,7 @@ export default {
           }
         }
       }
-      this.toplam_islem(this.filterProducts);
+      this.toplam_islem_ayrinti(this.filterProducts);
     },
     sort_list(liste) {
       return liste.sort((a, b) => {
@@ -1564,6 +1621,22 @@ export default {
         this.toplam_ton += item.ton;
       }
     },
+    toplam_islem_ayrinti(liste) {
+      this.toplam_m2_a = 0;
+      this.toplam_mt_a = 0;
+      this.toplam_adet_a = 0;
+      this.toplam_ton_a = 0;
+      this.adet_kasa_a = liste.length;
+
+      for (let key in liste) {
+        const item = liste[key];
+        this.toplam_m2_a = this.toplam_m2_a + item.m2;
+
+        this.toplam_adet_a += item.adet;
+        this.toplam_mt_a += item.mt;
+        this.toplam_ton_a += item.ton;
+      }
+    },
 
     filter_data_change(event) {
       this.$store.dispatch("filter_seleksiyon_list_load", event.filterValue);
@@ -1571,8 +1644,8 @@ export default {
       return 1;
     },
     filter_data_change2(event) {
-      this.$store.dispatch("filter_seleksiyon_list_load", event.filterValue);
-      this.toplam_islem(event.filterValue);
+      this.$store.dispatch("filter_seleksiyon_list_load", event.filteredValue);
+      this.toplam_islem_ayrinti(event.filteredValue);
       return 1;
     },
 

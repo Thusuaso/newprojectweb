@@ -1,6 +1,27 @@
-import axios from "../helpers/custom_fileaxios";
+import axios from "@/helpers/custom_fileaxios";
 
 const FileService = {
+  mekmerDisfaturaDosyaGonder(file,id){
+
+      let kontrol = file.name.split('.').length;
+      if(kontrol > 2){
+
+        alert("Lütfen Dosya İsmini Düzeltiniz.Dosya İsminde '.' karakteri olamaz.")
+        return;
+      }
+    //  let uzanti = file.name.split('.')[1];
+     // let dosya = 'numune.' + uzanti; 
+      let dosya = file.name; 
+      const url = '/file/upload/mekmerDisFatura/' + id + '/' + dosya ;
+
+      let formData = new FormData();
+      formData.append('file',file);
+      return axios.post(url,formData).then((res) => {
+        
+        
+        return {...res.data,dosyaAdi : id.toString()}
+      })
+  },
   bgpProjectGonder(file, id) {
     let kontrol = file.name.split(".").length;
     if (kontrol > 2) {
@@ -127,7 +148,11 @@ const FileService = {
     });
   }, //  const url = 'file/upload/download/'+ id + '/'  + siparisno  ;
   faturaDosyaGonder(file, teklifId, siparisno) {
-    let kontrol = file.files[0].name.split(".").length;
+    console.log(file)
+    console.log(teklifId)
+    console.log(siparisno)
+
+    let kontrol = file.name.split(".").length;
     console.log("faturaDosyaGonder", file);
     if (kontrol > 2) {
       alert(
@@ -141,7 +166,7 @@ const FileService = {
 
     const url = "file/upload/" + teklifId + "/" + dosya;
     let formData = new FormData();
-    formData.append("file", file.files[0]);
+    formData.append("file", file);
 
     return axios.post(url, formData).then((res) => {
       return { ...res.data, dosyaAdi: dosya };

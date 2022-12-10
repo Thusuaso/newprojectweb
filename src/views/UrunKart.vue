@@ -33,7 +33,7 @@
           :rows="20"
           v-model:filters="filters"
           @row-select="urunKartDetayAc"
-          filterDisplay="menu"
+          filterDisplay="row"
           :scrollable="true" 
           scrollHeight="700px"
         >
@@ -42,6 +42,7 @@
             header="No"
             headerStyle="width: 100px;"
             bodyStyle="text-align: center;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.id }}
@@ -60,6 +61,7 @@
             field="kategoriAdi"
             header="Kategori"
             headerStyle="width: 150px"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.kategoriAdi }}
@@ -74,7 +76,7 @@
               />
             </template>
           </Column>
-          <Column field="urunAdi" header="Ürün">
+          <Column field="urunAdi" header="Ürün" :showFilterMenu="false">
             <template #body="slotProps">
               {{ slotProps.data.urunAdi }}
             </template>
@@ -88,7 +90,7 @@
               />
             </template>
           </Column>
-          <Column field="yuzey_1" header="Y1">
+          <Column field="yuzey_1" header="Y1" :showFilterMenu="false">
             <template #body="slotProps">
               {{ slotProps.data.yuzey_1 }}
             </template>
@@ -102,7 +104,7 @@
               />
             </template>
           </Column>
-          <Column field="yuzey_2" header="Y2">
+          <Column field="yuzey_2" header="Y2" :showFilterMenu="false">
             <template #body="slotProps">
               {{ slotProps.data.yuzey_2 }}
             </template>
@@ -116,7 +118,7 @@
               />
             </template>
           </Column>
-          <Column field="yuzey_3" header="Y3">
+          <Column field="yuzey_3" header="Y3" :showFilterMenu="false">
             <template #body="slotProps">
               {{ slotProps.data.yuzey_3 }}
             </template>
@@ -135,6 +137,7 @@
             header="En"
             bodyStyle="text-align: center"
             headerStyle="width: 120px;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.en }}
@@ -154,6 +157,7 @@
             header="Boy"
             bodyStyle="text-align: center"
             headerStyle="width: 120px;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.boy }}
@@ -173,6 +177,7 @@
             header="Kenar"
             bodyStyle="text-align: center"
             headerStyle="width: 120px;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.kenar }}

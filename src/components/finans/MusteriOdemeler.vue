@@ -9,7 +9,13 @@
           @change="yil_degisim_event"
           placeholder="Select a Year"
           :disabled="is_form"
-        />
+        >
+          <template #value="slotProps">
+            <div class="p-dropdown-car-value">
+              <span>{{ slotProps.value }}</span>
+            </div>
+          </template>
+        </Dropdown>
       </div>
       <div class="column is-4">
         <Dropdown
@@ -19,7 +25,13 @@
           @change="ay_degisim_event"
           placeholder="Select a Month"
           :disabled="is_form"
-        />
+        >
+          <template #value="slotProps">
+            <div class="p-dropdown-car-value">
+              <span>{{ slotProps.value }}</span>
+            </div>
+          </template>
+        </Dropdown>
       </div>
       <div class="column is-4">
         <Button
@@ -30,11 +42,11 @@
       </div>
     </div>
     <div class="columns is-centered">
-      <div class="column is-11">
+      <div class="column is-12">
         <DataTable
           :value="odeme_listesi"
           :scrollable="true"
-          scrollHeight="365px"
+          scrollHeight="500px"
           :loading="loading"
           v-model:filters="filters"
           filterDisplay="row"
@@ -125,7 +137,11 @@
 <script>
 import service from "@/service/FinansService";
 import { FilterMatchMode } from "primevue/api";
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters(["servis_adres"]),
+  },
   data() {
     return {
       filters: {
@@ -212,7 +228,16 @@ export default {
       }
     },
     excel_cikti_click() {
-      alert("excel listesi yapılacak");
+      service.getOdemelerAyrintiTablosuExcel(this.odeme_listesi).then((res) => {
+        if (res.status) {
+          const link = document.createElement("a");
+          link.href =
+            this.servis_adres + "finans/listeler/odemelerAyrintiListesiExcel";
+          link.setAttribute("download", "odemeler_listesi.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        }
+      });
     },
   },
 };

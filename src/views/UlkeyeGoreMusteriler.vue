@@ -13,15 +13,18 @@
         :value="ulkeye_gore_musteriler"
         scrollable
         scrollHeight="550px"
-        :virtualScrollerOptions="{ itemSize: 46 }"
         @row-select="isRowSelected"
         selectionMode="single"
         dataKey="ulkeId"
         v-model:filters="filters1"
-        filterDisplay="menu"
+        filterDisplay="row"
         :loading="$store.getters.datatableLoading"
       >
-        <Column field="ulkeAdi" style="min-width: '200px'">
+        <Column
+          field="ulkeAdi"
+          style="min-width: '200px'"
+          :showFilterMenu="false"
+        >
           <template #body="slotProps">
             {{ slotProps.data.ulkeAdi }}
           </template>
@@ -59,7 +62,6 @@
             :value="ulkeye_gore_musteriler_ayrinti_sip"
             scrollable
             scrollHeight="450px"
-            :virtualScrollerOptions="{ itemSize: 55 }"
           >
             <Column
               field="siparisTarihi"
@@ -89,12 +91,10 @@
           <h2 style="text-align: center">
             Ülkeye Göre Müşteri Listesi Yüklenmiş
           </h2>
-          <br />
           <DataTable
             :value="ulkeye_gore_musteriler_ayrinti_yuk"
             scrollable
             scrollHeight="450px"
-            :virtualScrollerOptions="{ itemSize: 55 }"
           >
             <Column
               field="siparisTarihi"
@@ -166,7 +166,6 @@ export default {
   methods: {
     isRowSelected(event) {
       this.$store.dispatch("datatableLoadingBeginAct");
-
       this.service
         .getUlkeyeGoreMusteriListAyrinti(
           this.selectedYear.year,
@@ -175,8 +174,8 @@ export default {
         .then((data) => {
           this.$store.dispatch("ulkeye_gore_musteriler_ayrinti_act", data);
           this.$store.dispatch("datatableLoadingEndAct");
+          this.is_form = true;
         });
-      this.is_form = true;
     },
     isDropdownChange(event) {
       this.$store.dispatch("datatableLoadingBeginAct");

@@ -334,7 +334,7 @@
           field="siraNo"
           header="S"
           headerStyle="width:60%;"
-          bodyStyle="text-align:center"
+          bodyStyle="text-align:left"
         >
           <template #body="slotProps">
             {{ slotProps.data.siraNo }}
@@ -481,7 +481,6 @@ import UrunKartBilgi from "./UrunKartBilgi";
 import Iscilik from "./Iscilik";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-
 import { mapGetters } from "vuex";
 import socket from "@/service/SocketService";
 export default {
@@ -491,7 +490,6 @@ export default {
   validations() {
     return {
       tedarikci: { required },
-      urunBirim: { required },
       urunBirim: { required },
 
       siparis: {

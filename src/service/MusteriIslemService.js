@@ -58,6 +58,76 @@ const MusteriIslemService = {
       .get("customers/products/detailList/" + sipNo)
       .then((res) => res.data);
   },
+  getTeklifMusteriler() {
+    return axios.get("listeler/teklifMusteriler").then((res) => res.data);
+  },
+  getTeklifMusterilerAyrinti(id) {
+    return axios
+      .get("listeler/teklifMusterilerAyrinti/" + id)
+      .then((res) => res.data);
+  },
+  setTeklifMusteriler(data) {
+    return axios
+      .post("listeler/setTeklifMusteriler", data)
+      .then((res) => res.data);
+  },
+  setNewTeklifMusteriler(data) {
+    return axios
+      .post("listeler/setNewTeklifMusteriler", data)
+      .then((res) => res.data);
+  },
+  setTeklifMusterilerSil(id) {
+    return axios
+      .get("listeler/setNewTeklifMusterilerSil/" + id)
+      .then((res) => res.data);
+  },
+
+  setNewFuarMusteriler(data) {
+    return axios
+      .post("listeler/setNewFuarMusteriler", data)
+      .then((res) => res.data);
+  },
+  setNewFuarMusterilerGuncelle(data) {
+    return axios
+      .post("listeler/setNewFuarMusterilerGuncelle", data)
+      .then((res) => res.data);
+  },
+  setNewFuarMusterileSil(id) {
+    return axios
+      .get("listeler/setNewFuarMusterilerSil/" + id)
+      .then((res) => res.data);
+  },
+  getFuarMusterilerList() {
+    return axios.get("listeler/getFuarMusterilerList").then((res) => res.data);
+  },
+  getFuarMusterilerListAyrinti(id) {
+    return axios
+      .get("listeler/getFuarMusterilerAyrintiList/" + id)
+      .then((res) => res.data);
+  },
+  setNewBgpMusteriler(data) {
+    return axios
+      .post("listeler/setNewBgpMusteriler", data)
+      .then((res) => res.data);
+  },
+  setNewBgpMusterilerGuncelle(data) {
+    return axios
+      .post("listeler/setNewBgpMusterilerGuncelle", data)
+      .then((res) => res.data);
+  },
+  setNewBgpMusterileSil(id) {
+    return axios
+      .get("listeler/setNewBgpMusterilerSil/" + id)
+      .then((res) => res.data);
+  },
+  getBgpMusterilerList() {
+    return axios.get("listeler/getBgpMusterilerList").then((res) => res.data);
+  },
+  getBgpMusterilerListAyrinti(id) {
+    return axios
+      .get("listeler/getBgpMusterilerAyrintiList/" + id)
+      .then((res) => res.data);
+  },
 };
 
 export default MusteriIslemService;

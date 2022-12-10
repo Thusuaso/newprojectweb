@@ -2,42 +2,48 @@
   <section>
     <div class="columns">
       <div class="column is-9">
-        <div class="block">
-          <RadioButton
-            v-model="FirmaAdi"
-            name="name"
-            @change="statuSecim"
-            value="OnlyMekmer"
-          />Sadece Stok
-          <RadioButton
-            v-model="FirmaAdi"
-            name="name"
-            @change="statuSecim"
-            value="Mekmer"
-          />Mekmer
-          <RadioButton
-            v-model="FirmaAdi"
-            name="name"
-            @change="statuSecim"
-            value="Mek-Moz"
-          />Mek-Moz
-          <RadioButton
-            v-model="FirmaAdi"
-            name="name"
-            @change="statuSecim"
-            value="Hepsi"
-          />Hepsi
+        <div class="columns">
+          <div class="column">
+            <RadioButton
+              v-model="FirmaAdi"
+              name="name"
+              @change="statuSecim"
+              value="OnlyMekmer"
+            />Sadece Stok
+          </div>
+          <div class="column">
+            <RadioButton
+              v-model="FirmaAdi"
+              name="name"
+              @change="statuSecim"
+              value="Mekmer"
+            />Mekmer
+          </div>
+          <div class="column">
+            <RadioButton
+              v-model="FirmaAdi"
+              name="name"
+              @change="statuSecim"
+              value="Mek-Moz"
+            />Mek-Moz
+          </div>
+          <div class="column">
+            <RadioButton
+              v-model="FirmaAdi"
+              name="name"
+              @change="statuSecim"
+              value="Hepsi"
+            />Hepsi
+          </div>
         </div>
       </div>
       <div class="column is-3">
         <Button @click="excel_cikti_click" label="Excel" />
       </div>
     </div>
-
     <div class="columns">
       <div class="column">
         <h2 class="has-text-centered has-text-weight-bold">STOCK LIST</h2>
-        <br />
         <DataTable
           :value="uretimKasalar"
           :rows="30"
@@ -54,7 +60,7 @@
           sortMode="many"
           :sortOrder="1"
           scrollable
-          scrollHeight="459px"
+          scrollHeight="520px"
         >
           <Column
             field="en"
@@ -315,7 +321,7 @@ import { mapGetters } from "vuex";
 import service from "@/service/RaporService";
 
 import StokAyrintiListesi from "@/components/stokraporu/StokAyrintiListesi";
-import { FilterMatchMode } from "primevue/api"
+import { FilterMatchMode } from "primevue/api";
 export default {
   components: {
     StokAyrintiListesi,
@@ -345,7 +351,6 @@ export default {
         kenar: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         urunAdi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         yuzeyIslem: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-
       },
       filters2: {},
       select_stok: null,

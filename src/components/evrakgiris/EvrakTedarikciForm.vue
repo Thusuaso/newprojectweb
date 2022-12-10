@@ -29,13 +29,17 @@
       />
     </div>
     <div class="column">
-      <InputText v-model="faturaNo" />
+      <span class="p-float-label">
+        <InputText id="faturaNo" v-model="faturaNo" />
+        <label for="faturaNo">Fatura No</label>
+      </span>
     </div>
   </div>
   <div class="columns">
     <div class="column is-12">
       <Button
         @click="urunKaydet"
+        :disabled="urun_kaydet_form"
         style="width: 100%"
         class="p-button-success"
         label="KAYDET"
@@ -97,6 +101,8 @@ export default {
       faturaNo: "",
       tedarikciLink: "",
       dis_DosyaAc: true,
+      urun_kaydet_form: false,
+      urun_kaydet_aciklama:'Tedarikçi Mekmer veya Mekmoz ise kaydetmeye gerek yoktur. Lütfen sadece evrak yükleyiniz.'
     };
   },
 
@@ -112,7 +118,7 @@ export default {
           tedarikci: this.TedarikciTur.tedarikci,
           evrak: this.TedarikciTur.tedarikci + ".pdf",
           siparisno: this.SiparisEvrakList.siparisno,
-          kullaniciAdi: this.$store.getters.getUser,
+          kullaniciAdi: this.$store.getters.__getUsername,
         };
 
         fileService
@@ -158,6 +164,11 @@ export default {
 
     siparisTurDegisim() {
       this.id = this.TedarikciTur.ID;
+      if (this.TedarikciTur.ID == 1 || this.TedarikciTur.ID == 123) {
+        this.urun_kaydet_form = true
+      } else {
+        this.urun_kaydet_form = false
+      }
     },
     aramaTedarikciTur(event) {
       setTimeout(() => {

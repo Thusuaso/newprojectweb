@@ -78,6 +78,11 @@ const raporService = {
       .get("raporlar/siparis/ulkeBazindaSevkiyat")
       .then((res) => res.data);
   },
+  getUlkeBazindaSevkiyatAyrinti(ulkeId) {
+    return axios
+      .get("raporlar/siparis/ulkeBazindaSevkiyatAyrinti/" + ulkeId)
+      .then((res) => res.data);
+  },
   getUlkeBazindaSevkiyatYear(year) {
     return axios
       .get("raporlar/siparis/ulkeBazindaSevkiyatYears/" + year)
@@ -588,6 +593,99 @@ const raporService = {
       .get("/raporlar/maliyet/quarterMaliyet/" + quarter)
       .then((res) => res.data);
   },
+  getAyBazindaMarketingYuklemeler() {
+        return axios.get('/raporlar/marketing/ayBazinda/yukleme').then(res=>res.data)
+    },
+
+    getAyBazindaMarketingIcPiyasaYuklemeler(month) {
+        return axios.get('/raporlar/marketing/ayBazinda/yuklemeIcPiyasaAyrinti/' + month).then(res=>res.data)
+    },
+    getAyBazindaMarketingMekmerYuklemeler(month) {
+        return axios.get('/raporlar/marketing/ayBazinda/yuklemeMekmerAyrinti/' + month).then(res=>res.data)
+  },
+    get_month_marketing_excell_cikti(data_list){
+
+        return axios.post('/raporlar/musteri/monthMarketingExcell',data_list).then(res => res.data)
+    },
+    get_month_marketing_ayrinti_excell_cikti(data_list) {
+        return axios.post('/raporlar/musteri/monthMarketingAyrintiExcell',data_list).then(res => res.data)
+  },
+    getSevkiyatRaporTarihMekmer(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporTarihMekmer/${tarih}`).then(res => res.data)
+    },
+    getSevkiyatRaporTekTarihMekmer(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporTekTarihMekmer/${tarih}`).then(res => res.data)
+    },
+    getSevkiyatRaporIkiTarihMekmer(ilk_tarih,son_tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporIkiTarihMekmer/${ilk_tarih}/${son_tarih}`).then(res => res.data)
+    },
+
+    getSevkiyatRaporTarihMekmar(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporTarihMekmar/${tarih}`).then(res => res.data)
+    },
+    getSevkiyatRaporTekTarihMekmar(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporTekTarihMekmar/${tarih}`).then(res => res.data)
+    },
+    getSevkiyatRaporIkiTarihMekmar(ilk_tarih,son_tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporIkiTarihMekmar/${ilk_tarih}/${son_tarih}`).then(res => res.data)
+  },
+    getSevkiyatRaporHepsiMekmer(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporHepsiMekmer/${tarih}`).then(res => res.data)
+    },
+    getSevkiyatRaporHepsiMekmar(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporHepsiMekmar/${tarih}`).then(res => res.data)
+  },
+    getYuklemeAllMekmer(){
+
+        return axios.get('/raporlar/listeler/sevkiyatRaporAllMekmer').then(res => res.data)
+    },
+    getYuklemeAllMekmar(){
+
+        return axios.get('/raporlar/listeler/sevkiyatRaporAllMekmar').then(res => res.data)
+  },
+     getUrunlerUretimAyrintiListMekmar(urunKartId) {
+        return axios.get('/raporlar/listeler/urunlerUretimAyrintiListesiMekmar/' + urunKartId).then(res =>res.data)
+    },
+    getUrunlerUretimAyrintiListMekmer(urunKartId) {
+        return axios.get('/raporlar/listeler/urunlerUretimAyrintiListesiMekmer/' + urunKartId).then(res =>res.data)
+  },
+    getUrunlerUretimListMekmar() {
+        return axios.get('/raporlar/listeler/urunlerUretimListesiMekmar').then(res =>res.data)
+    },
+    getUrunlerUretimListMekmer() {
+        return axios.get('/raporlar/listeler/urunlerUretimListesiMekmer').then(res =>res.data)
+  },
+    setAlisFiyatiControl(alis_fiyati_control) {
+        return axios.post('/raporlar/ayo/alisFiyatiControlChange',alis_fiyati_control).then(res=>res.data)
+  },
+    getSevkiyatRaporTarihAll(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporTarihAll/${tarih}`).then(res => res.data)
+        },
+        getSevkiyatRaporTekTarihAll(tarih){
+
+            return axios.get(`raporlar/listeler/sevkiyatRaporTekTarihAll/${tarih}`).then(res => res.data)
+        },
+        getSevkiyatRaporIkiTarihAll(ilk_tarih,son_tarih){
+
+            return axios.get(`raporlar/listeler/sevkiyatRaporIkiTarihAll/${ilk_tarih}/${son_tarih}`).then(res => res.data)
+  },
+        getSevkiyatRaporHepsiAll(tarih){
+
+        return axios.get(`raporlar/listeler/sevkiyatRaporHepsiAll/${tarih}`).then(res => res.data)
+  },
+        getYuklemeAllAll(){
+
+        return axios.get('/raporlar/listeler/sevkiyatRaporAllAll').then(res => res.data)
+    },
 };
 
 export default raporService;

@@ -1,5 +1,5 @@
 <template>
-  <!-- <div>
+  <div>
     <Card>
       <template #header>
         <h1 style="text-align: center; font-size: 20px; font-weight: bold">
@@ -64,36 +64,20 @@
       </template>
     </Card>
     <hr />
-    <Card>
+    <!-- <Card>
       <template #header>
         <h1 style="text-align: center">R15: Finans Takip Listesi</h1>
       </template>
       <template #content>
-        <DataTable
-          :value="dashboardSubData.finans.filter((x) => x.kalanBedel >= 10) || []"
-          responsiveLayout="scroll"
-          v-model:filters="filterFinans"
-          filterDisplay="row"
-          :paginator="true"
-          :rows="5"
-        >
-          <Column
-            field="musteriAdi"
-            filterField="musteriAdi"
-            header="Müşteri"
-            :showFilterMenu="false"
-          >
+        <DataTable :value="dashboardSubData.finans.filter((x) => x.kalanBedel >= 10) " responsiveLayout="scroll"
+          v-model:filters="filterFinans" filterDisplay="row" :paginator="true" :rows="5">
+          <Column field="musteriAdi" filterField="musteriAdi" header="Müşteri" :showFilterMenu="false">
             <template #body="{ data }">
               {{ data.musteriAdi }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText
-                type="text"
-                v-model="filterModel.value"
-                @input="filterCallback()"
-                class="p-column-filter"
-                placeholder="Search by country"
-              />
+              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                placeholder="Search by country" />
             </template>
           </Column>
           <Column field="siparisNo" header="Sipariş No" :showFilterMenu="false">
@@ -101,13 +85,8 @@
               {{ data.siparisNo }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText
-                type="text"
-                v-model="filterModel.value"
-                @input="filterCallback()"
-                class="p-column-filter"
-                placeholder="Search by country"
-              />
+              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
+                placeholder="Search by country" />
             </template>
           </Column>
           <Column field="siparisDurum" header="Sipariş Durum"></Column>
@@ -131,7 +110,7 @@
         </DataTable>
       </template>
     </Card>
-    <hr />
+    <hr /> -->
     <div class="columns">
       <div class="column">
         <Card>
@@ -143,42 +122,34 @@
           <template #content>
             <DataTable
               :value="dashboardSubData.tedarikci"
+              class="p-datatable-sm"
               responsiveLayout="scroll"
-              v-model:filters="filterTedarikci"
-              filterDisplay="row"
-              dataKey="id"
-              :paginator="true"
-              :rows="5"
+              scrollable
+              scrollHeight="350px"
+              v-model:filters="filters"
               @row-select="tedarikciAyrintiSelected"
               selectionMode="single"
+              dataKey="id"
             >
-              <Column
-                field="tedarikci"
-                filterField="tedarikci"
-                header="Tedarikçi"
-                :showFilterMenu="false"
-              >
-                <template #body="{ data }">
-                  {{ data.tedarikci }}
+              <Column field="tedarikci" header="Tedarikçi">
+                <template #body="slotProps">
+                  {{ slotProps.data.tedarikci }}
                 </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText
-                    type="text"
-                    v-model="filterModel.value"
-                    @input="filterCallback()"
-                    class="p-column-filter"
-                    placeholder="Search by country"
-                  />
+              </Column>
+              <Column field="satisToplam" header="Satış Toplam">
+                <template #body="slotProps">
+                  {{ formatPrice(slotProps.data.satisToplam) }}
+                </template>
+                <template #footer>
+                  {{ formatPrice(tedarikciPriceSum) }}
                 </template>
               </Column>
               <Column field="satisMiktar" header="Satış Miktarı">
                 <template #body="slotProps">
                   {{ formatDecimal(slotProps.data.satisMiktar) }}
                 </template>
-              </Column>
-              <Column field="satisToplam" header="Satış Toplamı">
-                <template #body="slotProps">
-                  {{ formatPrice(slotProps.data.satisToplam) }}
+                <template #footer>
+                  {{ formatDecimal(tedarikciProductSum) }}
                 </template>
               </Column>
             </DataTable>
@@ -189,51 +160,11 @@
         <Card>
           <template #header>
             <h2 style="text-align: center">
-              R17: {{ year }}'deki Hali Hazırdaki Siparişlerin Üretici Dağılımı
+              R17: {{ year }}'deki Ülkelere Göre Sevkiyat
             </h2>
           </template>
           <template #content>
-            <DataTable
-              :value="dashboardSubData.tedarikciSiparisler"
-              responsiveLayout="scroll"
-              v-model:filters="filterTedarikciSip"
-              filterDisplay="row"
-              dataKey="id"
-              :paginator="true"
-              :rows="5"
-              @item-select="tedarikciAyrintiAllSelected"
-              selectionMode="single"
-            >
-              <Column
-                field="tedarikci"
-                filterField="tedarikci"
-                header="Tedarikçi"
-                :showFilterMenu="false"
-              >
-                <template #body="{ data }">
-                  {{ data.tedarikci }}
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText
-                    type="text"
-                    v-model="filterModel.value"
-                    @input="filterCallback()"
-                    class="p-column-filter"
-                    placeholder="Search by country"
-                  />
-                </template>
-              </Column>
-              <Column field="satisMiktar" header="Satış Miktarı">
-                <template #body="slotProps">
-                  {{ formatDecimal(slotProps.data.satisMiktar) }}
-                </template>
-              </Column>
-              <Column field="satisToplam" header="Satış Toplamı">
-                <template #body="slotProps">
-                  {{ formatPrice(slotProps.data.satisToplam) }}
-                </template>
-              </Column>
-            </DataTable>
+            <countrySevkiyat></countrySevkiyat>
           </template>
         </Card>
       </div>
@@ -247,42 +178,34 @@
           <template #content>
             <DataTable
               :value="dashboardSubData.musteriSiparisler"
+              class="p-datatable-sm"
               responsiveLayout="scroll"
-              v-model:filters="filterMusteriSip"
-              filterDisplay="row"
-              dataKey="id"
-              :paginator="true"
-              :rows="5"
+              scrollable
+              scrollHeight="350px"
+              v-model:filters="filters"
               @row-select="firmaBazindaAyrintiSelected"
               selectionMode="single"
+              dataKey="id"
             >
-              <Column
-                field="tedarikci"
-                filterField="tedarikci"
-                header="Firma Adı"
-                :showFilterMenu="false"
-              >
-                <template #body="{ data }">
-                  {{ data.tedarikci }}
+              <Column field="tedarikci" header="Müşteri Adı">
+                <template #body="slotProps">
+                  {{ slotProps.data.tedarikci }}
                 </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText
-                    type="text"
-                    v-model="filterModel.value"
-                    @input="filterCallback()"
-                    class="p-column-filter"
-                    placeholder="Search by country"
-                  />
+              </Column>
+              <Column field="satisToplam" header="Satış Toplam">
+                <template #body="slotProps">
+                  {{ formatPrice(slotProps.data.satisToplam) }}
+                </template>
+                <template #footer>
+                  {{ formatPrice(musteriPriceSum) }}
                 </template>
               </Column>
               <Column field="satisMiktar" header="Satış Miktarı">
                 <template #body="slotProps">
                   {{ formatDecimal(slotProps.data.satisMiktar) }}
                 </template>
-              </Column>
-              <Column field="satisToplam" header="Satış Toplamı">
-                <template #body="slotProps">
-                  {{ formatPrice(slotProps.data.satisToplam) }}
+                <template #footer>
+                  {{ formatPrice(musteriPriceProductSum) }}
                 </template>
               </Column>
             </DataTable>
@@ -290,7 +213,6 @@
         </Card>
       </div>
     </div>
-    <hr />
     <div class="columns">
       <div class="column">
         <Card>
@@ -387,63 +309,6 @@
         <Card>
           <template #header>
             <h2 style="text-align: center">
-              R21: Ülkeye Göre Teklifler (Yıllık)
-            </h2>
-          </template>
-          <template #content>
-            <Dropdown
-              v-model="selectedYear"
-              :options="years"
-              optionLabel="year"
-              placeholder="Select a Year"
-              @change="isSelectedUlkeTeklif"
-              style="width: 100%; text-align: center"
-              :loading="isLoadTeklifler"
-            />
-            <DataTable
-              :value="dashboardUlkeyeGoreTeklif"
-              responsiveLayout="scroll"
-              v-model:filters="filterTeklifUlke"
-              filterDisplay="row"
-              dataKey="id"
-              :paginator="true"
-              :rows="5"
-              @row-select="isSelectedTeklifUlke"
-              selectionMode="single"
-            >
-              <Column
-                field="ulkeAdi"
-                filterField="ulkeAdi"
-                header="Ülke Adı"
-                :showFilterMenu="false"
-              >
-                <template #body="{ data }">
-                  {{ data.ulkeAdi }}
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText
-                    type="text"
-                    v-model="filterModel.value"
-                    @input="filterCallback()"
-                    class="p-column-filter"
-                    placeholder="Search by country"
-                  />
-                </template>
-              </Column>
-              <Column field="topTeklif" header="Toplam Teklif">
-                <template #body="slotProps">
-                  {{ slotProps.data.topTeklif }}
-                </template>
-              </Column>
-            </DataTable>
-          </template>
-        </Card>
-      </div>
-
-      <div class="column">
-        <Card>
-          <template #header>
-            <h2 style="text-align: center">
               R22: {{ year }} Yeni Eklenen Siparişler
             </h2>
           </template>
@@ -511,331 +376,6 @@
         </Card>
       </div>
     </div>
-  </div>
-  <div class="columns">
-    <div class="column">
-      <Card>
-        <template #header>
-          <h2 style="text-align: center">R22: Son Yapılan Değişiklikler</h2>
-        </template>
-        <template #content>
-          <DataTable
-            :value="dashboardLogs"
-            responsiveLayout="scroll"
-            dataKey="id"
-            :paginator="true"
-            :rows="10"
-          >
-            <Column
-              field="degisiklikTarihi"
-              header="Degişiklik Tarihi"
-            ></Column>
-            <Column field="degisiklikYapan" header="Degişiklik Yapan"> </Column>
-            <Column
-              field="yapilanDegisiklik"
-              header="Yapılan Değişiklik"
-            ></Column>
-          </DataTable>
-          <Button @click="anaSayfaDegisiklikAll" label="All"></Button>
-        </template>
-      </Card>
-    </div>
-  </div> -->
-  
-  <div>
-    <Card>
-      <template #header>
-        <h1 style="text-align: center; font-size: 20px; font-weight: bold">
-          R14 : Konteynır Takip Listesi
-        </h1>
-      </template>
-      <template #content>
-        <DataTable :value="dashboardSubData.konteynir" responsiveLayout="scroll" v-model:filters="filterKont"
-          filterDisplay="row" dataKey="id" :paginator="true" :rows="5">
-          <Column field="firmaAdi" filterField="firmaAdi" header="Firma Adı" :showFilterMenu="false">
-            <template #body="{ data }">
-              {{ data.firmaAdi }}
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by country" />
-            </template>
-          </Column>
-          <Column field="siparisNo" header="Sipariş No" :showFilterMenu="false">
-            <template #body="{ data }">
-              {{ data.siparisNo }}
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by country" />
-            </template>
-          </Column>
-          <Column field="siparisTarihi" header="Sipariş Tarihi"></Column>
-          <Column field="yuklemeTarihi" header="Yükleme Tarihi"></Column>
-          <Column field="etaTarihi" header="Eta Tarihi"></Column>
-          <Column field="konteynirNo" header="Konteynır No"></Column>
-          <Column field="line" header="Line"></Column>
-          <Column field="navlunFirma" header="Navlun Firma"></Column>
-          <Column field="kalan" header="Kalan Ödeme">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.kalan) }}
-            </template>
-          </Column>
-        </DataTable>
-      </template>
-    </Card>
-    <hr />
-    <!-- <Card>
-      <template #header>
-        <h1 style="text-align: center">R15: Finans Takip Listesi</h1>
-      </template>
-      <template #content>
-        <DataTable :value="dashboardSubData.finans.filter((x) => x.kalanBedel >= 10) " responsiveLayout="scroll"
-          v-model:filters="filterFinans" filterDisplay="row" :paginator="true" :rows="5">
-          <Column field="musteriAdi" filterField="musteriAdi" header="Müşteri" :showFilterMenu="false">
-            <template #body="{ data }">
-              {{ data.musteriAdi }}
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by country" />
-            </template>
-          </Column>
-          <Column field="siparisNo" header="Sipariş No" :showFilterMenu="false">
-            <template #body="{ data }">
-              {{ data.siparisNo }}
-            </template>
-            <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by country" />
-            </template>
-          </Column>
-          <Column field="siparisDurum" header="Sipariş Durum"></Column>
-          <Column field="siparisSahibi" header="Sipariş Sahibi"></Column>
-          <Column field="operasyon" header="Operasyon"></Column>
-          <Column field="satisToplami" header="Satış Toplamı">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.satisToplami) }}
-            </template>
-          </Column>
-          <Column field="odenen" header="Ödenen">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.odenen) }}
-            </template>
-          </Column>
-          <Column field="kalanBedel" header="Kalan Ödeme">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.kalanBedel) }}
-            </template>
-          </Column>
-        </DataTable>
-      </template>
-    </Card>
-    <hr /> -->
-    <div class="columns">
-      <div class="column">
-          <Card>
-            <template #header>
-              <h2 style="text-align: center">
-                R16: {{ year }} 'de Yapılan Sevkiyatın Üreticilere Göre Dağılımı
-              </h2>
-            </template>
-            <template #content>
-              <DataTable :value="dashboardSubData.tedarikci" responsiveLayout="scroll" v-model:filters="filterTedarikci"
-                filterDisplay="row" dataKey="id" :paginator="true" :rows="5" @row-select="tedarikciAyrintiSelected"
-                selectionMode="single">
-                <Column field="tedarikci" filterField="tedarikci" header="Tedarikçi" :showFilterMenu="false">
-                  <template #body="{ data }">
-                    {{ data.tedarikci }}
-                  </template>
-                  <template #filter="{ filterModel, filterCallback }">
-                    <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                      placeholder="Search by country" />
-                  </template>
-                </Column>
-                <Column field="satisMiktar" header="Satış Miktarı">
-                  <template #body="slotProps">
-                    {{ formatDecimal(slotProps.data.satisMiktar) }}
-                  </template>
-                </Column>
-                <Column field="satisToplam" header="Satış Toplamı">
-                  <template #body="slotProps">
-                    {{ formatPrice(slotProps.data.satisToplam) }}
-                  </template>
-                </Column>
-              </DataTable>
-            </template>
-          </Card>
-      </div>
-      <div class="column">
-          <Card>
-            <template #header>
-              <h2 style="text-align: center">
-                R17: {{ year }}'deki Hali Hazırdaki Siparişlerin Üretici Dağılımı
-              </h2>
-            </template>
-            <template #content>
-              <DataTable :value="dashboardSubData.tedarikciSiparisler" responsiveLayout="scroll"
-                v-model:filters="filterTedarikciSip" filterDisplay="row" dataKey="id" :paginator="true" :rows="5"
-                @item-select="tedarikciAyrintiAllSelected" selectionMode="single">
-                <Column field="tedarikci" filterField="tedarikci" header="Tedarikçi" :showFilterMenu="false">
-                  <template #body="{ data }">
-                    {{ data.tedarikci }}
-                  </template>
-                  <template #filter="{ filterModel, filterCallback }">
-                    <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                      placeholder="Search by country" />
-                  </template>
-                </Column>
-                <Column field="satisMiktar" header="Satış Miktarı">
-                  <template #body="slotProps">
-                    {{ formatDecimal(slotProps.data.satisMiktar) }}
-                  </template>
-                </Column>
-                <Column field="satisToplam" header="Satış Toplamı">
-                  <template #body="slotProps">
-                    {{ formatPrice(slotProps.data.satisToplam) }}
-                  </template>
-                </Column>
-              </DataTable>
-            </template>
-          </Card>
-      </div>
-      <div class="column">
-          <Card>
-            <template #header>
-              <h2 style="text-align: center">
-                R18: {{ year }}'deki Mevcut Siparişlerin Müşterilere Göre Dağılımı
-              </h2>
-            </template>
-            <template #content>
-              <DataTable :value="dashboardSubData.musteriSiparisler" responsiveLayout="scroll" v-model:filters="filterMusteriSip"
-                filterDisplay="row" dataKey="id" :paginator="true" :rows="5" @row-select="firmaBazindaAyrintiSelected"
-                selectionMode="single">
-                <Column field="tedarikci" filterField="tedarikci" header="Firma Adı" :showFilterMenu="false">
-                  <template #body="{ data }">
-                    {{ data.tedarikci }}
-                  </template>
-                  <template #filter="{ filterModel, filterCallback }">
-                    <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                      placeholder="Search by country" />
-                  </template>
-                </Column>
-                <Column field="satisMiktar" header="Satış Miktarı">
-                  <template #body="slotProps">
-                    {{ formatDecimal(slotProps.data.satisMiktar) }}
-                  </template>
-                </Column>
-                <Column field="satisToplam" header="Satış Toplamı">
-                  <template #body="slotProps">
-                    {{ formatPrice(slotProps.data.satisToplam) }}
-                  </template>
-                </Column>
-              </DataTable>
-            </template>
-          </Card>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column">
-        <Card>
-          <template #header>
-            <h2 style="text-align: center">
-              R19: Takipteki {{ month }} Ayına Ait Teklifler
-            </h2>
-          </template>
-          <template #content>
-            <DataTable :value="dashboardSubData.teklifler" responsiveLayout="scroll" v-model:filters="filterTeklifler"
-              filterDisplay="row" dataKey="id" :paginator="true" :rows="5" @row-select="tekliflerAyrintiAylik"
-              selectionMode="single">
-              <Column field="teklifSahibi" filterField="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
-                <template #body="{ data }">
-                  {{ data.teklifSahibi }}
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                    placeholder="Search by country" />
-                </template>
-              </Column>
-              <Column field="teklifSayisi" header="Teklif Sayısı">
-                <template #body="slotProps">
-                  {{ slotProps.data.teklifSayisi }}
-                </template>
-              </Column>
-            </DataTable>
-          </template>
-        </Card>
-        <Card style="margin-top: 10px">
-          <template #header>
-            <h2 style="text-align: center">
-              R20: {{ year }} Yılına Ait Tüm Teklifler
-            </h2>
-          </template>
-          <template #content>
-            <DataTable :value="dashboardSubData.tekliflerYillik" responsiveLayout="scroll" v-model:filters="filterTekliflerYil"
-              filterDisplay="row" :paginator="true" :rows="5" @row-select="tekliflerAyrintiYillik" selectionMode="single">
-              <Column field="teklifSahibi" filterField="teklifSahibi" header="Teklif Sahibi" :showFilterMenu="false">
-                <template #body="{ data }">
-                  {{ data.teklifSahibi }}
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                    placeholder="Search by country" />
-                </template>
-              </Column>
-              <Column field="teklifSayisi" header="Teklif Sayısı">
-                <template #body="slotProps">
-                  {{ slotProps.data.teklifSayisi }}
-                </template>
-              </Column>
-            </DataTable>
-          </template>
-        </Card>
-      </div>
-      <div class="column">
-        <Card>
-          <template #header>
-            <h2 style="text-align: center">
-              R22: {{ year }} Yeni Eklenen Siparişler
-            </h2>
-          </template>
-          <template #content>
-            <DataTable :value="dashboardSubData.sonEklenenSiparisler" responsiveLayout="scroll"
-              v-model:filters="filtersSonEklenenSip" filterDisplay="row" dataKey="id" :paginator="true" :rows="5">
-              <Column field="siparisNo" filterField="siparisNo" header="Sipariş No" :showFilterMenu="false">
-                <template #body="{ data }">
-                  {{ data.siparisNo }}
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                    placeholder="Search by country" />
-                </template>
-              </Column>
-              <Column field="satisci" filterField="satisci" header="Satışçı">
-                <template #body="slotProps">
-                  {{ slotProps.data.satisci }}
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                  <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                    placeholder="Search by country" />
-                </template>
-              </Column>
-              <Column field="satisToplami" header="Satış Toplam(FOB)">
-                <template #body="slotProps">
-                  {{ formatPrice(slotProps.data.satisToplami) }}
-                </template>
-              </Column>
-              <Column field="link" header="PI" bodyStyle="textAlign:center;">
-                <template #body="slotProps">
-                  <Button type="button" :disabled="!slotProps.data.evrakDurum" @click="proformaDowload(slotProps.data.link)"
-                    icon="fas fa-download" style="margin-right: 0.5em" />
-                </template>
-              </Column>
-            </DataTable>
-          </template>
-        </Card>
-      </div>
-    </div>
     <div class="columns">
       <div class="column">
         <Card>
@@ -843,19 +383,30 @@
             <h2 style="text-align: center">R22: Son Yapılan Değişiklikler</h2>
           </template>
           <template #content>
-            <DataTable :value="dashboardLogs" responsiveLayout="scroll" dataKey="id" :paginator="true" :rows="10">
-              <Column field="degisiklikTarihi" header="Degişiklik Tarihi"></Column>
-              <Column field="degisiklikYapan" header="Degişiklik Yapan"> </Column>
-              <Column field="yapilanDegisiklik" header="Yapılan Değişiklik"></Column>
+            <DataTable
+              :value="dashboardLogs"
+              responsiveLayout="scroll"
+              dataKey="id"
+              :paginator="true"
+              :rows="10"
+            >
+              <Column
+                field="degisiklikTarihi"
+                header="Degişiklik Tarihi"
+              ></Column>
+              <Column field="degisiklikYapan" header="Degişiklik Yapan">
+              </Column>
+              <Column
+                field="yapilanDegisiklik"
+                header="Yapılan Değişiklik"
+              ></Column>
             </DataTable>
             <Button @click="anaSayfaDegisiklikAll" label="All"></Button>
           </template>
         </Card>
       </div>
     </div>
-  
   </div>
-
 
   <Dialog
     header="Tüm Hareketler"
@@ -1070,7 +621,12 @@ import { mapGetters } from "vuex";
 import raporService from "@/service/RaporService";
 import socket from "@/service/SocketService";
 import { FilterMatchMode } from "primevue/api";
+import countrySevkiyat from "@/components/musteriraporlari/CountrySevkiyat.vue";
+
 export default {
+  components: {
+    countrySevkiyat
+  },
   data() {
     return {
       isClickedSub: false,
@@ -1163,12 +719,16 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "dashboardSubData",
-      "dashboardLogsAll",
-      "dashboardLogs",
-      "dashboardUlkeyeGoreTeklif",
-      "kontAlacakTop",
-      "finansAlacakTop",
+      'dashboardSubData',
+      'dashboardLogsAll',
+      'dashboardLogs',
+      'dashboardUlkeyeGoreTeklif',
+      'kontAlacakTop',
+      'finansAlacakTop',
+      'tedarikciPriceSum',
+      'tedarikciProductSum',
+      'musteriPriceSum',
+      'musteriPriceProductSum'
     ]),
   },
   created() {
@@ -1322,7 +882,7 @@ export default {
     },
     anaSayfaDegisiklikAll() {
       raporService.getAnaSayfaDegisiklikListAll().then((data) => {
-        console.log(data)
+        console.log(data);
         this.$store.dispatch("dashboard_logs_all_load", data);
       });
       this.is_main_all_form = true;

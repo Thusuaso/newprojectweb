@@ -33,13 +33,13 @@
                 icon="far fa-envelope"
                 @click="mailGonder(2)"
                 class="p-button-success p-button-rounded"
-                badge="8"
+                badge=""
                 badgeClass="p-badge-info"
               />
             </td>
           </tr>
 
-          <tr>
+          <!-- <tr>
             <td>
               <img
                 class="dairesel"
@@ -71,7 +71,7 @@
                 badgeClass="p-badge-info"
               />
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>
               <img
@@ -98,7 +98,7 @@
                 icon="far fa-envelope"
                 @click="mailGonder(3)"
                 class="p-button-success p-button-rounded"
-                badge="8"
+                badge=""
                 badgeClass="p-badge-info"
               />
             </td>
@@ -130,7 +130,7 @@
                 icon="far fa-envelope"
                 @click="mailGonder(4)"
                 class="p-button-success p-button-rounded"
-                badge="8"
+                badge=""
                 badgeClass="p-badge-info"
               />
             </td>
@@ -162,7 +162,7 @@
                 icon="far fa-envelope"
                 @click="mailGonder(5)"
                 class="p-button-success p-button-rounded"
-                badge="8"
+                badge=""
                 badgeClass="p-badge-info"
               />
             </td>
@@ -195,7 +195,7 @@
                 icon="far fa-envelope"
                 @click="mailGonder(8)"
                 class="p-button-success p-button-rounded"
-                badge="8"
+                badge=""
                 badgeClass="p-badge-info"
               />
             </td>
@@ -226,7 +226,7 @@
                 icon="far fa-envelope"
                 @click="mailGonder(9)"
                 class="p-button-success p-button-rounded"
-                badge="8"
+                badge=""
                 badgeClass="p-badge-info"
               />
             </td>
@@ -237,7 +237,7 @@
   </div>
 </template>
 <script>
-import Opservice from "../../../service/OperasyonService";
+import Opservice from "@/service/OperasyonService";
 
 export default {
   data() {

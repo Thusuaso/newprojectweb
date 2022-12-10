@@ -56,6 +56,7 @@
                 type="text"
                 :disabled="is_form"
                 v-model="thmusteri.tutar"
+                @input="changeFormat"
               />
               <label for="bakiye">Bakiye</label>
             </span>
@@ -67,6 +68,7 @@
                 type="text"
                 :disabled="is_form"
                 v-model="thmusteri.masraf"
+                @input="changeFormat"
               />
               <label for="masraf">Masraf</label>
             </span>
@@ -203,6 +205,10 @@ export default {
     ]),
   },
   methods: {
+    changeFormat() {
+      this.thmusteri.tutar = this.thmusteri.tutar.replace(",", ".")
+      this.thmusteri.masraf = this.thmusteri.masraf.replace(",", ".")
+    },
     formatPrice(value) {
       let val = (value / 1).toFixed(2).replace(".", ",");
       return "$" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");

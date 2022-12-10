@@ -58,7 +58,6 @@
                 v-model="tip"
                 value="Fca"
                 @change="yuklemeTipKontrol"
-
               />
               <label for="input" class="p-radiobutton-label">Fca</label>
             </li>
@@ -113,7 +112,9 @@
                   :options="kaynakList"
                   optionLabel="name"
                   class="dropdown"
-                  :class="{ 'p-invalid': v$.selectKaynak.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.selectKaynak.$invalid && submitted,
+                  }"
                 />
                 <label for="kaynak">Kaynak</label>
               </span>
@@ -128,7 +129,9 @@
                   :options="teklifYeriList"
                   optionLabel="name"
                   class="dropdown"
-                  :class="{ 'p-invalid': v$.selectTeklifYeri.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.selectTeklifYeri.$invalid && submitted,
+                  }"
                 />
                 <label for="teklifYeri">Teklif Yeri</label>
               </span>
@@ -143,7 +146,9 @@
                   :options="oncelikList"
                   optionLabel="name"
                   class="dropdown"
-                  :class="{ 'p-invalid': v$.selectOncelik.$invalid && submitted }"
+                  :class="{
+                    'p-invalid': v$.selectOncelik.$invalid && submitted,
+                  }"
                 />
                 <label for="teklifOnceligi">Teklif Önceliği</label>
               </span>
@@ -157,7 +162,7 @@
         <template #content>
           <TabView style="margin-top: -10px">
             <TabPanel header="Teklif Açıklama">
-              <Textarea v-model="teklif.aciklama" rows="3" cols="46" />
+              <Textarea v-model="teklif.aciklama" rows="7" cols="46" />
             </TabPanel>
             <TabPanel header="Hatırlatma Belge">
               <div class="columns">
@@ -280,24 +285,19 @@
           <div class="columns">
             <div class="column" style="margin-top: -10px">
               <span class="p-float-label">
-                <InputText id="sirket" type="text" v-model="teklif.company" />
+                <InputText id="sirket" type="text" v-model="teklif.company" :disabled="true" />
                 <label for="sirket">Şirket</label>
               </span>
             </div>
             <div class="column">
               <span class="p-float-label">
-                <InputText type="email" id="email" v-model="teklif.email" />
+                <InputText type="email" id="email" v-model="teklif.email" :disabled="true" />
                 <label for="email">Email</label>
               </span>
             </div>
             <div class="column">
               <span class="p-float-label">
-                <InputMask
-                  id="phone"
-                  v-model="teklif.phone"
-                  mask="+99 (999) 999 9999? 99999"
-                
-                />
+                <InputText id="phone" v-model="teklif.phone" :disabled="true" />
                 <label for="phone">Telefon</label>
               </span>
             </div>
@@ -662,7 +662,12 @@
     </div>
   </div>
 
-  <Dialog v-model:visible="proformaVisible" :modal="true" header="Proforma" position="top">
+  <Dialog
+    v-model:visible="proformaVisible"
+    :modal="true"
+    header="Proforma"
+    position="top"
+  >
     <div class="p-cardialog-content" style="background-color: #f4f4f4">
       <div class="p-grid">
         <div class="p-col-12 p-lg-12">
@@ -713,7 +718,12 @@
       </div>
     </div>
   </Dialog>
-  <Dialog v-model:visible="numuneVisible" :modal="true" header="Numune Takip" position="top">
+  <Dialog
+    v-model:visible="numuneVisible"
+    :modal="true"
+    header="Numune Takip"
+    position="top"
+  >
     <div class="p-cardialog-content" style="background-color: #f4f4f4">
       <div class="p-grid">
         <div class="p-col-12">
@@ -810,7 +820,6 @@ export default {
       selectKaynak: { required },
       selectTeklifYeri: { required },
       selectOncelik: { required },
-
     };
   },
   computed: {
@@ -823,7 +832,7 @@ export default {
   },
   data() {
     return {
-      submitted:false,
+      submitted: false,
       urunListesi: [],
       fobFiyat: 0,
       teklifFiyat: 0,
@@ -1485,7 +1494,12 @@ export default {
     teklifKayitIslemi() {
       this.submitted = true;
       if (this.v$.$invalid) {
-        this.$toast.add({ severity: 'error', summary: 'Zorunlu Alanlar', detail: 'Zorunlu alanları doldurunuz!', life: 3000 });
+        this.$toast.add({
+          severity: "error",
+          summary: "Zorunlu Alanlar",
+          detail: "Zorunlu alanları doldurunuz!",
+          life: 3000,
+        });
       } else {
         if (this.kayit_kontrol) {
           this.yuklemeTipKontrol();
@@ -1506,7 +1520,6 @@ export default {
           if (!this.urunkayit) this.teklifGuncelleme();
         }
       }
-      
 
       //code sonu
     },
@@ -1615,8 +1628,6 @@ export default {
       //     socket.emit("teklif_sil_event");
       //   }
       // });
-
-
     },
     yeniKayitBaslangicIslemler() {
       this.dis_takipEt = true;

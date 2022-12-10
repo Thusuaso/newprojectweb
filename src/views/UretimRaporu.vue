@@ -57,12 +57,13 @@
           selectionMode="single"
           dataKey="id"
           @filter="isUretimList"
+          :loading="$store.getters.datatableLoading"
         >
           <Column
             field="tarih"
             header="Tarih"
             headerStyle="width:11%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.tarih }}
@@ -81,7 +82,7 @@
             field="kimden"
             header="Kimden"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.kimden }}
@@ -101,7 +102,7 @@
             field="urunKartID"
             header="Ürün Kart Id"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.urunKartID }}
@@ -117,7 +118,12 @@
             </template>
           </Column>
 
-          <Column field="kategori" header="Kategori" headerStyle="width:14%">
+          <Column
+            field="kategori"
+            header="Kategori"
+            headerStyle="width:14%"
+            bodyStyle="text-align:left"
+          >
             <template #body="slotProps">
               {{ slotProps.data.kategori }}
             </template>
@@ -135,7 +141,7 @@
             field="kasano"
             header="No"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasano }}
@@ -150,7 +156,12 @@
               />
             </template>
           </Column>
-          <Column field="urunadi" header="Ürün" headerStyle="width:14%">
+          <Column
+            field="urunadi"
+            header="Ürün"
+            headerStyle="width:14%"
+            bodyStyle="text-align:left"
+          >
             <template #body="slotProps">
               {{ slotProps.data.urunadi }}
             </template>
@@ -168,7 +179,7 @@
             field="ocakadi"
             header="Ocak"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.ocakadi }}
@@ -183,7 +194,12 @@
               />
             </template>
           </Column>
-          <Column field="yuzeyadi" header="İşlem" headerStyle="width:27%">
+          <Column
+            field="yuzeyadi"
+            header="İşlem"
+            headerStyle="width:27%"
+            bodyStyle="text-align:left"
+          >
             <template #body="slotProps">
               {{ slotProps.data.yuzeyadi }}
             </template>
@@ -201,7 +217,7 @@
             field="en"
             header="En"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.en }}
@@ -220,7 +236,7 @@
             field="boy"
             header="Boy"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.boy }}
@@ -239,7 +255,7 @@
             field="kenar"
             header="Kenar"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.kenar }}
@@ -258,7 +274,7 @@
             field="adet"
             header="K.Adet"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.adet }}
@@ -268,7 +284,7 @@
             field="miktar"
             header="Miktar"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ formatDecimal(slotProps.data.miktar) }}
@@ -282,7 +298,7 @@
             field="birimadi"
             header="Birim"
             headerStyle="width:10%"
-            bodyStyle="text-align:center"
+            bodyStyle="text-align:left"
           >
             <template #body="slotProps">
               {{ slotProps.data.birimadi }}
@@ -297,7 +313,12 @@
               />
             </template>
           </Column>
-          <Column field="siparisno" header="Po" headerStyle="width:11%">
+          <Column
+            field="siparisno"
+            header="Po"
+            headerStyle="width:11%"
+            bodyStyle="text-align:left"
+          >
             <template #body="slotProps">
               {{ slotProps.data.siparisno }}
             </template>
@@ -311,7 +332,12 @@
               />
             </template>
           </Column>
-          <Column field="aciklama" header="Not" headerStyle="width:11%">
+          <Column
+            field="aciklama"
+            header="Not"
+            headerStyle="width:11%"
+            bodyStyle="text-align:left"
+          >
             <template #body="slotProps">
               <div class="mobil">
                 {{ slotProps.data.aciklama }}
@@ -565,7 +591,7 @@ export default {
       this.emitter.emit("uretimRaporUrunKartShow");
     },
     excel_cikti_click() {
-      this.$store.dispatch("loadingBeginAct");
+      this.$store.dispatch("datatableLoadingBeginAct")
 
       this.is_excel = true;
       const data = this.uretim_rapor_list_all;
@@ -580,7 +606,7 @@ export default {
           document.body.appendChild(link);
           link.click();
           this.is_excel = false;
-          this.$store.dispatch("loadingEndAct");
+          this.$store.dispatch("datatableLoadingEndAct")
         }
       });
     },
@@ -596,48 +622,47 @@ export default {
       this.tablo_toplam_guncelle(event.filterValue);
     },
     rapor_tarih_suz_click() {
-      this.$store.dispatch("loadingBeginAct");
-
       if (this.son_tarih && !this.ilk_tarih) {
         this.is_islem = true;
         let tarih = this.localService.getDateString(this.son_tarih);
+        this.$store.dispatch("datatableLoadingBeginAct")
         service.getUretimRaporTarih(tarih).then((data) => {
           this.$store.dispatch("uretim_rapor_list_load_act", data);
+          this.$store.dispatch("datatableLoadingEndAct")
+
           this.is_filter_uretim = true;
           this.$refs.uretim_tablo.value = data;
           this.tablo_toplam_guncelle(data);
           this.is_islem = false;
-          this.$store.dispatch("loadingEndAct");
         });
       }
       if (!this.son_tarih && !this.ilk_tarih) {
         this.is_filter_uretim = false;
         this.$refs.uretim_tablo.value = this.uretim_listesi;
         this.tablo_toplam_guncelle(this.uretim_listesi);
-        this.$store.dispatch("loadingEndAct");
       }
       if (this.ilk_tarih && !this.son_tarih) {
         this.is_filter_uretim = false;
         this.$refs.uretim_tablo.value = this.uretim_listesi;
         this.tablo_toplam_guncelle(this.uretim_listesi);
-        this.$store.dispatch("loadingEndAct");
       }
       if (this.ilk_tarih && this.son_tarih) {
         this.is_islem = true;
 
         let son_tarih = this.localService.getDateString(this.son_tarih);
         let ilk_tarih = this.localService.getDateString(this.ilk_tarih);
+        this.$store.dispatch("datatableLoadingBeginAct")
 
         service.getUretimRaporIkiTarih(ilk_tarih, son_tarih).then((data) => {
           this.is_filter_uretim = true;
           this.$store.dispatch("uretim_rapor_list_load_act", data);
+          this.$store.dispatch("datatableLoadingEndAct")
+
           this.$refs.uretim_tablo.value = data;
           this.tablo_toplam_guncelle(data);
           this.is_islem = false;
-          this.$store.dispatch("loadingEndAct");
         });
       }
-      this.$store.dispatch("loadingEndAct");
     },
   },
 };

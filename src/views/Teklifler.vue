@@ -117,7 +117,7 @@
             </div>
           </div>
           <div class="columns">
-            <div class="column">
+            <div class="column is-12">
               <FullCalendar :options="calendarOptions" />
             </div>
           </div>
@@ -192,7 +192,6 @@
     :modal="true"
     maximizable
     position="top"
-
   >
     <eskiTeklifler :eskitekliflist="eskitekliflist" />
   </Dialog>
@@ -210,14 +209,18 @@
 import teklifService from "@/service/TeklifService";
 import TeklifGirisForm from "@/components/teklifler/TeklifGirisForm";
 import KullaniciTeklifListe from "@/components/teklifler/KullaniciTeklifListe";
-import socket from "@/service/SocketService";
+// import socket from "@/service/SocketService";
 import TumTeklifler from "@/components/teklifler/TumTeklifler";
 import EskiTeklifler from "@/components/teklifler/EskiTeklifler";
 import "@fullcalendar/core/vdom"; // solves problem with Vite
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters([]),
+  },
   components: {
     TeklifGirisForm: TeklifGirisForm,
     kullaniciTeklifListe: KullaniciTeklifListe,
@@ -227,7 +230,7 @@ export default {
   },
   data() {
     return {
-      teklifFormvisible:false,
+      teklifFormvisible: false,
       temsilciOzetList: null,
       temsilciLoading: false,
       selectOzetList: null,
@@ -260,57 +263,22 @@ export default {
     };
   },
   created() {
-    this.baslangicIslemler();
+    this.$store.dispatch("loadingBeginAct");
 
-    let username = this.$store.getters.__getUsername;
-    socket.siparis.on("teklif_sil_emit", () => {
-      this.baslangicIslemler();
-    });
-    socket.siparis.on("teklif_yeni_emit", (value) => {
-      if (username == value) {
-        this.baslangicIslemler();
-      } else {
-        this.baslangicIslemler();
+    teklifService.getTakvimList().then((data) => {
+      console.log("hatirlatmaList", data.hatirlatmaList);
 
-        this.$toast.add({
-          severity: "success",
-          summary: "Uyarı Ekranı",
-          detail: `${value} Yeni Teklif Girişi Yaptı`,
-          life: 5000,
-        });
-      }
-    });
-
-    socket.siparis.on("teklif_guncelleme_emit", (value) => {
-      if (username == value) {
-        this.baslangicIslemler();
-      } else {
-        this.baslangicIslemler();
-
-        //this.$toast.add({severity:'success', summary: 'Bilgi Ekranı', detail:`value Teklif Güncellemesi Yaptı`,  life: 5000});
-      }
-    });
-  },
-  methods: {
-    baslangicIslemler() {
-      this.$store.dispatch("loadingBeginAct");
-
-      teklifService.getTakvimList().then((data) => {
-        const takvimData = [];
-        for (var i in data.takvimList) {
-          if (data.takvimList[i].hatirlatmaDurum == "True") {
-            takvimData.push(data.takvimList[i]);
-          }
+      const takvimData = [];
+      for (var i in data.takvimList) {
+        if (data.takvimList[i].hatirlatmaDurum == "True") {
+          takvimData.push(data.takvimList[i]);
         }
+      }
 
-        for (let key in takvimData) {
-          takvimData[key].classNames = ["eventColumn"];
-        }
-
-        this.takvimList = takvimData;
-        this.temsilciOzetList = data.temsilciOzetList;
-        this.hatirlatmaList = data.hatirlatmaList;
-        this.musteriOzetList = data.musteriOzetList;
+      for (let key in takvimData) {
+        takvimData[key].classNames = ["eventColumn"];
+      }
+      setTimeout(() => {
         for (let item in data.hatirlatmaList) {
           const date = data.hatirlatmaList[item].tarih.split("-");
           const timaDate = date[2] + "-" + date[1] + "-" + date[0];
@@ -320,12 +288,46 @@ export default {
             date: timaDate,
           });
         }
-        this.tabloToplariYenile();
-        this.$store.dispatch("loadingEndAct");
+      }, 500);
 
+      this.takvimList = takvimData;
+      this.temsilciOzetList = data.temsilciOzetList;
+      this.hatirlatmaList = data.hatirlatmaList;
+      this.musteriOzetList = data.musteriOzetList;
+      this.tabloToplariYenile();
+      this.$store.dispatch("loadingEndAct");
+    });
 
-      });
-    },
+    // let username = this.$store.getters.__getUsername;
+    // socket.siparis.on("teklif_sil_emit", () => {
+    //   this.baslangicIslemler();
+    // });
+    // socket.siparis.on("teklif_yeni_emit", (value) => {
+    //   if (username == value) {
+    //     this.baslangicIslemler();
+    //   } else {
+    //     this.baslangicIslemler();
+
+    //     this.$toast.add({
+    //       severity: "success",
+    //       summary: "Uyarı Ekranı",
+    //       detail: `${value} Yeni Teklif Girişi Yaptı`,
+    //       life: 5000,
+    //     });
+    //   }
+    // });
+
+    // socket.siparis.on("teklif_guncelleme_emit", (value) => {
+    //   if (username == value) {
+    //     this.baslangicIslemler();
+    //   } else {
+    //     this.baslangicIslemler();
+
+    //     //this.$toast.add({severity:'success', summary: 'Bilgi Ekranı', detail:`value Teklif Güncellemesi Yaptı`,  life: 5000});
+    //   }
+    // });
+  },
+  methods: {
     takvimClick() {},
     tarihSec() {
       this.$refs.takvim.calendar.gotoDate(this.selectDate);
@@ -380,8 +382,7 @@ export default {
       });
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 <style scoped>

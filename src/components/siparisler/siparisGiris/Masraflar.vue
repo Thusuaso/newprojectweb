@@ -2,6 +2,23 @@
   <div class="p-fluid">
     <div class="p-grid">
       <div class="p-col-12">
+        <DataTable
+          :value="masraflarTopList"
+          class="p-datatable-sm"
+          responsiveLayout="scroll"
+        >
+          <template #header
+            ><div style="text-align: center;font-size:15px;">Toplam Masraflar</div>
+          </template>
+          <Column
+            field="masraf"
+            bodyStyle="text-align:center;font-weight:bold;"
+          >
+            <template #body="slotProps">{{
+              formatPrice(slotProps.data.masraf)
+            }}</template>
+          </Column>
+        </DataTable>
         <Card>
           <template #content>
             <div
@@ -225,7 +242,7 @@
   </div>
 </template>
 <script>
-import SiparisService from "../../../service/SiparisService";
+import SiparisService from "@/service/SiparisService";
 export default {
   data() {
     return {
@@ -242,6 +259,8 @@ export default {
       nakliyeToplam: 0,
       navlunToplam: 0,
       limanToplam: 0,
+      masraflarTop: 0,
+      masraflarTopList: [],
     };
   },
   props: ["siparisNo", "yeniSiparis"],
@@ -290,6 +309,11 @@ export default {
       this.siparisService.getMasrafListesi(this.siparisNo).then((data) => {
         console.log("getMasrafListesi", data);
         this.masrafListesi = data;
+        this.masraflarTop = 0;
+        for (let i of data) {
+          this.masraflarTop += i.tutar;
+        }
+        this.masraflarTopList.push({ masraf: this.masraflarTop });
         this.ilaclama = data.filter((x) => x.tur == "İlaçlama Faturası");
         this.gumruk = data.filter((x) => x.tur == "Gümrük Faturası");
         this.nakliye = data.filter((x) => x.tur == "Nakliye Faturası");

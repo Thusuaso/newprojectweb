@@ -18,7 +18,7 @@
     <DataTable
       :value="mekusMasraflar"
       :scrollable="true"
-      scrollHeight="400px"
+      scrollHeight="550px"
       v-model:filters="filters"
       filterDisplay="menu"
       @filter="isMekusMasraflari"

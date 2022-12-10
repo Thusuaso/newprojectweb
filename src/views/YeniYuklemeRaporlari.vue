@@ -1,7 +1,7 @@
 <template>
   <section>
     <TabView>
-      <TabPanel header="Rapor 1">
+      <TabPanel header="Aylık Yükleme Raporu">
         <Button
           icon="pi pi-file-excel"
           class="p-button-primary"
@@ -20,7 +20,7 @@
                 <div class="columns is-multiline">
                   <div class="column is-12">
                     <span style="font-size: 15px"
-                      >1) Aylık Toplam Yükleme (Bütün Pazarlamalar)
+                      >Aylık Toplam Yükleme (Bütün Pazarlamalar)
                     </span>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
               </Column>
               <Column
                 field="cfrToplam"
-                header="Cfr"
+                header="DDP"
                 bodyStyle="text-align:center;"
               >
                 <template #body="slotProps">
@@ -65,7 +65,7 @@
             >
               <template #header>
                 <div class="table-header" style="font-size: 15px">
-                  2) Kutu Bazında Depo Satışları
+                  Kutu Bazında Depo Satışları
                 </div>
               </template>
               <Column field="ay" header="Ay">
@@ -81,7 +81,7 @@
                   {{ formatPrice(totalBdFob) }}
                 </template>
               </Column>
-              <Column field="cfrToplam" header="Cfr">
+              <Column field="cfrToplam" header="DDP">
                 <template #body="slotProps">
                   {{ formatPrice(slotProps.data.cfrToplam) }}
                 </template>
@@ -100,7 +100,7 @@
             >
               <template #header>
                 <div class="table-header" style="font-size: 15px">
-                  3) Toplam
+                  Toplam
                 </div>
               </template>
               <Column field="ay" header="Ay">
@@ -119,7 +119,7 @@
                   {{ formatPrice(toplamFob) }}
                 </template>
               </Column>
-              <Column field="cfrToplam" header="Cfr">
+              <Column field="cfrToplam" header="DDP">
                 <template #body="slotProps">
                   {{ formatPrice(slotProps.data.cfrToplami) }}
                 </template>
@@ -138,15 +138,18 @@
           gelirken FOB tutar, DDP' nin %70' i alınarak hesaplanır.
         </p>
       </TabPanel>
-      <TabPanel header="Rapor 2">
+      <TabPanel header="Güncel Üretim Sipariş Raporu">
         <musteriBazindaUretim> </musteriBazindaUretim>
         <p style="color: red">
           * Siparişler üretim aşamasında olduğu için yükleme sonrası değerlerde
           farklılık görülebilir.
         </p>
       </TabPanel>
-      <TabPanel header="Rapor 3">
+      <TabPanel header="Yükleme Raporu">
         <byMarketingYukleme></byMarketingYukleme>
+      </TabPanel>
+      <TabPanel header="Yıllık Yükleme Raporu">
+        <ayBazindaMarketingYuklemeler></ayBazindaMarketingYuklemeler>
       </TabPanel>
     </TabView>
   </section>
@@ -155,6 +158,7 @@
 import service from "@/service/RaporService";
 import musteriBazindaUretim from "@/components/newyuklemeraporlari/musteriBazindaUretim";
 import byMarketingYukleme from "@/components/newyuklemeraporlari/byMarketingYukleme";
+import ayBazindaMarketingYuklemeler from "@/components/newyuklemeraporlari/ayBazindaMarketingYuklemeler";
 
 import { mapGetters } from "vuex";
 
@@ -162,6 +166,7 @@ export default {
   components: {
     musteriBazindaUretim,
     byMarketingYukleme,
+    ayBazindaMarketingYuklemeler
   },
   data() {
     return {
@@ -218,6 +223,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("loadingBeginAct");
     service.getYuklemeYilListesi().then((yil_list) => {
       this.yil_listesi = yil_list;
       this.select_yil = yil_list[0].yil;
@@ -232,13 +238,14 @@ export default {
         this.yukleme_listesi_yukle();
       });
     });
-    service.getYuklemeRapor(this.select_yil, this.select_ay).then((data) => {
-      this.aylik_yukleme_listesi = data.aylik_yukleme_listesi;
-      this.yillik_yukleme_listesi = data.yillik_yukleme_listesi;
-      this.aylik_sayim_listesi = data.aylik_sayim_listesi;
-      this.yillik_sayim_listesi = data.yillik_sayim_listesi;
-      this.musteribazinda_aylik = data.musteribazinda_aylik;
-    });
+    // service.getYuklemeRapor(this.select_yil, this.select_ay).then((data) => {
+    //   this.aylik_yukleme_listesi = data.aylik_yukleme_listesi;
+    //   this.yillik_yukleme_listesi = data.yillik_yukleme_listesi;
+    //   this.aylik_sayim_listesi = data.aylik_sayim_listesi;
+    //   this.yillik_sayim_listesi = data.yillik_sayim_listesi;
+    //   this.musteribazinda_aylik = data.musteribazinda_aylik;
+
+    // });
   },
   methods: {
     excel_cikti_click() {
@@ -264,7 +271,6 @@ export default {
       return "$" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     yukleme_listesi_yukle() {
-      this.$store.dispatch("loadingBeginAct");
       service.getMarketingRaporlari().then((data) => {
         this.$store.dispatch("mekmarLoadMonthsAct", data);
         this.tabloToplamAlma(

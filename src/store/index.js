@@ -37,6 +37,8 @@ import maliyet_ayrinti from "./modules/maliyet_ayrinti";
 import bymarketingrapors from "./modules/bymarketingrapors";
 import efespesinat from "./modules/efespesinat";
 import efestahsilat from "./modules/efestahsilat";
+import mekmerDisFatura from "./modules/mekmerDisFatura";
+
 // import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
@@ -79,6 +81,7 @@ export default createStore({
     bymarketingrapors,
     efespesinat,
     efestahsilat,
+    mekmerDisFatura
 
   },
   // plugins: [createPersistedState()],

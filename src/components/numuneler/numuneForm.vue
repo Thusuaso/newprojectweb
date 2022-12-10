@@ -10,54 +10,44 @@
             <Card>
               <template #header> ÜRÜN </template>
               <template #content>
-                <div class="card card-w-title">
-                  <div class="p-grid">
-                    <div class="p-col-12 p-lg-12">
-                      <div class="p-col-12 p-md-12">
-                        <div class="column is-12 custom-box">
-                          <div class="columns is-multiline">
-                            <div class="column">
-                              <span class="p-float-label">
-                                <AutoComplete
-                                  id="kategori"
-                                  v-model="kategori"
-                                  :suggestions="filterKategoriList"
-                                  @complete="aramaKategori($event)"
-                                  optionLabel="name"
-                                  @item-select="degisimKategori"
-                                />
-                                <label for="kategori">Kategori</label>
-                              </span>
-                            </div>
-                            <div class="column">
-                              <span class="p-float-label">
-                                <AutoComplete
-                                  v-model="birim"
-                                  :suggestions="filterBirimList"
-                                  @complete="aramaBirim($event)"
-                                  optionLabel="name"
-                                  id="birim"
-                                  @item-select="degisimBirim"
-                                />
+                <div class="columns">
+                  <div class="column">
+                    <span class="p-float-label">
+                      <AutoComplete
+                        id="kategori"
+                        v-model="kategori"
+                        :suggestions="filterKategoriList"
+                        @complete="aramaKategori($event)"
+                        optionLabel="name"
+                        @item-select="degisimKategori"
+                      />
+                      <label for="kategori">Kategori</label>
+                    </span>
+                  </div>
+                  <div class="column">
+                    <span class="p-float-label">
+                      <AutoComplete
+                        v-model="birim"
+                        :suggestions="filterBirimList"
+                        @complete="aramaBirim($event)"
+                        optionLabel="name"
+                        id="birim"
+                        @item-select="degisimBirim"
+                      />
 
-                                <label for="birim">Birim</label>
-                              </span>
-                            </div>
-                            <div class="column">
-                              <span class="p-float-label">
-                                <InputText
-                                  id="miktar"
-                                  v-model="numune.Miktar"
-                                  :disAktif="false"
-                                  @input="numune.Miktar = $event"
-                                />
-                                <label for="miktar">Miktar</label>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                      <label for="birim">Birim</label>
+                    </span>
+                  </div>
+                  <div class="column">
+                    <span class="p-float-label">
+                      <InputText
+                        id="miktar"
+                        v-model="numune.Miktar"
+                        :disAktif="false"
+                        @input="numune.Miktar = $event"
+                      />
+                      <label for="miktar">Miktar</label>
+                    </span>
                   </div>
                 </div>
               </template>
@@ -66,184 +56,161 @@
             <Card>
               <template #header> ÖDEME </template>
               <template #content>
-                <div class="w-title">
-                  <div class="p-grid">
-                    <div class="p-col-12 p-lg-12">
-                      <div class="p-col-12 p-md-12">
-                        <div class="columns">
-                          <div class="column">
-                            <div>
-                              <h3>Gönderi Tipi</h3>
-                              <div class="p-field-radiobutton">
-                                <RadioButton
-                                  :disabled="dis_takipEt"
-                                  value="Customer Account"
-                                  v-model="odeme"
-                                  @input="odemeSecim()"
-                                  name="odeme"
-                                />
-                                <label class="p-checkbox-label"
-                                  >Customer Account</label
-                                >
-                              </div>
-                              <div class="p-field-radiobutton">
-                                <RadioButton
-                                  :disabled="dis_takipEt"
-                                  value="Customer Paid to Mekmar"
-                                  v-model="odeme"
-                                  @input="odemeSecim()"
-                                  name="odeme"
-                                />
-                                <label class="p-checkbox-label"
-                                  >Customer Paid to Mekmar</label
-                                >
-                              </div>
-                              <div class="p-field-radiobutton">
-                                <RadioButton
-                                  :disabled="dis_takipEt"
-                                  value="Mekmar Paid"
-                                  v-model="odeme"
-                                  @input="odemeSecim()"
-                                  name="odeme"
-                                />
-                                <label class="p-checkbox-label"
-                                  >Mekmar Paid</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="column">
-                            <div>
-                              <h3>Banka Seçimi</h3>
-
-                              <div class="p-field-radiobutton">
-                                <RadioButton
-                                  :disabled="dis_Odeme"
-                                  value="Maya Paypal"
-                                  @input="bankSecim()"
-                                  name="banka"
-                                  v-model="banka"
-                                />
-                                <label class="p-checkbox-label"
-                                  >Maya Paypal</label
-                                >
-                              </div>
-                              <div class="p-field-radiobutton">
-                                <RadioButton
-                                  :disabled="dis_Odeme"
-                                  value="Maya Bank"
-                                  name="banka"
-                                  @input="bankSecim()"
-                                  v-model="banka"
-                                />
-                                <label class="p-checkbox-label"
-                                  >Maya Bank</label
-                                >
-                              </div>
-                              <div class="p-field-radiobutton">
-                                <RadioButton
-                                  :disabled="dis_Odeme"
-                                  value="Mekmar Bank"
-                                  name="banka"
-                                  @input="bankSecim()"
-                                  v-model="banka"
-                                />
-                                <label class="p-checkbox-label"
-                                  >Mekmar Bank</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="column">
-                            <h3>Kurye Detay</h3>
-
-                            <div class="columns">
-                              <div class="column is-2">
-                                <span> Alış : </span>
-                              </div>
-                              <div class="column is-3">
-                                <span class="p-float-label">
-                                  <currency-input
-                                    id="kuryeAlis"
-                                    :value="numune.kuryeAlis"
-                                    :disabled="dis_Alis"
-                                    @input="numune.kuryeAlis = $event"
-                                  />
-                                  <label for="kuryeAlis">$</label>
-                                </span>
-                              </div>
-                              <div class="column is-3">
-                                <span class="p-float-label">
-                                  <TL
-                                    id="TL_Alis"
-                                    :value="numune.TL_Alis"
-                                    :disabled="dis_Alis"
-                                    @input="numune.TL_Alis = $event"
-                                  />
-                                  <label for="TL_Alis">₺</label>
-                                </span>
-                              </div>
-                              <div class="column is-3">
-                                <span class="p-float-label">
-                                  <Euro
-                                    id="Euro_Alis"
-                                    :value="numune.Euro_Alis"
-                                    :disabled="dis_Alis"
-                                    @input="numune.Euro_Alis = $event"
-                                  />
-                                  <label for="Euro_Alis">€</label>
-                                </span>
-                              </div>
-                            </div>
-
-                            <div class="columns">
-                              <div class="column is-2">
-                                <span> Satış : </span>
-                              </div>
-                              <div class="column is-3">
-                                <span class="p-float-label">
-                                  <currency-input
-                                    id="kuryeSatis"
-                                    :value="numune.kuryeSatis"
-                                    :disabled="dis_Satis"
-                                    @input="numune.kuryeSatis = $event"
-                                  />
-                                  <label for="kuryeSatis">$</label>
-                                </span>
-                              </div>
-                              <div class="column is-3">
-                                <span class="p-float-label">
-                                  <TL
-                                    id="TL_Satis"
-                                    :value="numune.TL_Satis"
-                                    :disabled="dis_Satis"
-                                    @input="numune.TL_Satis = $event"
-                                  />
-                                  <label for="TL_Satis">₺</label>
-                                </span>
-                              </div>
-                              <div class="column is-3">
-                                <span class="p-float-label">
-                                  <Euro
-                                    id="Euro_Satis"
-                                    :value="numune.Euro_Satis"
-                                    :disabled="dis_Satis"
-                                    @input="numune.Euro_Satis = $event"
-                                  />
-                                  <label for="Euro_Satis">€</label>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="columns">
+                  <div class="column">
+                    <div>
+                      <h3>Gönderi Tipi</h3>
+                      <div class="p-field-radiobutton">
+                        <RadioButton
+                          :disabled="dis_takipEt"
+                          value="Customer Account"
+                          v-model="odeme"
+                          @input="odemeSecim()"
+                          name="odeme"
+                        />
+                        <label class="p-checkbox-label">Customer Account</label>
+                      </div>
+                      <div class="p-field-radiobutton">
+                        <RadioButton
+                          :disabled="dis_takipEt"
+                          value="Customer Paid to Mekmar"
+                          v-model="odeme"
+                          @input="odemeSecim()"
+                          name="odeme"
+                        />
+                        <label class="p-checkbox-label"
+                          >Customer Paid to Mekmar</label
+                        >
+                      </div>
+                      <div class="p-field-radiobutton">
+                        <RadioButton
+                          :disabled="dis_takipEt"
+                          value="Mekmar Paid"
+                          v-model="odeme"
+                          @input="odemeSecim()"
+                          name="odeme"
+                        />
+                        <label class="p-checkbox-label">Mekmar Paid</label>
                       </div>
                     </div>
                   </div>
-                  <b />
-                  <b />
-                  <b />
-                  <b />
-                  <b />
+                  <div class="column">
+                    <div>
+                      <h3>Banka Seçimi</h3>
+
+                      <div class="p-field-radiobutton">
+                        <RadioButton
+                          :disabled="dis_Odeme"
+                          value="Maya Paypal"
+                          @input="bankSecim()"
+                          name="banka"
+                          v-model="banka"
+                        />
+                        <label class="p-checkbox-label">Maya Paypal</label>
+                      </div>
+                      <div class="p-field-radiobutton">
+                        <RadioButton
+                          :disabled="dis_Odeme"
+                          value="Maya Bank"
+                          name="banka"
+                          @input="bankSecim()"
+                          v-model="banka"
+                        />
+                        <label class="p-checkbox-label">Maya Bank</label>
+                      </div>
+                      <div class="p-field-radiobutton">
+                        <RadioButton
+                          :disabled="dis_Odeme"
+                          value="Mekmar Bank"
+                          name="banka"
+                          @input="bankSecim()"
+                          v-model="banka"
+                        />
+                        <label class="p-checkbox-label">Mekmar Bank</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <h3>Kurye Detay</h3>
+
+                    <div class="columns">
+                      <div class="column is-2">
+                        <span> Alış : </span>
+                      </div>
+                      <div class="column is-3">
+                        <span class="p-float-label">
+                          <currency-input
+                            id="kuryeAlis"
+                            :value="numune.kuryeAlis"
+                            :disabled="dis_Alis"
+                            @input="numune.kuryeAlis = $event"
+                          />
+                          <label for="kuryeAlis">$</label>
+                        </span>
+                      </div>
+                      <div class="column is-3">
+                        <span class="p-float-label">
+                          <TL
+                            id="TL_Alis"
+                            :value="numune.TL_Alis"
+                            :disabled="dis_Alis"
+                            @input="numune.TL_Alis = $event"
+                          />
+                          <label for="TL_Alis">₺</label>
+                        </span>
+                      </div>
+                      <div class="column is-3">
+                        <span class="p-float-label">
+                          <Euro
+                            id="Euro_Alis"
+                            :value="numune.Euro_Alis"
+                            :disabled="dis_Alis"
+                            @input="numune.Euro_Alis = $event"
+                          />
+                          <label for="Euro_Alis">€</label>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="columns">
+                      <div class="column is-2">
+                        <span> Satış : </span>
+                      </div>
+                      <div class="column is-3">
+                        <span class="p-float-label">
+                          <currency-input
+                            id="kuryeSatis"
+                            :value="numune.kuryeSatis"
+                            :disabled="dis_Satis"
+                            @input="numune.kuryeSatis = $event"
+                          />
+                          <label for="kuryeSatis">$</label>
+                        </span>
+                      </div>
+                      <div class="column is-3">
+                        <span class="p-float-label">
+                          <TL
+                            id="TL_Satis"
+                            :value="numune.TL_Satis"
+                            :disabled="dis_Satis"
+                            @input="numune.TL_Satis = $event"
+                          />
+                          <label for="TL_Satis">₺</label>
+                        </span>
+                      </div>
+                      <div class="column is-3">
+                        <span class="p-float-label">
+                          <Euro
+                            id="Euro_Satis"
+                            :value="numune.Euro_Satis"
+                            :disabled="dis_Satis"
+                            @input="numune.Euro_Satis = $event"
+                          />
+                          <label for="Euro_Satis">€</label>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </template>
             </Card>

@@ -4,7 +4,7 @@ const state = {
   ulkeList: null,
   takvimList: null,
   enBoyList: null,
-  teklifFormvisible:false,
+  teklifFormvisible: false,
 };
 
 const actions = {
@@ -28,11 +28,13 @@ const actions = {
     commit("loadTekliflerEnBoyAct", data);
   },
   teklif_form_load_act({ commit }, data) {
-    commit("teklif_form_load_mut",data)
-  }
+    commit("teklif_form_load_mut", data)
+  },
+
 };
 
 const mutations = {
+
   loadTeklifMusteriListMut(state, data) {
     state.musteriTeklifList = data.musteriList;
     state.ulkeList = data.ulkeList;

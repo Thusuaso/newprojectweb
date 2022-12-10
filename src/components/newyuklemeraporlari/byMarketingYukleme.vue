@@ -29,7 +29,7 @@
             <div class="columns is-multiline">
               <div class="column is-12">
                 <span style="font-size: 15px"
-                  >5) {{ selectedMonth.month }} Marketing Yüklemeler</span
+                  >{{ selectedMonth.month }} Marketing Yüklemeler</span
                 >
               </div>
             </div>
@@ -43,7 +43,7 @@
               {{ formatPrice(byMarketingYuklemeSumFob) }}
             </template>
           </Column>
-          <Column field="cfrToplam" header="Cfr">
+          <Column field="cfrToplam" header="DDP">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.cfrToplam) }}
             </template>
@@ -62,7 +62,7 @@
             <div class="columns is-multiline">
               <div class="column is-12">
                 <span style="font-size: 15px"
-                  >6) {{ selectedMonth.month }} Depo Kutu Yüklemeleri (Sadece
+                  >{{ selectedMonth.month }} Depo Kutu Yüklemeleri (Sadece
                   Ödemesi Gelmiş Olanlar)
                 </span>
               </div>
@@ -77,7 +77,7 @@
               {{ formatPrice(byMarketingDepoSumFob) }}
             </template>
           </Column>
-          <Column field="cfrToplam" header="Cfr">
+          <Column field="cfrToplam" header="DDP">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.cfrToplam) }}
             </template>
@@ -86,46 +86,8 @@
             </template>
           </Column>
         </DataTable>
-
-        <p style="color: red">
-          * 5 ve 6. rapor için görmek ve excel çıktısı almak istediğiniz ayı
-          seçiniz!
-        </p>
       </div>
-      <div class="column">
-        <DataTable
-          :value="byMarketingProduct"
-          responsiveLayout="scroll"
-          :loading="isChangeLoading"
-        >
-          <template #header>
-            <div class="columns is-multiline">
-              <div class="column is-12">
-                <span style="font-size: 15px"
-                  >7) Marketing Halihazırdaki Üretim
-                </span>
-              </div>
-            </div>
-          </template>
-          <Column field="marketing" header="Marketing"></Column>
-          <Column field="fobToplam" header="Fob">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.fobToplam) }}
-            </template>
-            <template #footer>
-              {{ formatPrice(byMarketingUretimSumFob) }}
-            </template>
-          </Column>
-          <Column field="cfrToplam" header="Cfr">
-            <template #body="slotProps">
-              {{ formatPrice(slotProps.data.cfrToplam) }}
-            </template>
-            <template #footer>
-              {{ formatPrice(byMarketingUretimSumCfr) }}
-            </template>
-          </Column>
-        </DataTable>
-      </div>
+      
     </div>
     <div class="columns">
       <div class="column" v-if="byMarketingDetailImperialHomes.length > 0">
@@ -146,7 +108,7 @@
               {{ formatPrice(byMarketingDetailImperialHomesFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="CFR">
+          <Column field="toplamCfr" header="DDP">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -174,7 +136,7 @@
               {{ formatPrice(byMarketingDetailMekmarFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="CFR">
+          <Column field="toplamCfr" header="DDP">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -202,7 +164,7 @@
               {{ formatPrice(byMarketingDetailMekmerFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="CFR">
+          <Column field="toplamCfr" header="DDP">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -230,7 +192,7 @@
               {{ formatPrice(byMarketingDetailEfesFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="CFR">
+          <Column field="toplamCfr" header="DDP">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -258,7 +220,7 @@
               {{ formatPrice(byMarketingDetailIcPiyasaFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="CFR">
+          <Column field="toplamCfr" header="DDP">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -279,7 +241,6 @@ export default {
   computed: {
     ...mapGetters([
       "byMarketingLoadMonth",
-      "byMarketingProduct",
       "byMarketingWarehouseLoad",
       "servis_adres",
     ]),
@@ -440,7 +401,6 @@ export default {
     excel_cikti_click() {
       const data = {
         byMarketingLoadMonth: this.byMarketingLoadMonth,
-        byMarketingProduct: this.byMarketingProduct,
         byMarketingWarehouseLoad: this.byMarketingWarehouseLoad,
         imperialHomes: this.byMarketingDetailImperialHomes,
         mekmar: this.byMarketingDetailMekmar,
@@ -490,7 +450,6 @@ export default {
       this.efesToplam(this.byMarketingDetailEfes);
       this.icPiyasaToplam(this.byMarketingDetailIcPiyasa);
       this.isChangeLoading = false;
-      this.$store.dispatch("loadingEndAct");
     });
 
     const date = new Date();

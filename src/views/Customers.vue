@@ -189,6 +189,7 @@ export default {
           "musteri_teklifler_ayrinti_yukle_act",
           data.tekliflermusteriDetay
         );
+        console.log("tekliflermusteriDetay", data.tekliflermusteriDetay)
 
         this.is_satisform = true;
 

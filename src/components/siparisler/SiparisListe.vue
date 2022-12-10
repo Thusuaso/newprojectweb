@@ -64,7 +64,7 @@
                 <RadioButton
                   v-model="FirmaAdi"
                   name="name"
-                  @input="statuSecim2"
+                  @change="statuSecim2"
                   value="Mekmer"
                 />Mekmer
               </li>
@@ -72,7 +72,7 @@
                 <RadioButton
                   v-model="FirmaAdi"
                   name="name"
-                  @input="statuSecim2"
+                  @change="statuSecim2"
                   value="Dis"
                 />Dış
               </li>
@@ -80,7 +80,7 @@
                 <RadioButton
                   v-model="FirmaAdi"
                   name="name"
-                  @input="statuSecim2"
+                  @change="statuSecim2"
                   value="Hepsi"
                 />Hepsi
               </li>
@@ -93,7 +93,7 @@
                 <RadioButton
                   v-model="Fatura"
                   name="name"
-                  @input="statuSecim3"
+                  @change="statuSecim3"
                   value="Hepsi"
                   style="padding-right: 13px"
                 />Hepsi
@@ -102,7 +102,7 @@
                 <RadioButton
                   v-model="Fatura"
                   name="name"
-                  @input="statuSecim3"
+                  @change="statuSecim3"
                   value="Mekmar"
                   style="padding-right: 2px"
                 />Mekmar
@@ -111,7 +111,7 @@
                 <RadioButton
                   v-model="Fatura"
                   name="name"
-                  @input="statuSecim3"
+                  @change="statuSecim3"
                   value="Efes"
                   style="padding-right: 2px"
                 />Efes
@@ -490,7 +490,7 @@ export default {
     },
     statuSecim2() {
       //statü değişiminde
-
+      console.log("FirmaAdi", this.FirmaAdi);
       if (this.siparis_list_hepsi == false) {
         if (this.FirmaAdi) {
           let result;

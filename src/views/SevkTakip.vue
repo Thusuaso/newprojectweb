@@ -1,6 +1,5 @@
 <template>
-  <section>
-    {{ datatableLoading }}
+  <section>    
     <div class="columns is-centered">
       <div class="column is-2">
         <Button
@@ -27,7 +26,12 @@
           @row-select="takipSec($event)"
           :loading="datatableLoading"
         >
-          <Column field="sira" header="#" headerStyle="width:2px" :showFilterMenu="false">
+          <Column
+            field="sira"
+            header="#"
+            headerStyle="width:2px"
+            :showFilterMenu="false"
+          >
             <template #body="slotProps">
               {{ slotProps.data.sira }}
             </template>

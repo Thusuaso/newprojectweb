@@ -298,6 +298,10 @@ export default {
         bgpService.getBgpProjectList(10).then((data) => {
           this.$store.dispatch("bgp_projects_list_load", data.result);
           this.$store.dispatch("bgp_projects_ulkeler_list_load", data.ulkeler);
+          this.countries = []
+          for (let i of data.ulkeler) {
+            this.countries.push({ country: i.ulkeAdi })
+          }
           this.countryName = null;
           this.countryCount = null;
           this.selectedCountry = { country: "Hepsi" };
@@ -312,6 +316,10 @@ export default {
         bgpService.getBgpProjectList(19).then((data) => {
           this.$store.dispatch("bgp_projects_list_load", data.result);
           this.$store.dispatch("bgp_projects_ulkeler_list_load", data.ulkeler);
+          this.countries = []
+          for (let i of data.ulkeler) {
+            this.countries.push({ country: i.ulkeAdi })
+          }
           this.countryData = data.result;
           this.countryName = null;
           this.countryCount = null;
@@ -327,6 +335,10 @@ export default {
         bgpService.getBgpProjectList(44).then((data) => {
           this.$store.dispatch("bgp_projects_list_load", data.result);
           this.$store.dispatch("bgp_projects_ulkeler_list_load", data.ulkeler);
+          this.countries = []
+          for (let i of data.ulkeler) {
+            this.countries.push({ country: i.ulkeAdi })
+          }
           this.countryData = data.result;
           this.countryName = null;
           this.countryCount = null;

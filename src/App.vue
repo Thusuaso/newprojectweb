@@ -1,23 +1,25 @@
 <template>
-  <appNavbar
-    v-if="__isAuthentication"
-    v-show="!loading"
-    style="position: fixed; z-index: 99; width: 100%"
-  ></appNavbar>
-  <div class="columns is-centered" v-if="loading" style="margin-top: 280px">
-    <div class="column is-3"></div>
-    <div class="column is-3"></div>
-    <div class="column is-1">
-      <orbit-spinner :animation-duration="1200" :size="100" color="#ff1d5e" />
+  <div>
+    <appNavbar
+      v-if="__isAuthentication"
+      v-show="!loading"
+      style="position: fixed; z-index: 99; width: 100%"
+    ></appNavbar>
+    <div class="columns is-centered" v-if="loading" style="margin-top: 280px">
+      <div class="column is-3"></div>
+      <div class="column is-3"></div>
+      <div class="column is-1">
+        <orbit-spinner :animation-duration="1200" :size="100" color="#ff1d5e" />
+      </div>
+      <div class="column is-3"></div>
+      <div class="column is-3"></div>
     </div>
-    <div class="column is-3"></div>
-    <div class="column is-3"></div>
-  </div>
 
-  <div v-show="!loading" class="routerGeneral">
-    <div class="routerLimitation">
-      <Toast position="bottom-right"></Toast>
-      <router-view />
+    <div v-show="!loading" class="routerGeneral">
+      <div class="routerLimitation">
+        <Toast position="bottom-right"></Toast>
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -42,7 +44,7 @@ export default {
   methods: {},
 };
 </script>
-<style >
+<style>
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 .routerGeneral {
   width: 100%;

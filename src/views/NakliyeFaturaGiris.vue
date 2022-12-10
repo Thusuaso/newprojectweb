@@ -20,9 +20,8 @@
             <div class="columns is-multiline">
                 <div class="column is-4">
                     <span class="p-float-label">
-                      {{firma}}
-                        <AutoComplete v-model="firma" :suggestions="filterFaturaList" optionLabel="firma_adi" @blur="faturaDegisim"
-                            :disabled="kaydetVisible1" @complete="searchFaturaList" id="firma" />
+                        <AutoComplete v-model="firma" :suggestions="filterFaturaList" optionLabel="firma_adi" 
+                            :disabled="kaydetVisible1" @complete="searchFirma($event)" id="firma" />
                             
                         <label for="firma">Firma Adı</label>
                     </span>
@@ -215,7 +214,6 @@ import LocalService from "@/service/LocalService";
 import CustomInputFile from "@/components/shared/CustomInputFile";
 import fileService from "@/service/FileService";
 import FirmaAlani from "@/components/evrakgiris/FirmaAlani";
-
 export default {
   components: {
     customFileInput: CustomInputFile,
@@ -361,14 +359,14 @@ export default {
       return result;
     },
     urunIslemleri() {
-      this.urunler.Firma_id = this.firma_id;
+      this.urunler.Firma_id = this.firma.Firma_id;
       this.urunler.Tutar_dolar = this.Tutar_dolar;
       this.urunler.siparisno = this.siparis.siparisno;
       this.urunler.faturaNo = this.faturaNo;
-      this.urunler.firma_adi = this.firma_adi;
+      this.urunler.firma_adi = this.firma.firma_adi;
       this.urunler.Tutar_tl = this.Tutar_tl;
       this.urunler.kur = this.kur;
-      (this.urunler.kullaniciAdi = this.$store.getters.getUser),
+      (this.urunler.kullaniciAdi = this.$store.getters.__getUsername),
         (this.urunler.tarih = this.localService.getDateString(this.tarih));
       if (!this.urunler.id) {
         this.urunler.id = this.idOlustur();
@@ -437,8 +435,8 @@ export default {
       }
     },
     miktar_input_event(event) {
-      if (event) this.Tutar_tl = event.replace(",", ".");
-
+      this.Tutar_tl = this.Tutar_tl.replace(",", ".");
+      // if (event) this.Tutar_tl = event.replace(",", ".");
       if (this.kur != 0) {
         if (this.Tutar_tl > 0 && this.kur > 0) {
           this.Tutar_dolar = this.Tutar_tl / this.kur;
@@ -489,7 +487,7 @@ export default {
       if (this.firma_list) {
         setTimeout(() => {
           const siparis_item = this.firma_list.find(
-            (x) => x.firma_adi == this.firma
+            (x) => x.firma_adi == this.firma.firma_adi
           );
 
           this.firma_id = siparis_item.Firma_id;
@@ -533,7 +531,7 @@ export default {
             Tutar_dolar: nakliye_data.Tutar_dolar,
             urunID: data.nakliye_liste[0].id,
             tarih: nakliye_data.tarih,
-            kullaniciAdi: this.$store.getters.getUser,
+            kullaniciAdi: this.$store.getters.__getUsername,
           };
           this.nakliye_data2 = nakliye_data2;
         });

@@ -4,7 +4,7 @@
       <div class="column is-12">
         <DataTable
           v-model:filters="filters"
-          filterDisplay="menu"
+          filterDisplay="row"
           :value="konteyner_listesi"
           :scrollable="true"
           scrollHeight="600px"
@@ -27,6 +27,7 @@
             header="Yukleme Tarihi"
             headerStyle="width:20px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.yukleme_tarihi }}
@@ -47,6 +48,7 @@
             header="Firma Adı"
             headerStyle="width:40px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.firma_adi }}
@@ -66,6 +68,7 @@
             header="Sipariş Numarası"
             headerStyle="width:35px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.siparis_no }}
@@ -86,6 +89,7 @@
             header="Fatura Numarası"
             headerStyle="width:35px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.fatura_no }}
@@ -106,6 +110,7 @@
             header="Tür"
             headerStyle="width:20px"
             bodyStyle="text-align:center"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.tur }}

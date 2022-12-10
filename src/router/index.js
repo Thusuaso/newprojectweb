@@ -364,17 +364,6 @@ const routes = [
     },
   },
   {
-    path: "/raporlar/ceyreklikSatislar",
-    component: () => import("@/views/CeyreklikSatislar"),
-    beforeEnter(to, from, next) {
-      if (store.getters.__isAuthentication) {
-        next();
-      } else {
-        next("/login");
-      }
-    },
-  },
-  {
     path: "/raporlar/uretimRaporu",
     component: () => import("@/views/UretimRaporu"),
     beforeEnter(to, from, next) {
@@ -594,6 +583,67 @@ const routes = [
       }
     },
   },
+  {
+			path: '/operasyon/mekmerdisfatura',
+			name: 'mekmer_dis_fatura',
+			component: () => import("@/views/MekmerDisFatura"),
+			beforeEnter(to, from, next) {
+      if (store.getters.__isAuthentication) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
+  },
+  {
+			path : '/raporlar/sevkiyatRaporuMekmer',
+			name : 'sevkiyat_listesi_mekmer',
+			component :()=>import("@/views/SevkiyatRaporuMekmer"),
+			beforeEnter(to, from, next) {
+      if (store.getters.__isAuthentication) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
+		},
+				{
+			path : '/raporlar/sevkiyatRaporuMekmar',
+			name : 'sevkiyat_listesi_mekmar',
+			component :()=>import("@/views/SevkiyatRaporuMekmar"),
+			beforeEnter(to, from, next) {
+      if (store.getters.__isAuthentication) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
+  },
+  {
+			path : '/raporlar/sevkiyatRaporuAll',
+			name : 'sevkiyat_listesi_mekmar_mekmer',
+			component :()=>import("@/views/SevkiyatRaporuMekmerMekmar"),
+			beforeEnter(to, from, next) {
+      if (store.getters.__isAuthentication) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
+  },
+        	{
+			path : '/raporlar/mekusMasraflari',
+			name : 'mekusMasraflari',
+			component :()=>import("@/components/musteriraporlari/mekusMasraflar"),
+			beforeEnter(to, from, next) {
+      if (store.getters.__isAuthentication) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
+  },
+          
 ];
 
 const router = createRouter({

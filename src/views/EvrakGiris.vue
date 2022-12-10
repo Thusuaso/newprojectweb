@@ -505,6 +505,7 @@ export default {
             }
           }
 
+
           fileService
             .faturaDosyaGonder(file, this.evrakID, this.SiparisTur.siparisno)
             .then((data) => {
@@ -519,7 +520,7 @@ export default {
     KayitIslemi() {
       this.evrak.id = this.evrakID;
       this.evrak.siparisno = this.SiparisTur.siparisno; //this.evrak verileri koydum
-      this.evrak.kullaniciAdi = this.$store.__getUsername;
+      this.evrak.kullaniciAdi = this.$store.getters.__getUsername;
 
       this.yeniKayit();
     },

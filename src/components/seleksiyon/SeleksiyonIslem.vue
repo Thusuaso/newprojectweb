@@ -118,7 +118,7 @@
         <div
           class="column is-12 box"
           style="
-            height: 175px;
+            height: 185px;
             background-color: #f4f4f4;
             margin-left: -10px;
             padding-right: 15px;
@@ -176,7 +176,7 @@
               @click="etiketDowload()"
               icon="fas fa-download"
               label="Indir"
-              style="margin-right: 0.5em; padding-bottom: 5px"
+              style="margin-right: 0.5em; padding-bottom: 5px;margin-bottom:10px;"
             />
           </div>
         </div>
@@ -189,6 +189,8 @@
       :modal="true"
       maximizable
       position="top"
+      :breakpoints="{'960px': '75vw', '640px': '100vw'}" 
+      :style="{ width: '150vw', height:'150vw'}"
     >
       <section>
         <div class="container">
@@ -201,7 +203,11 @@
       </section>
     </Dialog>
     <Dialog v-model:visible="topluKasaForm" position="top" maximizable>
-      <AutoComplete v-model="selectedPo" :dropdown="true" :suggestions="filteredOrders" @complete="poChangeEvent($event)"
+      <AutoComplete
+        v-model="selectedPo"
+        :dropdown="true"
+        :suggestions="filteredOrders"
+        @complete="poChangeEvent($event)"
         placeholder="Select a Order" field="siparisNo" />
       <Button @click="setCrateAll" label="Değiştir" class="p-button-primary" />
       <DataTable

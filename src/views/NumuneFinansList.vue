@@ -7,7 +7,13 @@
         @change="YilSecim(select_yil.yil)"
         optionLabel="yil"
         placeholder="Select a Year"
-      />
+      >
+        <template #value="slotProps">
+          <div class="p-dropdown-car-value">
+            <span>{{ slotProps.value.yil }}</span>
+          </div>
+        </template>
+      </Dropdown>
     </div>
     <div class="columns is-multiline is-centered">
       <div class="column is-9 is-centered">
@@ -241,9 +247,9 @@ export default {
 
     service.getNumuneYilListesi().then((data) => {
       this.yil_listesi = data.yil_listesi;
-      this.select_yil = this.yil_listesi[0].yil;
+      this.select_yil = this.yil_listesi[0];
 
-      service.getNumuneFinansListesi(this.select_yil).then((data) => {
+      service.getNumuneFinansListesi(this.select_yil.yil).then((data) => {
         this.liste = data.numune_list;
         this.banka_list = data.banka_list;
         this.genel_toplam(this.liste);

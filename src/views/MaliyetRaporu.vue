@@ -2,7 +2,7 @@
   <section>
     <div>
       <div class="columns is-multiline is-centered">
-        <div class="column is-1">
+        <div class="column is-2">
           <Dropdown
             v-model="select_yil"
             :disabled="is_general_form"
@@ -12,7 +12,7 @@
             placeholder="Select a Year"
           />
         </div>
-        <div class="column is-1">
+        <div class="column is-2">
           <Dropdown
             v-model="select_ay"
             :disabled="is_general_form"
@@ -32,12 +32,12 @@
             placeholder="Select a Invoicing"
           />
         </div>
-        <div class="column is-1" style="margin-top: 5px">
+        <div class="column is-2" style="margin-top: 5px">
           <Checkbox
             @input="hepsi_input_event"
             v-model="is_hepsi"
             :binary="true"
-          />Hepsi
+          /><span style="margin-left: 5px">Hepsi</span>
         </div>
         <div class="column is-2">
           <Dropdown
@@ -50,15 +50,22 @@
           />
         </div>
 
-        <div class="column is-1">
+        <div class="column is-2">
           <Button
             class="p-button-success"
             @click="excel_cikti_click"
             label="Excel"
           />
         </div>
+      </div>
+      <div class="columns">
+        <div class="column is-4">
 
-        <div class="column is-3" style="margin-left: 350px">
+        </div>
+        <div class="column is-4">
+        
+        </div>
+        <div class="column is-4">
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -89,7 +96,7 @@
             v-model:filters="filters"
             filterDisplay="menu"
             :value="quarterMaliyet"
-            :loading="loading"
+            :loading="$store.getters.datatableLoading"
             :scrollable="true"
             scrollHeight="400px"
             dataKey="id"
@@ -110,7 +117,7 @@
               field="siparisci"
               header="Satışçı"
               headerStyle="width:80px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.siparisci }}
@@ -130,7 +137,7 @@
               field="operasyon"
               header="Operasyon"
               headerStyle="width:80px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.operasyon }}
@@ -151,10 +158,14 @@
               field="siparis_no"
               header="Po"
               headerStyle="width:80px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
-                {{ slotProps.data.siparis_no }}
+                <div
+                  :style="{ backgroundColor: slotProps.data.alisFiyatiKontrol }"
+                >
+                  {{ slotProps.data.siparis_no }}
+                </div>
               </template>
               <template #filter="{ filterModel, filterCallback }">
                 <InputText
@@ -172,7 +183,7 @@
               field="marketing"
               header="Marketing"
               headerStyle="width:70px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.marketing }}
@@ -192,7 +203,7 @@
               field="faturatur"
               header="Faturalama"
               headerStyle="width:80px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.faturatur }}
@@ -212,7 +223,7 @@
               field="siparis_tarihi"
               header="Order Date"
               headerStyle="width:75px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.siparis_tarihi }}
@@ -232,7 +243,7 @@
               field="yukleme_tarihi"
               header="Ship Date"
               headerStyle="width:75px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.yukleme_tarihi }}
@@ -253,7 +264,7 @@
               field="musteri_adi"
               header="Customer"
               headerStyle="width:80px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.musteri_adi }}
@@ -274,7 +285,7 @@
               field="ulke_adi"
               header="Client Origin"
               headerStyle="width:80px"
-              bodyStyle="text-align:center"
+              bodyStyle="text-align:left"
             >
               <template #body="slotProps">
                 {{ slotProps.data.ulke_adi }}
@@ -488,12 +499,23 @@
                 {{ formatPrice(toplam_liman) }}
               </template>
             </Column>
-            <Column field="sigorta" header="Sigorta" headerStyle="width:70px" bodyStyle="text-align:center">
+            <Column
+              field="sigorta"
+              header="Sigorta"
+              headerStyle="width:70px"
+              bodyStyle="text-align:center"
+            >
               <template #body="slotProps">
-            
                 <div
-                  :style="{'background-color': slotProps.data.sigorta_id == 1 && slotProps.data.sigorta == 0 ? '#F1948A' : ''  }">
-                  {{formatPrice(slotProps.data.sigorta)}}
+                  :style="{
+                    'background-color':
+                      slotProps.data.sigorta_id == 1 &&
+                      slotProps.data.sigorta == 0
+                        ? '#F1948A'
+                        : '',
+                  }"
+                >
+                  {{ formatPrice(slotProps.data.sigorta) }}
                 </div>
               </template>
             </Column>
@@ -689,7 +711,7 @@
             v-model:filters="filters"
             filterDisplay="menu"
             :value="isFilteredFaturalama ? filteredFaturalama : maliyet_listesi"
-            :loading="loading"
+            :loading="$store.getters.datatableLoading"
             :scrollable="true"
             scrollHeight="400px"
             dataKey="id"
@@ -754,7 +776,11 @@
               bodyStyle="text-align:center"
             >
               <template #body="slotProps">
-                {{ slotProps.data.siparis_no }}
+                <div
+                  :style="{ backgroundColor: slotProps.data.alisFiyatiKontrol }"
+                >
+                  {{ slotProps.data.siparis_no }}
+                </div>
               </template>
               <template #filter="{ filterModel, filterCallback }">
                 <InputText
@@ -1088,12 +1114,23 @@
                 {{ formatPrice(toplam_liman) }}
               </template>
             </Column>
-            <Column field="sigorta" header="Sigorta" headerStyle="width:70px" bodyStyle="text-align:center">
+            <Column
+              field="sigorta"
+              header="Sigorta"
+              headerStyle="width:70px"
+              bodyStyle="text-align:center"
+            >
               <template #body="slotProps">
-            
                 <div
-                  :style="{'background-color': slotProps.data.sigorta_id == 1 && slotProps.data.sigorta == 0 ? '#F1948A' : ''  }">
-                  {{formatPrice(slotProps.data.sigorta)}}
+                  :style="{
+                    'background-color':
+                      slotProps.data.sigorta_id == 1 &&
+                      slotProps.data.sigorta == 0
+                        ? '#F1948A'
+                        : '',
+                  }"
+                >
+                  {{ formatPrice(slotProps.data.sigorta) }}
                 </div>
               </template>
             </Column>
@@ -1315,7 +1352,7 @@ export default {
   },
   data() {
     return {
-      maliyet_listesi_excel:[],
+      maliyet_listesi_excel: [],
       is_quarter_dropdown: true,
       quarter_year: [
         { id: 1, quarter: "Hepsi" },
@@ -1354,7 +1391,7 @@ export default {
       select_yil: 0,
       select_ay: 0,
       select_aystr: "",
-      select_faturalama: "Hepsi",
+      select_faturalama: { fatura: "Hepsi" },
       toplam_toplam_bedel: 0,
       toplam_alim: 0,
       toplam_mekmoz_alim: 0,
@@ -1403,7 +1440,6 @@ export default {
         this.select_ay = ay_list.find((x) => x.ay == now.getMonth());
 
         this.maliyet_listesi_yukle();
-        this.$store.dispatch("loadingEndAct");
       });
     });
   },
@@ -1415,7 +1451,7 @@ export default {
           (x) => x.yukleme_month >= 1 && x.yukleme_month <= 3
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
-        this.maliyet_listesi_excel = this.quarterMaliyet
+        this.maliyet_listesi_excel = this.quarterMaliyet;
 
         this.quarter_maliyet_form = true;
       } else if (event == "2. Çeyrek") {
@@ -1423,7 +1459,7 @@ export default {
           (x) => x.yukleme_month >= 4 && x.yukleme_month <= 6
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
-        this.maliyet_listesi_excel = this.quarterMaliyet
+        this.maliyet_listesi_excel = this.quarterMaliyet;
 
         this.quarter_maliyet_form = true;
       } else if (event == "3. Çeyrek") {
@@ -1431,7 +1467,7 @@ export default {
           (x) => x.yukleme_month >= 7 && x.yukleme_month <= 9
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
-        this.maliyet_listesi_excel = this.quarterMaliyet
+        this.maliyet_listesi_excel = this.quarterMaliyet;
 
         this.quarter_maliyet_form = true;
       } else if (event == "4. Çeyrek") {
@@ -1439,13 +1475,13 @@ export default {
           (x) => x.yukleme_month >= 10 && x.yukleme_month <= 12
         );
         this.tablo_toplam_guncelle(this.quarterMaliyet);
-        this.maliyet_listesi_excel = this.quarterMaliyet
+        this.maliyet_listesi_excel = this.quarterMaliyet;
 
         this.quarter_maliyet_form = true;
       } else if (event == "Hepsi") {
         this.quarterMaliyet = this.maliyet_listesi;
         this.tablo_toplam_guncelle(this.quarterMaliyet);
-        this.maliyet_listesi_excel = this.quarterMaliyet
+        this.maliyet_listesi_excel = this.quarterMaliyet;
 
         this.quarter_maliyet_form = true;
       }
@@ -1454,7 +1490,7 @@ export default {
       //console.log(this.short_data.sort((a, b) => a.urunadi - b.name ))
 
       this.tablo_toplam_guncelle(event.filteredValue);
-      this.maliyet_listesi_excel = event.filteredValue
+      this.maliyet_listesi_excel = event.filteredValue;
 
       return 1;
     },
@@ -1467,53 +1503,56 @@ export default {
       return "₺" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     excel_cikti_click() {
-      service.getMaliyetExcelCikti(this.maliyet_listesi_excel).then((response) => {
-        if (response.status) {
-          this.musteri_loading = true;
-          const link = document.createElement("a");
-          link.href =
-            this.servis_adres + "maliyet/dosyalar/maliyetRaporExcelListe";
+      service
+        .getMaliyetExcelCikti(this.maliyet_listesi_excel)
+        .then((response) => {
+          if (response.status) {
+            this.musteri_loading = true;
+            const link = document.createElement("a");
+            link.href =
+              this.servis_adres + "maliyet/dosyalar/maliyetRaporExcelListe";
 
-          link.setAttribute("download", "ayo_maliyet_listesi.xlsx");
-          document.body.appendChild(link);
-          link.click();
-        }
-      });
+            link.setAttribute("download", "ayo_maliyet_listesi.xlsx");
+            document.body.appendChild(link);
+            link.click();
+          }
+        });
     },
 
     maliyet_listesi_yukle() {
-      this.select_faturalama = "Hepsi";
-      this.$store.dispatch("loadingBeginAct");
+      this.select_faturalama = { fatura: "Hepsi" };
+      this.$store.dispatch("datatableLoadingBeginAct");
 
       service
         .getMaliyetRapor(this.select_yil.yil, this.select_ay.ay)
         .then((data) => {
           this.maliyet_listesi = [...data];
           this.local_maliyet_data = [...data];
-          this.maliyet_listesi_excel = data
+          this.maliyet_listesi_excel = data;
           this.tablo_toplam_guncelle(data);
+          this.$store.dispatch("datatableLoadingEndAct");
 
           this.$store.dispatch("loadingEndAct");
         });
     },
     maliyet_yil_listesi_yukle(event) {
       this.isFilteredFaturalama = false;
-      this.$store.dispatch("loadingBeginAct");
+      this.$store.dispatch("datatableLoadingBeginAct");
 
       if (!this.maliyet_yil_listesi) {
         service.getMaliyetRaporYil(event).then((data) => {
           this.maliyet_listesi = data;
-          this.maliyet_listesi_excel = data
+          this.maliyet_listesi_excel = data;
           this.tablo_toplam_guncelle(data);
           this.is_quarter_dropdown = false;
-          this.$store.dispatch("loadingEndAct");
+          this.$store.dispatch("datatableLoadingEndAct");
         });
       } else {
         this.maliyet_listesi = null;
         this.maliyet_listesi = this.maliyet_yil_listesi;
         this.tablo_toplam_guncelle();
-        this.maliyet_listesi_excel = data
-        this.$store.dispatch("loadingEndAct");
+        this.maliyet_listesi_excel = data;
+        this.$store.dispatch("datatableLoadingEndAct");
       }
     },
     yil_degisim_event() {
@@ -1553,7 +1592,7 @@ export default {
         this.filteredFaturalama = this.maliyet_listesi.filter(
           (x) => x.faturatur == "Mekmar"
         );
-        this.maliyet_listesi_excel = this.filteredFaturalama
+        this.maliyet_listesi_excel = this.filteredFaturalama;
         this.local_maliyet_data = this.filteredFaturalama;
         this.tablo_toplam_guncelle(this.filteredFaturalama);
         this.is_hepsi = false;
@@ -1562,7 +1601,7 @@ export default {
         this.filteredFaturalama = this.maliyet_listesi.filter(
           (x) => x.faturatur == "Mekmer"
         );
-        this.maliyet_listesi_excel = this.filteredFaturalama
+        this.maliyet_listesi_excel = this.filteredFaturalama;
         this.local_maliyet_data = this.filteredFaturalama;
         this.tablo_toplam_guncelle(this.filteredFaturalama);
         this.is_hepsi = false;
@@ -1571,7 +1610,7 @@ export default {
         this.filteredFaturalama = this.maliyet_listesi.filter(
           (x) => x.faturatur == "Efes"
         );
-        this.maliyet_listesi_excel = this.filteredFaturalama
+        this.maliyet_listesi_excel = this.filteredFaturalama;
         this.local_maliyet_data = this.filteredFaturalama;
         this.tablo_toplam_guncelle(this.filteredFaturalama);
         this.is_hepsi = false;
@@ -1632,8 +1671,7 @@ export default {
         this.maliyet_yil_listesi_yukle(this.select_yil.yil);
         this.is_general_form = true;
       } else {
-        this.maliyet_listesi = this.local_maliyet_data;
-        this.tablo_toplam_guncelle();
+        this.maliyet_listesi_yukle();
         this.is_general_form = false;
         this.is_quarter_dropdown = true;
       }

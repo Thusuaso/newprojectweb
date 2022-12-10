@@ -18,9 +18,9 @@
       @row-select="isKasaOlcuSelect"
       selectionMode="single"
       v-model:filters="filters"
-      filterDisplay="menu"
+      filterDisplay="row"
     >
-      <Column field="ebat" header="Taş Ebatları">
+      <Column field="ebat" header="Taş Ebatları" :showFilterMenu="false">
         <template #body="slotProps">
           {{ slotProps.data.ebat }}
         </template>
@@ -34,7 +34,11 @@
           />
         </template>
       </Column>
-      <Column field="kasaOlculeri" header="Kasa Ölculeri">
+      <Column
+        field="kasaOlculeri"
+        header="Kasa Ölculeri"
+        :showFilterMenu="false"
+      >
         <template #body="slotProps">
           {{ slotProps.data.kasaOlculeri }}
         </template>
@@ -48,7 +52,7 @@
           />
         </template>
       </Column>
-      <Column field="firmaadi" header="Firma Adı">
+      <Column field="firmaadi" header="Firma Adı" :showFilterMenu="false">
         <template #body="slotProps">
           {{ slotProps.data.firmaadi }}
         </template>

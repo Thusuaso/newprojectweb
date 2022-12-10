@@ -1,187 +1,170 @@
 <template>
   <section>
     <br />
-    <div class="columns is-centered">
-      <div class="card" style="height: 450px; weight: 500px">
-        <div style="margin-left: 20px">
-          <div class="columns is-2">
-            <div class="column is-2 is centered" style="margin-left: 5px">
-              <Button @click="yeniSiparisAc" label="Yeni" />
-            </div>
-            <div class="column is-2">
-              <div class="columns">
-                <div class="column">
-                  <Dropdown
-                    v-model="selectedOncelik"
-                    :options="oncelikler"
-                    optionLabel="oncelik"
-                    placeholder="Öncelik Seç"
-                    @change="isChangeOncelik"
-                    style="width: 122px; height: 35px"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column is-2">
-              <div class="columns">
-                <div class="column is-6">
-                  <span>Takipten Çık</span>
-                </div>
-                <div class="column is-1">
-                  <InputSwitch v-model="checked" @click="isFollowingChange" />
-                </div>
-              </div>
-            </div>
-            <div class="column is-2" v-if="temsilciChange">
-              <div class="columns">
-                <div class="column">
-                  <AutoComplete
-                    v-model="select_temsilci"
-                    :suggestions="filter_temsilci_list"
-                    @complete="temsilci_complete_event($event)"
-                    field="kullanici_adi"
-                    @item-select="isTemsilciSelected"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column is-2">
+    <div class="columns">
+      <div class="column">
+        <Button @click="yeniSiparisAc" label="Yeni" />
+      </div>
+      <div class="column">
+        <Dropdown
+          v-model="selectedOncelik"
+          :options="oncelikler"
+          optionLabel="oncelik"
+          placeholder="Öncelik Seç"
+          @change="isChangeOncelik"
+        />
+      </div>
+      <div class="column">
+        <div class="columns">
+          <div class="column is-6">
+            <span>Takipten Çık</span>
+          </div>
+          <div class="column is-1">
+            <InputSwitch v-model="checked" @click="isFollowingChange" />
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <Button
+          :label="satisciDurum + ' ' + 'Detay Aç'"
+          @click="isClickDetayGoster"
+        />
+      </div>
+
+      <Dialog
+        v-model:visible="is_musteri_form"
+        :modal="true"
+        header="Musteri Detay"
+        maximizable
+        position="top"
+      >
+        <MusteriDetay :is_yeni="is_musteri_yeni"></MusteriDetay>
+      </Dialog>
+      <Dialog
+        v-model:visible="is_teklif_form"
+        :modal="true"
+        header="Teklif Detay"
+        maximizable
+        position="top"
+      >
+        <teklif-giris-form :yeniKayit="false" :teklifId="teklifId" />
+      </Dialog>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <DataTable
+          :value="satisci_detay"
+          :scrollable="true"
+          scrollHeight="750px"
+          v-model:selection="select_musteri"
+          @row-select="musteri_sec($event)"
+          selectionMode="single"
+        >
+          <Column
+            field="sira"
+            header="#"
+            headerStyle="width:1%"
+            bodyStyle="text-align:center"
+          >
+            <template #body="slotProps">
+              {{ slotProps.data.sira }}
+            </template>
+          </Column>
+          <Column
+            field="tarih_giris"
+            header="Kayıt"
+            headerStyle="width:2%"
+            bodyStyle="text-align:center"
+          >
+            <template #body="slotProps">
+              {{ slotProps.data.tarih_giris }}
+            </template>
+          </Column>
+          <Column
+            field="baslik"
+            header="Başlık"
+            headerStyle="width:3%"
+            bodyStyle="text-align:center"
+          >
+            <template #body="slotProps">
+              {{ slotProps.data.baslik }}
+            </template>
+          </Column>
+
+          <Column
+            field="aciklama"
+            header="Açıklama Detayı"
+            headerStyle="width:10% ;"
+            bodyStyle="text-align:left"
+          >
+            <template #body="slotProps">
+              {{ slotProps.data.aciklama }}
+            </template>
+          </Column>
+
+          <Column
+            field="hatirlatmaTarihi"
+            header="Hatırlatma T."
+            headerStyle="width:3%"
+            bodyStyle="text-align:center"
+          >
+            <template #body="slotProps">
+              {{ slotProps.data.hatirlatmaTarihi }}
+            </template>
+          </Column>
+
+          <Column
+            field="hatirlatma_notu"
+            header="Hatırlatma Notu"
+            headerStyle="width:10%; "
+            bodyStyle="text-align:left"
+          >
+            <template #body="slotProps">
+              {{ slotProps.data.hatirlatma_notu }}
+            </template>
+          </Column>
+          <Column
+            header="İndir"
+            headerStyle="width:2%;"
+            bodyStyle="text-align:center"
+          >
+            <template #body="slotProps">
               <Button
-                :label="satisciDurum + ' ' + 'Detay Aç'"
-                @click="isClickDetayGoster"
+                type="button"
+                :disabled="slotProps.data.satisci_cloud > 0 ? false : true"
+                @click="faturaDowload(slotProps.data)"
+                icon="fas fa-chevron-circle-down"
+                class="p-button"
+                style="margin-right: 0.5em; background-color: #3cb371"
               ></Button>
-            </div>
-          </div>
-        </div>
-        <Dialog
-          v-model:visible="is_musteri_form"
-          :modal="true"
-          header="Musteri Detay"
-          maximizable
-          position="top"
-        >
-          <MusteriDetay :is_yeni="is_musteri_yeni"></MusteriDetay>
-        </Dialog>
-        <Dialog
-          v-model:visible="is_teklif_form"
-          :modal="true"
-          header="Teklif Detay"
-          maximizable
-          position="top"
-        >
-          <teklif-giris-form :yeniKayit="false" :teklifId="teklifId" />
-        </Dialog>
-        <div
-          class="column is-12 is-multiline is-centered"
-        >
-          <div class="column is-12 is-multiline">
-            <DataTable
-              :value="satisci_detay"
-              :scrollable="true"
-              scrollHeight="750px"
-              v-model:selection="select_musteri"
-              @row-select="musteri_sec($event)"
-              selectionMode="single"
-            >
-              <Column
-                field="sira"
-                header="#"
-                headerStyle="width:1%"
-                bodyStyle="text-align:center"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.sira }}
-                </template>
-              </Column>
-              <Column
-                field="tarih_giris"
-                header="Kayıt"
-                headerStyle="width:2%"
-                bodyStyle="text-align:center"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.tarih_giris }}
-                </template>
-              </Column>
-              <Column
-                field="baslik"
-                header="Başlık"
-                headerStyle="width:3%"
-                bodyStyle="text-align:center"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.baslik }}
-                </template>
-              </Column>
-
-              <Column
-                field="aciklama"
-                header="Açıklama Detayı"
-                headerStyle="width:10% ;"
-                bodyStyle="text-align:left"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.aciklama }}
-                </template>
-              </Column>
-
-              <Column
-                field="hatirlatmaTarihi"
-                header="Hatırlatma T."
-                headerStyle="width:3%"
-                bodyStyle="text-align:center"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.hatirlatmaTarihi }}
-                </template>
-              </Column>
-
-              <Column
-                field="hatirlatma_notu"
-                header="Hatırlatma Notu"
-                headerStyle="width:10%; "
-                bodyStyle="text-align:left"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.hatirlatma_notu }}
-                </template>
-              </Column>
-              <Column
-                header="İndir"
-                headerStyle="width:2%;"
-                bodyStyle="text-align:center"
-              >
-                <template #body="slotProps">
-                  <Button
-                    type="button"
-                    :disabled="slotProps.data.satisci_cloud > 0 ? false : true"
-                    @click="faturaDowload(slotProps.data)"
-                    icon="fas fa-chevron-circle-down"
-                    class="p-button"
-                    style="margin-right: 0.5em; background-color: #3cb371"
-                  ></Button>
-                </template>
-              </Column>
-              <Column
-                field="temsilci"
-                header="Temsilci"
-                headerStyle="width:2%"
-                bodyStyle="text-align:center"
-              >
-                <template #body="slotProps">
-                  {{ slotProps.data.temsilci }}
-                </template>
-              </Column>
-            </DataTable>
-          </div>
-
-          <p label="Teklif Notları" v-if="musteri_teklifler.length > 0">
-            <InputText v-model="musteri_teklifler[0].aciklama"></InputText>
-          </p>
-        </div>
-        
+            </template>
+          </Column>
+          <Column
+            field="temsilci"
+            header="Temsilci"
+            headerStyle="width:2%"
+            bodyStyle="text-align:center"
+          >
+            <template #body="slotProps">
+              {{ slotProps.data.temsilci }}
+            </template>
+          </Column>
+        </DataTable>
       </div>
     </div>
+    <div class="columns">
+      <div class="column">
+        <p label="Teklif Notları" v-if="musteri_teklifler.length > 0">
+          <Textarea
+            rows="5"
+            cols="85"
+            v-model="musteri_teklifler[0].aciklama"
+          ></Textarea>
+        </p>
+      </div>
+    </div>
+    
+
     <Transition name="bounce">
       <Dialog
         v-model:visible="is_form1"

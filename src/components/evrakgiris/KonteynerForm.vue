@@ -89,9 +89,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import service from "../../service/OperasyonService";
-import fileService from "../../service/FileService";
-import CustomInputFile from "../../components/shared/CustomInputFile";
+import service from "@/service/OperasyonService";
+import fileService from "@/service/FileService";
+import CustomInputFile from "@/components/shared/CustomInputFile";
 export default {
   data() {
     return {
@@ -114,7 +114,6 @@ export default {
     ...mapGetters(["data"]),
   },
   mounted() {
-    console.log(this.data);
     this.firma_adi = this.data.firma_adi;
 
     this.siparis_no = this.data.siparisno;

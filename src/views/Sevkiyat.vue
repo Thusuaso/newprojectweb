@@ -472,7 +472,6 @@ export default {
       if (kontrol.length == 0) {
         item.toplam = item.birimfiyat * item.miktar;
         this.sevk_kasa_listesi.push(item);
-        console.log("sevk_kasa_listesi", this.sevk_kasa_listesi);
       }
     },
     sevkiyatIslemi() {
@@ -528,7 +527,7 @@ export default {
                 this.siparis = "";
                 this.sipariskalemlist = null;
                 this.kasalistesi = null;
-                this.sevk_kasa_listesi = null;
+                this.sevk_kasa_listesi = [];
                 this.toplam_uretim_adet = 0;
                 this.toplam_uretim_miktar = 0;
                 this.sevk_toplam_satis = 0;
@@ -569,7 +568,7 @@ export default {
               this.siparis = "";
               this.sipariskalemlist = null;
               this.kasalistesi = null;
-              this.sevk_kasa_listesi = null;
+              this.sevk_kasa_listesi = [];
               this.toplam_uretim_adet = 0;
               this.toplam_uretim_miktar = 0;
               this.sevk_toplam_satis = 0;

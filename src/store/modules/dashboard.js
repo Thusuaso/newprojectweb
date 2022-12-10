@@ -18,6 +18,10 @@ const state = {
   kontAlacakTop: 0,
   finansAlacakTop: 0,
   tahminiDegisiklik: [],
+  tedarikciPriceSum: 0,
+  tedarikciProductSum: 0,
+  musteriPriceSum: 0,
+  musteriPriceProductSum: 0,
 };
 
 const actions = {
@@ -44,7 +48,6 @@ const actions = {
         "gelen_siparis_efes_year_yuklenen_mut",
         data.gelenSiparisYillikEfesYuklenen[0]
       );
-
     });
   },
   gelen_siparis_satisci_load({ commit }) {
@@ -88,7 +91,6 @@ const actions = {
     raporService.getDashboardGrafikData().then((data) => {
       commit("gelen_siparis_grafik_mekmar_data_mut", data);
       store.dispatch("loadingEndAct");
-
     });
   },
   dashboard_sub_data_load({ commit }) {
@@ -157,6 +159,18 @@ const mutations = {
         item2
       ].kalanBedel;
     }
+    state.tedarikciPriceSum = 0;
+    state.tedarikciProductSum = 0;
+    for (let item of data.tedarikci) {
+      state.tedarikciPriceSum += item.satisToplam;
+      state.tedarikciProductSum += item.satisMiktar;
+    }
+    state.musteriPriceSum = 0;
+    state.musteriPriceProductSum = 0;
+    for (let item of data.musteriSiparisler) {
+      state.musteriPriceSum += item.satisToplam;
+      state.musteriPriceProductSum += item.satisMiktar;
+    }
   },
   dashboard_logs_all_mut(state, data) {
     state.dashboardLogsAll = data;
@@ -220,6 +234,18 @@ const getters = {
   },
   tahminiDegisiklik(state) {
     return state.tahminiDegisiklik;
+  },
+  tedarikciPriceSum(state) {
+    return state.tedarikciPriceSum;
+  },
+  tedarikciProductSum(state) {
+    return state.tedarikciProductSum;
+  },
+  musteriPriceSum(state) {
+    return state.musteriPriceSum;
+  },
+  musteriPriceProductSum(state) {
+    return state.musteriPriceProductSum;
   },
 };
 

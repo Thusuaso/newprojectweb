@@ -20,7 +20,7 @@
           field="sira"
           header="#"
           headerStyle="width:2%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.sira }}
@@ -31,7 +31,7 @@
           field="tedarikciAdi"
           header="Tedarikçi"
           headerStyle="width:6%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.tedarikciAdi }}
@@ -41,7 +41,7 @@
           field="kategoriAdi"
           header="Kategori"
           headerStyle="width:12%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.kategoriAdi }}
@@ -51,7 +51,7 @@
           field="kasaNo"
           header="KasaNo"
           headerStyle="width:4%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.kasaNo }}
@@ -61,7 +61,7 @@
           field="yuzeyIslem"
           header="Yüzey İşlem"
           headerStyle="width:15%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.yuzeyIslem }}
@@ -71,7 +71,7 @@
           field="urunAdi"
           header="Renk"
           headerStyle="width:7%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.urunAdi }}
@@ -81,7 +81,7 @@
           field="kenar"
           header="K"
           headerStyle="width:3%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.kenar }}
@@ -91,7 +91,7 @@
           field="en"
           header="E"
           headerStyle="width:3%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.en }}
@@ -101,7 +101,7 @@
           field="boy"
           header="B"
           headerStyle="width:3%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.boy }}
@@ -111,7 +111,7 @@
           field="adet"
           header="Adet"
           headerStyle="width:2%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.adet }}
@@ -121,7 +121,7 @@
           field="kutuAdet"
           header="Kutu"
           headerStyle="width:2%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.kutuAdet }}
@@ -131,7 +131,7 @@
           field="miktar"
           header="Miktar"
           headerStyle="width:5%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.miktar }}
@@ -144,7 +144,7 @@
           field="birimAdi"
           header="B"
           headerStyle="width:5%;"
-          bodyStyle="text-align:center;"
+          bodyStyle="text-align:left;"
         >
           <template #body="slotProps">
             {{ slotProps.data.birimAdi }}

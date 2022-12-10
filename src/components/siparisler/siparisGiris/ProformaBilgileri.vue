@@ -254,18 +254,18 @@
       </Card>
       <Card class="cardStyle">
         <template #content>
-          <FileUpload
+          <!-- <FileUpload
             mode="basic"
             @select="faturaDosyaGonder($event)"
             v-model="file"
             :maxFileSize="1000000"
             :multiple="true"
             :auto="true"
-          />
-          <!-- <custom-file-input
+          /> -->
+          <custom-file-input
             baslik="Proforma Yükle"
             @sunucuDosyaYolla="faturaDosyaGonder($event)"
-          /> -->
+          />
 
           <br />
           <span style="color: red; margin-left: 35px">
@@ -730,7 +730,6 @@ export default {
         alert("Lütfen Evrak Boyutunu Kontrol Ediniz.");
       } else {
         const d = 2;
-        console.log("faturaDosyaGonder", event);
         fileService.faturaDosyaGonder(event, d, this.siparisNo).then((data) => {
           console.log("faturaDosyaGonder ", data);
 

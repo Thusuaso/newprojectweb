@@ -13,11 +13,10 @@
           responsiveLayout="scroll"
           sortField="toplam"
           :sortOrder="-1"
-          
         >
           <template #header>
             <div class="table-header" style="font-size: 15px">
-              4) Güncel Tarihe Kadar Üretimdeki Sipariş Toplamları
+              Güncel Tarihe Kadar Üretimdeki Sipariş Toplamları
             </div>
           </template>
           <Column field="musteriAdi" header="Müşteri Adı"></Column>
@@ -64,7 +63,7 @@
               {{ formatPrice(toplam) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="Toplam (Cfr)">
+          <Column field="toplamCfr" header="Toplam (DDP)">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -85,7 +84,9 @@
           :sortOrder="-1"
         >
           <template #header>
-            <div class="table-header" style="font-size: 15px">İmperial Homes</div>
+            <div class="table-header" style="font-size: 15px">
+              İmperial Homes
+            </div>
           </template>
           <Column field="musteriAdi" header="Müşteri Adı"></Column>
 
@@ -105,7 +106,7 @@
               {{ formatPrice(imperialHomesTotalTopFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="Toplam (Cfr)">
+          <Column field="toplamCfr" header="Toplam (DDP)">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -143,7 +144,7 @@
               {{ formatPrice(mekmarTotalTopFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="Toplam (Cfr)">
+          <Column field="toplamCfr" header="Toplam (DDP)">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -181,7 +182,7 @@
               {{ formatPrice(icPiyasaTotalTopFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="Toplam (Cfr)">
+          <Column field="toplamCfr" header="Toplam (DDP)">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
@@ -219,12 +220,62 @@
               {{ formatPrice(mekmerTotalTopFob) }}
             </template>
           </Column>
-          <Column field="toplamCfr" header="Toplam (Cfr)">
+          <Column field="toplamCfr" header="Toplam (DDP)">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.toplamCfr) }}
             </template>
             <template #footer>
               {{ formatPrice(mekmerTotalTopCfr) }}
+            </template>
+          </Column>
+        </DataTable>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <DataTable
+          :value="byMarketingProduct"
+          responsiveLayout="scroll"
+          :loading="isChangeLoading"
+        >
+          <template #header>
+            <div class="columns is-multiline">
+              <div class="column is-12">
+                <span style="font-size: 15px"
+                  >Marketing Halihazırdaki Üretim
+                </span>
+              </div>
+            </div>
+          </template>
+          <Column
+            field="marketing"
+            header="Marketing"
+            bodyStyle="text-align:center"
+          ></Column>
+          <Column
+            field="fobToplam"
+            header="Fob"
+            bodyStyle="text-align:center"
+            footerStyle="text-align:center;"
+          >
+            <template #body="slotProps">
+              {{ formatPrice(slotProps.data.fobToplam) }}
+            </template>
+            <template #footer>
+              {{ formatPrice(byMarketingProductFobSum) }}
+            </template>
+          </Column>
+          <Column
+            field="cfrToplam"
+            header="DDP"
+            bodyStyle="text-align:center"
+            footerStyle="text-align:center;"
+          >
+            <template #body="slotProps">
+              {{ formatPrice(slotProps.data.cfrToplam) }}
+            </template>
+            <template #footer>
+              {{ formatPrice(byMarketingProductCfrSum) }}
             </template>
           </Column>
         </DataTable>
@@ -270,7 +321,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["servis_adres", "byCustomersProduct"]),
+    ...mapGetters([
+      "servis_adres",
+      "byCustomersProduct",
+      "byMarketingProduct",
+      "byMarketingProductFobSum",
+      "byMarketingProductCfrSum",
+    ]),
   },
   created() {
     service.getMusteriListUretim().then((data) => {
@@ -292,6 +349,7 @@ export default {
     excel_cikti_click() {
       const data = {
         byCustomersProduct: this.byCustomersProduct,
+        byMarketingProduct: this.byMarketingProduct,
         imperialHomes: this.imperialHomes,
         mekmar: this.mekmar,
         mekmer: this.mekmer,

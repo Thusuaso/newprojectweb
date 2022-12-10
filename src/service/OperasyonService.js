@@ -213,8 +213,11 @@ const OperasyonService = {
       .then((res) => res.data);
   },
   setDeleteFaturaEvrak(id, siparisNo) {
-    return axios.get(`operasyon/fatura/deleteFaturaEvrak/${id}/${siparisNo}`)
-  }
+    return axios.get(`operasyon/fatura/deleteFaturaEvrak/${id}/${siparisNo}`);
+  },
+  getMekmerDisFaturaModel() {
+    return axios.get("/mekmer/disFaturaModel").then((res) => res.data);
+  },
 };
 
 export default OperasyonService;

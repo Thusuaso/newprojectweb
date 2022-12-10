@@ -41,7 +41,7 @@
           :paginator="true"
           :rows="19"
           v-model:filters="filters"
-          filterDisplay="menu"
+          filterDisplay="row"
           @filter="filter_data_change($event)"
           @row-select="item_sec($event)"
           v-model:selection="select_depo"
@@ -52,94 +52,95 @@
               <div class="column is-12">
                 <span style="font-size: 15px"> Atlanta SM Stok </span>
               </div>
-
             </div>
           </template>
 
           <Column
             field="sku"
             placeholder="SKU"
-            headerStyle="width:3%;"
             bodyStyle="text-align:left; "
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.sku }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by Sku" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by Sku"
+              />
             </template>
-
           </Column>
           <Column
             field="kod"
-            headerStyle="width:3%"
             bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.kod }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by Code" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by Code"
+              />
             </template>
-
           </Column>
           <Column
             field="tanim"
             placeholder="Ürün Tanımı"
-            headerStyle="width:8%"
             bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ slotProps.data.tanim }}
             </template>
-
-
           </Column>
           <Column
             field="po"
             header="ATL"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
+            :showFilterMenu="false"
           >
             <template #body="slotProps">
               {{ slotProps.data.po }}
             </template>
             <template #filter="{ filterModel, filterCallback }">
-              <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter"
-                placeholder="Search by PO" />
+              <InputText
+                type="text"
+                v-model="filterModel.value"
+                @input="filterCallback()"
+                class="p-column-filter"
+                placeholder="Search by PO"
+              />
             </template>
           </Column>
 
           <Column
             field="kasa_adet"
             header="Kasa Adet"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasa_adet }}
             </template>
-
           </Column>
           <Column
             field="kasa_kutu"
             header="Kasa Kutu"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kasa_kutu }}
             </template>
           </Column>
 
-          <Column
-            field="kasa_m2"
-            header="Kasa M2"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
-          >
+          <Column field="kasa_m2" header="Kasa M2" bodyStyle="text-align:left;">
             <template #body="slotProps">
               {{ formatDecimal(slotProps.data.kasa_m2) }}
             </template>
@@ -147,8 +148,7 @@
           <Column
             field="kasa_Sqft"
             header="Kasa Sqft"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ formatDecimal(slotProps.data.kasa_Sqft) }}
@@ -157,8 +157,7 @@
           <Column
             field="kutu_adet"
             header="Kutu Adet"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ slotProps.data.kutu_adet }}
@@ -167,8 +166,8 @@
           <Column
             field="stok_kutu"
             header="Stok Kutu"
-            headerStyle="background-color:#90EE90; width:2%"
-            bodyStyle="text-align:center;"
+            headerStyle="background-color:#90EE90;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ slotProps.data.stok_kutu }}
@@ -180,8 +179,8 @@
           <Column
             field="stok_sqft"
             header="Stok Sqft"
-            headerStyle="background-color:#90EE90; width:3%"
-            bodyStyle="text-align:center;"
+            headerStyle="background-color:#90EE90;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ formatDecimal(slotProps.data.stok_sqft) }}
@@ -193,8 +192,8 @@
           <Column
             field="stok_m2"
             header="Stok m2"
-            headerStyle="background-color:#90EE90; width:3%"
-            bodyStyle="text-align:center;"
+            headerStyle="background-color:#90EE90;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ formatDecimal(slotProps.data.stok_m2) }}
@@ -206,8 +205,8 @@
           <Column
             field="su_kutu"
             header="Sea Kutu"
-            headerStyle="background-color:#00BFFF; width:2%;"
-            bodyStyle="text-align:center;"
+            headerStyle="background-color:#00BFFF;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               <div :class="slotProps.data.su_kutu > 0 ? 'water_style' : False">
@@ -215,14 +214,14 @@
               </div>
             </template>
             <template #footer>
-              <div style="text-align: center">{{ sea_kutu }}</div>
+              <div style="text-align: left">{{ sea_kutu }}</div>
             </template>
           </Column>
           <Column
             field="su_sqft"
             header="Sea Sqft"
-            headerStyle="background-color:#00BFFF; width:3%"
-            bodyStyle="text-align:center;"
+            headerStyle="background-color:#00BFFF;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               <div :class="slotProps.data.su_sqft > 0 ? 'water_style' : False">
@@ -230,7 +229,7 @@
               </div>
             </template>
             <template #footer>
-              <div style="text-align: center">
+              <div style="text-align: left">
                 {{ formatDecimal(sea_sqft) }}
               </div>
             </template>
@@ -238,8 +237,8 @@
           <Column
             field="su_m2"
             header="Sea m2"
-            headerStyle="background-color:#00BFFF; width:3%"
-            bodyStyle="text-align:center;"
+            headerStyle="background-color:#00BFFF;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               <div :class="slotProps.data.su_m2 > 0 ? 'water_style' : False">
@@ -247,14 +246,13 @@
               </div>
             </template>
             <template #footer>
-              <div style="text-align: center">{{ formatDecimal(sea_m2) }}</div>
+              <div style="text-align: left">{{ formatDecimal(sea_m2) }}</div>
             </template>
           </Column>
           <Column
             field="toplam_mekus"
             header="Mekus"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               <div style="background-color: #ff7f7f">
@@ -265,19 +263,13 @@
           <Column
             field="mekmar_fiyat"
             header="Mekus Efes"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.mekmar_fiyat) }}
             </template>
           </Column>
-          <Column
-            field="maya_fiyat"
-            header="Maya"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
-          >
+          <Column field="maya_fiyat" header="Maya" bodyStyle="text-align:left;">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.maya_fiyat) }}
             </template>
@@ -285,19 +277,13 @@
           <Column
             field="villo_fiyat"
             header="Villo"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
+            bodyStyle="text-align:left;"
           >
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.villo_fiyat) }}
             </template>
           </Column>
-          <Column
-            field="bd_fiyat"
-            header="BD"
-            headerStyle="width:2%"
-            bodyStyle="text-align:center;"
-          >
+          <Column field="bd_fiyat" header="BD" bodyStyle="text-align:left;">
             <template #body="slotProps">
               {{ formatPrice(slotProps.data.bd_fiyat) }}
             </template>
@@ -310,16 +296,9 @@
       v-model:header="FormBaslik"
       position="top"
       :modal="true"
+      maximizable
     >
-      <section>
-        <div class="columns" style="height: 800px; background-color: #f4f4f4">
-          <div class="columns" style="height: 800px; background-color: #f4f4f4">
-            <div class="column is-12">
-              <DepoStokAyrinti />
-            </div>
-          </div>
-        </div>
-      </section>
+      <DepoStokAyrinti />
     </Dialog>
   </section>
 </template>
@@ -336,7 +315,6 @@ export default {
         sku: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         kod: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         po: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-
       },
       stok_kutu: 0,
       stok_m2: 0,
@@ -408,7 +386,6 @@ export default {
       this.stok_tum_list = data;
       this.toplam_islem(data);
       this.$store.dispatch("loadingEndAct");
-
     });
   },
   methods: {

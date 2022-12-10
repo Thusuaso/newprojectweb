@@ -115,6 +115,11 @@ const FinansService = {
       .get("finans/listeler/odemelerAyrintiListesi/" + musteriAdi)
       .then((res) => res.data);
   },
+  getOdemelerAyrintiTablosuExcel(data_list) {
+    return axios
+      .post("finans/listeler/odemelerAyrintiListesiExcel", data_list)
+      .then((res) => res.data);
+  },
 };
 
 export default FinansService;
