@@ -39,6 +39,7 @@
                   showButtons
                   v-model="alisFiyati"
                   mode="currency"
+                  :maxFractionDigits="10"
                   currency="USD"
                   :class="{
                     'p-invalid': v$.siparis.alisFiyati.$invalid && submitted,
@@ -77,6 +78,7 @@
                   showButtons
                   v-model="satisFiyati"
                   mode="currency"
+                  :maxFractionDigits="10"
                   currency="USD"
                   :disabled="dis_urun_giris"
                   :class="{
