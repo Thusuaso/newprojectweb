@@ -14,8 +14,7 @@
         v-model:selection="selectedSiparis"
         selectionMode="multiple"
         @row-select="siparisSecim($event)"
-        :paginator="true"
-        :rows="8"
+
         v-model:filters="filters"
         filterDisplay="menu"
         :loading="datatableLoading"
@@ -168,11 +167,10 @@
           field="icerik"
           header="İçerik"
           bodyStyle=""
-          style="min-width: 400px"
+          style="min-width: 350px"
         >
           <template #body="slotProps">
             <div>
-              <span class="p-column-title">İçerik</span>
               {{ slotProps.data.icerik }}
             </div>
           </template>
@@ -268,15 +266,6 @@
             />
           </template>
         </Column>
-        <!-- <Column field="kasa" header="Kasa" headerStyle="width: 5%" bodyStyle="">
-          <template #body="slotProps">
-            <span class="p-column-title">Kasa</span>
-            {{ slotProps.data.kasa }}
-          </template>
-          <template #footer>
-            {{ kasaToplami }}
-          </template>
-        </Column> -->
         <Column
           field="siparisMiktari"
           header="Miktar"
@@ -322,7 +311,7 @@
             {{ formatDecimal(uretimToplami) }}
           </template>
         </Column>
-        <Column field="ton" header="Ton" style="min-width: 30px" bodyStyle="">
+        <Column field="ton" header="Ton" style="min-width: 20px" bodyStyle="">
           <template #body="slotProps">
             <span class="p-column-title">Ton</span>
             {{ slotProps.data.ton }}
@@ -357,6 +346,7 @@
           </template>
         </Column>
       </DataTable>
+
     </div>
   </section>
 </template>
@@ -413,7 +403,7 @@ export default {
     setTimeout(() => {
       this.$store.dispatch("datatableLoadingEndAct");
 
-    }, 12000)
+    }, 15000)
   },
   methods: {
     onRowGroupExpand(event) {

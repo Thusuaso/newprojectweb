@@ -208,7 +208,9 @@
         :dropdown="true"
         :suggestions="filteredOrders"
         @complete="poChangeEvent($event)"
-        placeholder="Select a Order" field="siparisNo" />
+        placeholder="Select a Order"
+        field="siparisNo"
+      />
       <Button @click="setCrateAll" label="Değiştir" class="p-button-primary" />
       <DataTable
         ref="dt"

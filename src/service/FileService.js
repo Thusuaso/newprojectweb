@@ -148,12 +148,7 @@ const FileService = {
     });
   }, //  const url = 'file/upload/download/'+ id + '/'  + siparisno  ;
   faturaDosyaGonder(file, teklifId, siparisno) {
-    console.log(file)
-    console.log(teklifId)
-    console.log(siparisno)
-
     let kontrol = file.name.split(".").length;
-    console.log("faturaDosyaGonder", file);
     if (kontrol > 2) {
       alert(
         "Lütfen Dosya İsmini Düzeltiniz.Dosya İsminde '.' karakteri olamaz."

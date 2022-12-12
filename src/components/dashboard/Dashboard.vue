@@ -790,6 +790,11 @@ table {
 
   #ortalama {
     text-align: center;
+
   }
+  .gelenSiparis{
+    width:250px;
+  }
+  
 }
 </style>

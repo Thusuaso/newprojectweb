@@ -1,6 +1,7 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" active-text-color="#545c64">
+
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal"  style="position:sticky;top:0px;left:0px;z-index:99;">
         <router-link class="navbar-item" to="/">
             <el-menu-item index="1" style="width:10px;">
                 <i class="pi pi-home"></i>
